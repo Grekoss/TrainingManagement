@@ -1,26 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Login{% endblock %}
+
 {% block stylesheets %}
     {{ encore_entry_link_tags('login') }}
 {% endblock %}
+
 {% block body %}
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
                 <form method="post" class="login100-form validate-form">
-{#                    <div class="alert alert-danger">TEST</div>#}
+
+                    {% if error %}
+                        <div class="alert alert-danger my-2">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
                     <span class="login100-form-title">
                         Connexion au compte
                     </span>
 
                     <div class="container-input">
-                        <div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Type email">
+                        <div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Veuillez saisir un Email !">
                             <input id="inputEmail" class="input100" type="email" name="email" placeholder="Email" value="{{ last_username }}" autofocus>
                             <span class="focus-input100"></span>
                         </div>
 
-                        <div class="wrap-input100 rs2-wrap-input100 validate-input" data-validate="Type password">
+                        <div class="wrap-input100 rs2-wrap-input100 validate-input" data-validate="Veuillez saisir un mot de passe !">
                             <input class="input100" type="password" name="password" placeholder="Mot de passe" id="inputPassword">
                             <span class="focus-input100"></span>
                         </div>
@@ -63,27 +69,8 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-    {#<form method="post">#}
-{#    {% if error %}#}
-{#        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#    {% endif %}#}
-
-{#    {% if app.user %}#}
-{#        <div class="mb-3">#}
-{#            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>#}
-{#        </div>#}
-{#    {% endif %}#}
-
-{#</form>#}
-
-
 {% endblock %}
+
 {% block javascripts %}
     {{ encore_entry_script_tags('login') }}
 {% endblock %}

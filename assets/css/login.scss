@@ -1,3 +1,7 @@
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import "app";
+
 /* ==========[FONT]========== */
 @font-face {
   font-family: Poppins-Regular;
@@ -114,7 +118,7 @@ button:hover {
 }
 
 .txt2, .txt3 {
-  color: #00ad5f;
+  color: $success;
 }
 
 .txt3 {
@@ -265,7 +269,7 @@ input.input100 {
 
 /* ----------- */
 .focus-input100 {
-  border: 1px solid #00ad5f;
+  border: 1px solid $success;
   display: block;
   height: calc(100% + 2px);
   left: -1px;
@@ -310,7 +314,7 @@ input.input100 {
 
 .login100-form-btn {
   align-items: center;
-  background: #00ad5f;
+  background: $success;
   border-radius: 3px;
   color: #fff;
   display: flex;
@@ -386,4 +390,63 @@ input.input100 {
 /* ==========[ALERT VALIDATE]========== */
 .validate-input {
   position: relative;
+}
+
+.alert-validate::before {
+  background-color: #fff;
+  border: 1px solid $danger;
+  border-radius: 2px;
+  color: $danger;
+  content: attr(data-validate);
+  font-family: Poppins-Regular, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  max-width: 70%;
+  opacity: 0;
+  padding: 4px 25px 4px 10px;
+  pointer-events: none;
+  position: absolute;
+  right: 12px;
+  text-align: left;
+  top: 50%;
+  transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+  transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    -webkit-transition: opacity 0.4s;
+  visibility: hidden;
+}
+
+.alert-validate::after {
+  @extend %fa-icon;
+  @extend .fas;
+  color: $danger;
+  content: fa-content($fa-var-exclamation);
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.alert-validate:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 992px) {
+  .alert-validate::before {
+    opacity: 1;
+    visibility: visible;
+  }
 }
