@@ -1,0 +1,10 @@
+@import 'reset';
+@import '~bootstrap/scss/bootstrap';
+
+// Variables de bootsrap modifié pour le projet:
+$success: #00ad5f;
+$danger: #c80000;
+
+body {
+    background-color: lightgray;
+}
