@@ -1,6 +1,13 @@
 @import 'reset';
 @import '~bootstrap/scss/bootstrap';
 
+
+@font-face {
+    font-family: GochiHand-Regular;
+    src: url('../fonts/gochiHand/GochiHand-Regular.ttf');
+}
+
+
 // Variables de bootsrap modifié pour le projet:
 $success: #00ad5f;
 $danger: #c80000;
@@ -8,3 +15,131 @@ $danger: #c80000;
 body {
     background-color: lightgray;
 }
+
+.limiter {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.container-body {
+    align-items: center;
+    background: #f2f2f2;
+    display: flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.wrap-body {
+    align-items: stretch;
+    background: #fff;
+    display: flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: -webkit-flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    overflow: hidden;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: -webkit-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 75%;
+}
+
+.content-more {
+    background-image: url('../images/backgrounds/user.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    position: relative;
+    width: 25%;
+    z-index: 1;
+}
+
+.content-more::before {
+    background: rgba(0,0,0,0.3);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+/* ==========[NAV]========== */
+.container-nav {
+    display: flex;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.container-nav a:last-child {
+    margin-left: 50px;
+}
+
+.nav-username {
+    font-family: GochiHand-Regular, cursive;
+    font-size: 25px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.btn-nav {
+    border: 1px solid;
+    border-radius: 50%;
+    display: inline-flex;
+    font-weight: bold;
+    margin: auto 5px;
+    padding: 0 5px;
+    transition: all 0.4s;
+}
+
+.btn-nav:not(:last-child) div:last-child {
+    display: none;
+}
+
+.btn-nav:hover {
+    color: #366204;
+    background-color: #a0f73e;
+    //border-radius: 15px;
+    padding: 10px;
+    text-decoration: none;
+    transform: translateY(10px);
+}
+
+.btn-nav:hover:not(:last-child) {
+    border-radius: 15px;
+}
+
+
+
+.btn-nav:hover div:last-child {
+    display: block;
+    margin-left: 5px;
+}
+//
+//.btn-nav-icon {
+//    margin-right: 5px;
+//}

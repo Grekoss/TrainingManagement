@@ -10,31 +10,38 @@
     <div class="limiter">
         <div class="container-dashboard">
             <div class="wrap-dashboard">
+
                 <a href="#" title="Se déconnecter" class="btn-disconnect" data-toggle="modal" data-target="#modalDisconnect"><i class="fas fa-door-open"></i></a>
 
                 <div class="dashboard-box">
-                    <div class="dashboard-username">Cédric Pourrias</div>
+                    <div class="dashboard-username">{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}</div>
                     <div class="container-buttons">
+                        {#FIXME: Liken#}
                         <a href="#" class="btn-dashboard alert-primary">
                             <div class="btn-dashboard-icon"><i class="fas fa-question-circle"></i></div>
                             <div>Quizz</div>
                         </a>
+                        {#FIXME: Lien#}
                         <a href="#" class="btn-dashboard alert-secondary">
                             <div class="btn-dashboard-icon"><i class="far fa-edit"></i></div>
                             <div>Rapports</div>
                         </a>
-                        <a href="#" class="btn-dashboard alert-info">
+                        {#FIXME: Liken#}
+                        <a href="{{ path('app_user_profile') }}" class="btn-dashboard alert-info">
                             <div class="btn-dashboard-icon"><i class="fas fa-user"></i></div>
                             <div>Profil</div>
                         </a>
+                        {#FIXME: Liken#}
                         <a href="#" class="btn-dashboard alert-warning">
                             <div class="btn-dashboard-icon"><i class="fas fa-book"></i></div>
                             <div>Le&ccedil;ons</div>
                         </a>
+                        {#FIXME: Liken#}
                         <a href="#" class="btn-dashboard alert-success">
                             <div class="btn-dashboard-icon"><i class="fas fa-comments"></i></div>
                             <div>Communication</div>
                         </a>
+                        {#FIXME: Liken#}
                         <a href="#" class="btn-dashboard alert-danger">
                             <div class="btn-dashboard-icon"><i class="fas fa-user-cog"></i></div>
                             <div>Admin</div>
@@ -48,10 +55,7 @@
         </div>
     </div>
 
-    {% include('main/partiels/_modalDisconnect.html.twig') %}
+    {% include('partiels/_modalDisconnect.html.twig') %}
 
 {% endblock %}
 
-{% block javascripts %}
-    {{ encore_entry_script_tags('dashboard') }}
-{% endblock %}

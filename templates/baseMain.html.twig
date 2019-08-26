@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="limiter">
+        <div class="container-body">
+            <div class="wrap-body">
+
+                {% include('partiels/_nav.html.twig') %}
+
+                <div class="content">
+                    {% block content %}{% endblock %}
+                </div>
+
+                <div class="content-more"></div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

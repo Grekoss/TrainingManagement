@@ -1,15 +1,5 @@
 @import 'app';
 
-@font-face {
-  font-family: GochiHand-Regular;
-  src: url('../fonts/gochiHand/GochiHand-Regular.ttf');
-}
-
-.limiter {
-  margin: 0 auto;
-  width: 100%;
-}
-
 .container-dashboard {
   align-items: center;
   background: #f2f2f2;
@@ -114,7 +104,15 @@
   height: 150px;
   margin: 10px;
   text-align: center;
+  transition: all 0.4s;
   width: 150px;
+}
+
+.btn-dashboard:hover{
+  color: #366204;
+  background-color: #a0f73e;
+  text-decoration: none;
+  transform: scale(1.15);
 }
 
 .btn-dashboard-icon {
