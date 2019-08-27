@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    # Uncomment any lines below to activate that Twig extension
+    #Twig\Extensions\ArrayExtension: null
+    #Twig\Extensions\DateExtension: null
+    Twig\Extensions\IntlExtension:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+    Twig\Extensions\TextExtension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }

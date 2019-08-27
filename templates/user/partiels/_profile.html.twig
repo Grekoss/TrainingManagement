@@ -1,0 +1,46 @@
+<div class="tab-pane" id="profile">
+    <fieldset>
+        <legend>Informations</legend>
+        <p>Dernière connexion : {{ '- 2 days'|date('d/m/Y') }}</p>
+        <p>Dernière mise à jour de mon compte : {{ '-1 month'|date('d/m/Y') }}</p>
+        <p>Mon mentor est Cédric Pourrias</p>
+    </fieldset>
+    <form action="">
+        <fieldset>
+            <legend>Mes données</legend>
+
+            <div>
+                <div>
+                    <label for="firstName">Prénom :</label>
+                    <input name="firstName" type="text" id="firstName">
+                </div>
+                <div>
+                    <label for="lastName">Nom de famille :</label>
+                    <input name="lastName" type="text" id="lastName">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label for="email">Email :</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div>
+                    <label for="phone">Téléphone :</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <div>
+                    <label for="passwordConfirm">Confirmation :</label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm">
+                </div>
+            </div>
+
+            <input value="Enregistrer" class="btn btn-outline-success" type="submit">
+        </fieldset>
+    </form>
+</div>

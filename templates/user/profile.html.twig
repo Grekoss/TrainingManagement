@@ -1,21 +1,24 @@
 {% extends 'baseMain.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
-
-{% block content %}
-<style>
-    $background: url('../images/backgrounds/user.jpg')
-</style>
-
-<div class="example-wrapper">
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/wamp64/www/mcdonalds/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/wamp64/www/mcdonalds/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block stylesheets %}
+    {{ encore_entry_link_tags('profile') }}
 {% endblock %}
 
-{#https://laravel.sillo.org/bootstrap-4-les-onglets-tab/#}
+{% block title %}{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}{% endblock %}
+
+{% block content %}
+    <nav class="nav nav-tabs">
+        <a href="#messages" class="nav-item nav-link active" data-toggle="tab">Messages</a>
+        <a href="#results" class="nav-item nav-link" data-toggle="tab">Résultats</a>
+        <a href="#profile" class="nav-item nav-link" data-toggle="tab">Mon compte</a>
+    </nav>
+
+    <div class="tab-content">
+        {% include('user/partiels/_messages.html.twig') %}
+        {% include('user/partiels/_results.html.twig') %}
+        {% include('user/partiels/_profile.html.twig') %}
+    </div>
+
+
+{% endblock %}
 
