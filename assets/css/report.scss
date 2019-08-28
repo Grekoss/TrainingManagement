@@ -1,0 +1,27 @@
+@import 'app';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+p.ratingBox-event {
+  margin: 0;
+}
+
+.report-show-yes::before {
+  @extend %fa-icon;
+  @extend .fas;
+  color: $success;
+  content: fa-content($fa-var-check-circle);
+  font-size: 30px;
+}
+
+.report-show-no::before {
+  @extend %fa-icon;
+  @extend .fas;
+  color: $danger;
+  content: fa-content($fa-var-times-circle);
+  font-size: 30px;
+}
