@@ -4,7 +4,7 @@ Application pour aider les formations au sein de l'enseigne McDonald'.
 
 Utilisation actuellement en interne pour le restaurant de Nogent le Rotrou de la franchise JV-Chartres. A long therme, l'uiliser pour la franchise.
 
-##1 - Les fonctionnalitées:
+# 1 - Les fonctionnalitées:
 
 - [ ] Invitation de connexion pour permettre à l'étudiant de s'inscrire. 
 
@@ -21,7 +21,7 @@ Password: 'password'
 
 - [ ] Pouvoir s'entrainer avec plusieur questionnaires sur différents thèmes.
 
-##2 - Document README sera complété en temps voulu ainsi que la documentation annexe
+# 2 - Document README sera complété en temps voulu ainsi que la documentation annexe
 
 
 [&copy; Cédric POURRIAS - pourriascedric@gmail.com](mailto:pourriascedric@gmail.com)  
