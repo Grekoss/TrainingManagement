@@ -1,0 +1,21 @@
+/* ==========[INDEX]========== */*
+.card {
+  min-width: 30%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 576px) {
+  .card-deck .card {
+    margin-bottom: 15px;
+  }
+}
