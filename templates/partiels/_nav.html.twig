@@ -1,0 +1,44 @@
+<div class="container-nav">
+    <div class="nav-username">{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}</div>
+
+    <a href="{{ path('app_dashboard') }}" class="btn-nav alert-link">
+        <div class="btn-nav-icon"><i class="fas fa-home"></i></div>
+        <div>Menu principal</div>
+    </a>
+
+    {#FIXME: Liken#}
+    <a href="{{ path('app_question') }}" class="btn-nav alert-primary">
+        <div class="btn-nav-icon"><i class="fas fa-question-circle"></i></div>
+        <div>Quizz</div>
+    </a>
+    {#FIXME: Lien#}
+    <a href="{{ path('app_report') }}" class="btn-nav alert-secondary">
+        <div class="btn-nav-icon"><i class="far fa-edit"></i></div>
+        <div>Rapports</div>
+    </a>
+    {#FIXME: Liken#}
+    <a href="{{ path('app_user_profile') }}" class="btn-nav alert-info">
+        <div class="btn-nav-icon"><i class="fas fa-user"></i></div>
+        <div>Profil</div>
+    </a>
+    {#FIXME: Liken#}
+    <a href="{{ path('app_lesson') }}" class="btn-nav alert-warning">
+        <div class="btn-nav-icon"><i class="fas fa-book"></i></div>
+        <div>Le&ccedil;ons</div>
+    </a>
+    {#FIXME: Liken#}
+    <a href="{{ path('app_communication') }}" class="btn-nav alert-success">
+        <div class="btn-nav-icon"><i class="fas fa-comments"></i></div>
+        <div>Communication</div>
+    </a>
+    {#FIXME: Liken#}
+    <a href="#" class="btn-nav alert-danger">
+        <div class="btn-nav-icon"><i class="fas fa-user-cog"></i></div>
+        <div>Admin</div>
+    </a>
+    <a href="#" class="btn-nav alert-dark" title="Se déconnecter" data-toggle="modal" data-target="#modalDisconnect">
+        <div class="btn-nav-icon"><i class="fas fa-door-open"></i></div>
+    </a>
+</div>
+
+{% include('partiels/_modalDisconnect.html.twig') %}

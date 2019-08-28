@@ -1,0 +1,122 @@
+@import 'app';
+
+.container-dashboard {
+  align-items: center;
+  background: #f2f2f2;
+  display: flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.wrap-dashboard {
+  align-items: stretch;
+  background: #fff;
+  display: flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dashboard-more {
+  background-image: url('../images/backgrounds/dashboard.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+  width: 50%;
+  z-index: 1;
+}
+
+.dashboard-more::before {
+  background: rgba(0,0,0,0.3);
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.btn-disconnect {
+  font-size: 30px;
+  margin: 0;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/* ===========[DASHBOARD]========== */
+.dashboard-box {
+  display: flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 50%;
+}
+
+.dashboard-username {
+  font-family: GochiHand-Regular, cursive;
+  font-size: 60px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.dashboard-footer {
+  background-color: lightgrey;
+  font-size: 15px;
+  margin-left: -30px;
+  text-align: center;
+}
+
+/* ==========[BTN-DASHBOARD]========== */
+.container-buttons {
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: center;
+}
+.btn-dashboard{
+  border: 1px solid;
+  border-radius: 15px;
+  display: inline-flex;
+  flex-direction: column;
+  font-weight: bold;
+  justify-content: center;
+  height: 150px;
+  margin: 10px;
+  text-align: center;
+  transition: all 0.4s;
+  width: 150px;
+}
+
+.btn-dashboard:hover{
+  color: #366204;
+  background-color: #a0f73e;
+  text-decoration: none;
+  transform: scale(1.15);
+}
+
+.btn-dashboard-icon {
+  font-size: 50px;
+}
+
+

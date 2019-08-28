@@ -1,0 +1,1 @@
+require('../css/profile.scss');

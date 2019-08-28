@@ -1,0 +1,55 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Hello ReportController!{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('report') }}
+{% endblock %}
+
+{% block content %}
+    <div class="text-right my-3">
+        <a href="#" class="btn btn-outline-primary"><i class="fas fa-plus-circle mr-2"></i>Ajouter un rapport</a>
+    </div>
+
+    <table class="table table-striped text-center">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Shift</th>
+            <th scope="col">Zone</th>
+            <th scope="col">Sentiment</th>
+            <th scope="col">Vu</th>
+            <th scope="col">Commentaire(s)</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <th>{{ ('now')|date('d/m/Y') }}</th>
+            <th>Open</th>
+            <th>Cuisine</th>
+            <th>{{ makeStar(2)|raw }}</th>
+            <th class="report-show-yes"></th>
+            <th>3 commentaires</th>
+            <th>
+                <a href="#" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+            </th>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <th>{{ ('-2 days')|date('d/m/Y') }}</th>
+            <th>Open</th>
+            <th>Cuisine</th>
+            <th>{{ makeStar(3)|raw }}</th>
+            <th class="report-show-no"></th>
+            <th>0 commentaire</th>
+            <th>
+                <a href="#" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

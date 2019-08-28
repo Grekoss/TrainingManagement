@@ -1,0 +1,20 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Hello LessonController!{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('lesson') }}
+{% endblock %}
+
+{% block content %}
+    <nav class="nav nav-tabs">
+        <a href="#foodSafety" class="nav-item nav-link active" data-toggle="tab">Sécurité Alimentaire</a>
+        <a href="#" class="nav-item nav-link" data-toggle="tab">Comptoir</a>
+        <a href="#" class="nav-item nav-link" data-toggle="tab">Cuisine</a>
+    </nav>
+
+    <div class="tab-content">
+        {% include('lesson/partiels/_foodSafety.html.twig') %}
+    </div>
+
+{% endblock %}
