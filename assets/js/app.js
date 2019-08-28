@@ -21,7 +21,34 @@ require('@fortawesome/fontawesome-free/js/all.min');
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
 
-$(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-});
+// importation des images
+import imgUser from '../images/backgrounds/user.jpg';
+import imgQuestions from '../images/backgrounds/questions.jpg';
 
+let app = {
+    init: function() {
+        //Connaitre la route pour savoir qu'elle image afficher
+        let arrayRoute = window.location.href.split('/');
+        app.backgroundImageShow(arrayRoute[3]);
+    },
+
+    backgroundImageShow: function(route) {
+        // On récupére l'élément pour la modification du background
+        let elmt = document.getElementsByClassName('content-more');
+
+        switch (route) {
+            case 'user' :
+                elmt[0].style.backgroundImage = 'url(' + imgUser + ')';
+                break;
+
+            case 'questions' :
+                elmt[0].style.backgroundImage = 'url(' + imgQuestions + ')';
+                break;
+
+            default:
+                console.log('Une erreur vient de se produire');
+        };
+
+    }
+}
+document.addEventListener('DOMContentLoaded', app.init);
