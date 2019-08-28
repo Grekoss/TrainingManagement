@@ -17,12 +17,12 @@
                     <div class="dashboard-username">{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}</div>
                     <div class="container-buttons">
                         {#FIXME: Liken#}
-                        <a href="{{ path('app_questions') }}" class="btn-dashboard alert-primary">
+                        <a href="{{ path('app_question') }}" class="btn-dashboard alert-primary">
                             <div class="btn-dashboard-icon"><i class="fas fa-question-circle"></i></div>
                             <div>Quizz</div>
                         </a>
                         {#FIXME: Lien#}
-                        <a href="#" class="btn-dashboard alert-secondary">
+                        <a href="{{ path('app_report') }}" class="btn-dashboard alert-secondary">
                             <div class="btn-dashboard-icon"><i class="far fa-edit"></i></div>
                             <div>Rapports</div>
                         </a>

@@ -23,7 +23,8 @@ require('@fortawesome/fontawesome-free/js/all.min');
 
 // importation des images
 import imgUser from '../images/backgrounds/user.jpg';
-import imgQuestions from '../images/backgrounds/questions.jpg';
+import imgQuestion from '../images/backgrounds/question.jpg';
+import imgReport from '../images/backgrounds/report.jpg';
 
 let app = {
     init: function() {
@@ -41,8 +42,12 @@ let app = {
                 elmt[0].style.backgroundImage = 'url(' + imgUser + ')';
                 break;
 
-            case 'questions' :
-                elmt[0].style.backgroundImage = 'url(' + imgQuestions + ')';
+            case 'question' :
+                elmt[0].style.backgroundImage = 'url(' + imgQuestion + ')';
+                break;
+
+            case 'report' :
+                elmt[0].style.backgroundImage = 'url(' + imgReport + ')';
                 break;
 
             default:

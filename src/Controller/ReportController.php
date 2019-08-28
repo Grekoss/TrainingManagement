@@ -5,15 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class QuestionController extends AbstractController
+class ReportController extends AbstractController
 {
     /**
-     * @Route("/question", name="app_question")
+     * @Route("/report", name="app_report")
      */
     public function index()
     {
-        return $this->render('question/index.html.twig', [
-            'controller_name' => 'QuestionController',
+        return $this->render('report/index.html.twig', [
+            'controller_name' => 'ReportController',
         ]);
     }
 }
