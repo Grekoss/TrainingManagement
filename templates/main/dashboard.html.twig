@@ -15,6 +15,10 @@
 
                 <div class="dashboard-box">
                     <div class="dashboard-username">{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}</div>
+
+                    {% include('partiels/_messageFlashes.html.twig') %}
+
+
                     <div class="container-buttons">
                         {#FIXME: Liken#}
                         <a href="{{ path('app_question') }}" class="btn-dashboard alert-primary">
@@ -27,7 +31,7 @@
                             <div>Rapports</div>
                         </a>
                         {#FIXME: Liken#}
-                        <a href="{{ path('app_user_profile') }}" class="btn-dashboard alert-info">
+                        <a href="{{ path('app_user_profile', {'slug': app.user.slug }) }}" class="btn-dashboard alert-info">
                             <div class="btn-dashboard-icon"><i class="fas fa-user"></i></div>
                             <div>Profil</div>
                         </a>

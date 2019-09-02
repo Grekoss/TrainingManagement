@@ -7,25 +7,25 @@
 }
 
 /* ==========[#PROFILE]========== */
-#profile fieldset {
+fieldset {
   border: 1px solid grey;
   padding: 20px;
 }
 
-#profile legend {
+legend {
   display: inline-block;
   margin: 0;
   padding: 0 10px;
   width: auto;
 }
 
-#profile .profile-form div.mb-3:nth-child(2) {
+.profile-form div.mb-3:nth-child(2) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-#profile .profile-form div.mb-3:nth-child(2) div.input-group {
+.profile-form div.mb-3:nth-child(2) div.input-group {
   width: 49%;
 }
 

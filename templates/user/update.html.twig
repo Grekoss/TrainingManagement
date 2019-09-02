@@ -1,0 +1,61 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('profile') }}
+{% endblock %}
+
+{% block title %}{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}{% endblock %}
+
+{% block content %}
+    <fieldset class="text-center w-100">
+        <legend>Modification de mes données</legend>
+
+        {{ form_start(form, {attr: {class: 'profile-form'} }) }}
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Prénom & Nom</span>
+                </div>
+                {{ form_widget(form.firstName, {attr: {title: 'Enter your first name'}}) }}
+                {{ form_widget(form.lastName, {attr: {title: 'Enter your last name'}}) }}
+            </div>
+
+            <div class="mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-email"><i class="fas fa-at"></i></span>
+                    </div>
+                    {{ form_widget(form.email, {attr: {title: 'Enter your Email'}}) }}
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-phone"><i class="fas fa-mobile-alt"></i></span>
+                    </div>
+                    {{ form_widget(form.phoneNumber, {attr: {title: 'Enter your phone number'}}) }}
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Ancien Mot de passe</span>
+                </div>
+                <input type="password" class="form-control" aria-label="Ancien mot de passe" name="oldPassword" placeholder="Ancien mot de passe">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Nouveau Mot de passe</span>
+                </div>
+                {{ form_widget(form.password.first, {attr: {title: 'Enter your new pasword'}}) }}
+                {{ form_widget(form.password.second, {attr: {title: 'Confirm your new password'}}) }}
+            </div>
+
+            <p class="last-connection">Dernière mise à jour du compte : {{ app.user.updatedAt|date('d/m/Y') }}</p>
+
+            <div class="mt-5">
+                <a href="{{ path('app_user_profile', {'slug': app.user.slug }) }}" class="btn btn-outline-secondary">Annuler</a>
+                <input value="Enregistrer" class="btn btn-outline-success w-75" type="submit">
+            </div>
+
+        {{ form_end(form) }}
+    </fieldset>
+{% endblock %}

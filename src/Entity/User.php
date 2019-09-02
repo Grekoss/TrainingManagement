@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Enum\RoleEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -66,12 +68,28 @@ class User implements UserInterface, EquatableInterface
      */
     private $isActive;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="students" )
+     */
+    private $mentor;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="mentor" )
+     */
+    private $students;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->role = RoleEnum::ROLE_USER[0];
         $this->isActive = true;
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->students = new ArrayCollection();
     }
 
     public function __toString()
@@ -251,6 +269,61 @@ class User implements UserInterface, EquatableInterface
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getMentor(): ?self
+    {
+        return $this->mentor;
+    }
+
+    public function setMentor(?self $mentor): self
+    {
+        $this->mentor = $mentor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(self $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students[] = $student;
+            $student->setMentor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(self $student): self
+    {
+        if ($this->students->contains($student)) {
+            $this->students->removeElement($student);
+            // set the owning side to null (unless already changed)
+            if ($student->getMentor() === $this) {
+                $student->setMentor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
