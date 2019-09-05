@@ -1,3 +1,7 @@
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import "app";
+
 .table th, .table td {
   vertical-align: middle;
 }
@@ -7,25 +11,25 @@
 }
 
 /* ==========[#PROFILE]========== */
-#profile fieldset {
+fieldset {
   border: 1px solid grey;
   padding: 20px;
 }
 
-#profile legend {
+legend {
   display: inline-block;
   margin: 0;
   padding: 0 10px;
   width: auto;
 }
 
-#profile .profile-form div.mb-3:nth-child(2) {
+.profile-form div.mb-3:nth-child(2) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-#profile .profile-form div.mb-3:nth-child(2) div.input-group {
+.profile-form div.mb-3:nth-child(2) div.input-group {
   width: 49%;
 }
 
@@ -34,3 +38,20 @@
   font-size: 12px;
   text-align: right;
 }
+
+.errors-box .invalid-feedback {
+  width: 50%;
+}
+
+.hidden {
+  display: none;
+}
+
+#js-errors-identical-image {
+  opacity: 0.7;
+  position: absolute;
+  right: 0;
+  top: 15px;
+  width: 40px;
+}
+

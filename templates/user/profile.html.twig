@@ -8,13 +8,13 @@
 
 {% block content %}
     <nav class="nav nav-tabs">
-        <a href="#messages" class="nav-item nav-link active" data-toggle="tab">Messages</a>
-        <a href="#results" class="nav-item nav-link" data-toggle="tab">Résultats</a>
+{#        <a href="#messages" class="nav-item nav-link active" data-toggle="tab">Messages</a>#}
+        <a href="#results" class="nav-item nav-link active" data-toggle="tab">Résultats</a>
         <a href="#profile" class="nav-item nav-link" data-toggle="tab">Mon compte</a>
     </nav>
 
     <div class="tab-content">
-        {% include('user/partiels/_messages.html.twig') %}
+{#        {% include('user/partiels/_messages.html.twig') %}#}
         {% include('user/partiels/_results.html.twig') %}
         {% include('user/partiels/_profile.html.twig') %}
     </div>

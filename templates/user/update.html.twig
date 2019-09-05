@@ -1,0 +1,90 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('profile') }}
+{% endblock %}
+
+{% block title %}{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}{% endblock %}
+
+{% block content %}
+
+    {% include('partiels/_messageFlashes.html.twig') %}
+
+    <fieldset class="text-center w-100">
+        <legend>Modification de mes données</legend>
+
+        {{ form_start(form, {attr: {class: 'profile-form'} }) }}
+
+            <div class="mb-3">
+                <div class="d-flex errors-box w-100">
+                    {{ form_errors(form.firstName) }}{{ form_errors(form.lastName) }}
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Prénom & Nom</span>
+                    </div>
+                    {{ form_widget(form.firstName, {attr: {title: 'Enter your first name'}}) }}
+                    {{ form_widget(form.lastName, {attr: {title: 'Enter your last name'}}) }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="d-flex errors-box w-100">
+                    {{ form_errors(form.email) }}{{ form_errors(form.phoneNumber) }}
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-email"><i class="fas fa-at"></i></span>
+                    </div>
+                    {{ form_widget(form.email, {attr: {title: 'Enter your Email'}}) }}
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-phone"><i class="fas fa-mobile-alt"></i></span>
+                    </div>
+                    {{ form_widget(form.phoneNumber, {attr: {title: 'Enter your phone number'}}) }}
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Ancien Mot de passe</span>
+                </div>
+                <input type="password" class="form-control" aria-label="Ancien mot de passe" name="oldPassword" placeholder="Ancien mot de passe">
+            </div>
+            <div class="mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Nouveau Mot de passe</span>
+                    </div>
+                    {{ form_widget(form.password.first, {attr: {title: 'Enter your new password'}}) }}
+                    {{ form_widget(form.password.second, {attr: {title: 'Confirm your new password'}}) }}
+                    <img id="js-errors-identical-image" class="hidden" src="{{ asset('build/images/valide.1c55e519.png') }}" alt="validate">
+                </div>
+                
+                <div id="js-errors-new-password" class="invalid-feedback d-flex">
+                    <div id="js-errors-counter-box" class="hidden">
+                        <span class="form-error-icon badge-warning badge text-uppercase">Attention</span>
+                        <span id="js-errors-counter-message" class="form-error-message">Votre nouveau mot de passe doit contenir au moins 6 caractères</span>
+                    </div>
+                    <div id="js-errors-identical-box" class="hidden">
+                        <span class="form-error-icon badge-warning badge text-uppercase">Attention</span>
+                        <span id="js-errors-identical-message" class="form-error-message">Votre nouveau mot de passe et la confirmation ne sont pas identiques</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="last-connection">Dernière mise à jour du compte : {{ app.user.updatedAt|date('d/m/Y') }}</p>
+
+            <div class="mt-5">
+                <a href="{{ path('app_user_profile', {'slug': app.user.slug }) }}" class="btn btn-outline-secondary">Retour à mon compte</a>
+                <input value="Enregistrer" class="btn btn-outline-success w-75" type="submit">
+            </div>
+
+        {{ form_end(form) }}
+    </fieldset>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('profile') }}
+{% endblock %}

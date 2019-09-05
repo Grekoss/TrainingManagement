@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Enum\RoleEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="app_user")
@@ -22,6 +25,8 @@ class User implements UserInterface, EquatableInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
+     * @Assert\NotBlank(message = "Enter your Email")
      */
     private $email;
 
@@ -38,16 +43,36 @@ class User implements UserInterface, EquatableInterface
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     * @Assert\Length(
+     *     min=2,
+     *     minMessage="This value is too short. It should have {{ limit }} characters or more.",
+     *     max=100,
+     *     maxMessage="This value is too long. It should have {{ limit }} characters or less."
+     * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     * @Assert\Length(
+     *     min=2,
+     *     minMessage="This value is too short. It should have {{ limit }} characters or more.",
+     *     max=100,
+     *     maxMessage="This value is too long. It should have {{ limit }} characters or less."
+     * )
      */
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/m",
+     *     message="It is not a valid French phone number."
+     * )
      */
     private $phoneNumber;
 
@@ -66,12 +91,23 @@ class User implements UserInterface, EquatableInterface
      */
     private $isActive;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mentor", mappedBy="mentor")
+     */
+    private $students;
+
     public function __construct()
     {
         $this->role = RoleEnum::ROLE_USER[0];
         $this->isActive = true;
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->students = new ArrayCollection();
     }
 
     public function __toString()
@@ -251,6 +287,49 @@ class User implements UserInterface, EquatableInterface
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mentor[]
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Mentor $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students[] = $student;
+            $student->setMentor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Mentor $student): self
+    {
+        if ($this->students->contains($student)) {
+            $this->students->removeElement($student);
+            // set the owning side to null (unless already changed)
+            if ($student->getMentor() === $this) {
+                $student->setMentor(null);
+            }
+        }
 
         return $this;
     }
