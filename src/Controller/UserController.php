@@ -74,32 +74,20 @@ class UserController extends AbstractController
             } else {
                 $oldPasswordInput = $request->request->get('oldPassword');
 
-                if ($currentPassword === $oldPasswordInput) {
-                    dump('Les mots de passe corresponde');die;
+                // https://www.php.net/manual/fr/function.password-verify.php -> notice de la fonction password_verify
+                if (! password_verify($oldPasswordInput, $currentPassword)) {
+                    $this->addFlash(
+                        'danger',
+                        'Nous ne pouvons pas sauvergarder vos modifications, car votre ancien mot de passe ne correspond pas à celui fourni !'
+                    );
+
+                    return $this->redirectToRoute('app_user_update', [
+                        'slug' => $this->getUser()->getSlug()
+                    ]);
+
                 } else {
-                    dump('NON!!!');die;
+                    $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
                 }
-//                $oldPasswordInput = $request->request->get('oldPassword');
-//                dump('oldPassword Input : ' . $oldPasswordInput);
-//                dump('oldPassword Input : ' . $encoder->encodePassword($user, $oldPasswordInput));
-//                dump('oldPassword BDD : ' . $currentPassword);
-
-
-
-
-//                // On récupere l'ancien mot de passe saisie par l'utilisateur
-//                $oldPassword = $request->request->get('oldPassword');
-//                // Encode ancien mot passe afin de pouvoir le comparer
-//                $oldPasswordEncoded = $encoder->encodePassword($user, $oldPassword);
-//                dump('Ancien mot de passe : ' . $oldPassword);
-//                dump('Ancien mot de passe Encodé : ' . $oldPasswordEncoded);
-//                dump('Ancien mot de passe origine encodé : ' . $currentPassword);
-//
-//                if ($oldPasswordEncoded !== $currentPassword) {
-//                    dump('Mot de passe pas identique');
-//                }
-//
-//                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             }
 
             $user->setUpdatedAt(new \DateTime());
@@ -112,9 +100,9 @@ class UserController extends AbstractController
                 'Les modifications ont été enregistrées !'
             );
 
-//            return $this->redirectToRoute('app_user_profile', [
-//                'slug' => $user->getSlug()
-//            ]);
+            return $this->redirectToRoute('app_user_profile', [
+                'slug' => $user->getSlug()
+            ]);
 
         }
 

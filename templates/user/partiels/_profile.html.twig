@@ -31,18 +31,10 @@
                 </div>
             </div>
 
-{#            <div class="input-group mb-3">#}
-{#                <div class="input-group-prepend">#}
-{#                    <span class="input-group-text">Mot de passe</span>#}
-{#                </div>#}
-{#                <input type="password" class="form-control" aria-label="Mot de passe" name="password" placeholder="Mot de passe">#}
-{#                <input type="password" class="form-control" aria-label="Confirmation du mot de passe" name="passwordConfirm" placeholder="Confirmation du mot de passe">#}
-{#            </div>#}
-
             <p class="last-connection">Dernière mise à jour du compte : {{ app.user.updatedAt|date('d/m/Y') }}</p>
 
             <a href="{{ path('app_user_update', {'slug': app.user.slug}) }}" class="btn btn-outline-success w-75 mt-5">Modifier mes données</a>
-{#            <input value="Enregistrer" class="btn btn-outline-success w-75 mt-5" type="submit">#}
+
         </div>
     </fieldset>
 </div>
