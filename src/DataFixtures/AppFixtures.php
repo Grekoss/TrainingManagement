@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Mentor;
 use App\Entity\User;
 use App\Enum\RoleEnum;
 use App\Service\Slugger;
@@ -98,16 +99,20 @@ class AppFixtures extends Fixture
     {
         // Attribution des mentors pour chaque étudiants
         for ( $i=0 ; $i<count($this->listUsers) ; $i++ ) {
+
+            // Random sur la liste des mentors pour les attribuer par le suite
             $rand = array_rand($this->listMentors);
             $randMentor = $this->listMentors[$rand];
 
-            $user = $this->listUsers[$i];
-            $user->setMentor($randMentor);
+            $mentor = new Mentor();
+            $mentor->setStudent($this->listUsers[$i])
+                ->setMentor($randMentor);
 
-            $this->manager->persist($user);
+            $this->manager->persist($mentor);
             $this->manager->flush();
 
-            dump($user->getFirstName() . ' ' . $user->getFirstName() . ' a pour mentor ' . $randMentor->getFirstName() . ' ' . $randMentor->getLastName() . '.');
+            dump($mentor->getStudent()->getFirstName() . ' ' . $mentor->getStudent()->getLastName() . ' a pour mentor : ' . $mentor->getMentor()->getFirstName() . ' ' . $mentor->getMentor()->getLastName());
+
         }
     }
 }

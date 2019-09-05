@@ -3,8 +3,8 @@
         <legend>Mes données</legend>
 
         {# FIXME: Lors de la création du restaurant ne pas oublié de mettre la variable #}
-        {% if app.user.mentor %}
-            <p class="text-center">Mon mentor est {{ app.user.mentor.firstName|capitalize }} {{ app.user.mentor.lastName|capitalize }} du restaurant de Nogent le Rotrou</p>
+        {% if mentor %}
+            <p class="text-center">Mon mentor est {{ mentor.firstName|capitalize }} {{ mentor.lastName|capitalize }} du restaurant de Nogent le Rotrou</p>
         {% endif %}
 
         <div class="profile-form" >

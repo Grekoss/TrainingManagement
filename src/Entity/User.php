@@ -69,19 +69,14 @@ class User implements UserInterface, EquatableInterface
     private $isActive;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="students" )
-     */
-    private $mentor;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="mentor" )
-     */
-    private $students;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mentor", mappedBy="mentor")
+     */
+    private $students;
 
     public function __construct()
     {
@@ -273,27 +268,27 @@ class User implements UserInterface, EquatableInterface
         return $this;
     }
 
-    public function getMentor(): ?self
+    public function getSlug(): ?string
     {
-        return $this->mentor;
+        return $this->slug;
     }
 
-    public function setMentor(?self $mentor): self
+    public function setSlug(string $slug): self
     {
-        $this->mentor = $mentor;
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * @return Collection|self[]
+     * @return Collection|Mentor[]
      */
     public function getStudents(): Collection
     {
         return $this->students;
     }
 
-    public function addStudent(self $student): self
+    public function addStudent(Mentor $student): self
     {
         if (!$this->students->contains($student)) {
             $this->students[] = $student;
@@ -303,7 +298,7 @@ class User implements UserInterface, EquatableInterface
         return $this;
     }
 
-    public function removeStudent(self $student): self
+    public function removeStudent(Mentor $student): self
     {
         if ($this->students->contains($student)) {
             $this->students->removeElement($student);
@@ -312,18 +307,6 @@ class User implements UserInterface, EquatableInterface
                 $student->setMentor(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }

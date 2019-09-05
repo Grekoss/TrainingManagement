@@ -7,6 +7,9 @@
 {% block title %}{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}{% endblock %}
 
 {% block content %}
+
+    {% include('partiels/_messageFlashes.html.twig') %}
+
     <fieldset class="text-center w-100">
         <legend>Modification de mes données</legend>
 

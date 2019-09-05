@@ -4,12 +4,16 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserProfileType;
+use App\Repository\MentorRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -18,7 +22,7 @@ class UserController extends AbstractController
      *
      * @return RedirectResponse|Response
      */
-    public function profile(User $user)
+    public function profile(User $user, MentorRepository $mentorRepository)
     {
         // Controle si c'est pour afficher le profile de l'utilisateur connecté
         if ( $this->getUser() !== $user)
@@ -31,14 +35,19 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_dashboard');
         }
 
+        $mentor = $mentorRepository->findOneBy(
+            ['student' => $this->getUser()->getId()]
+        );
+
         return $this->render('user/profile.html.twig', [
+            'mentor' => $mentor->getMentor(),
         ]);
     }
 
     /**
      * @Route("/user/{slug}/update", name="app_user_update")
      */
-    public function update(User $user, Request $request)
+    public function update(User $user, Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $manager)
     {
         // Controle si c'est pour modifier son profile et non celui d'un autre
         if ( $this->getUser() !== $user )
@@ -52,10 +61,62 @@ class UserController extends AbstractController
         }
 
         // Récupération de l'ancien mot de passe pour le comparer lors de la modification
-        $oldPassword = $user->getPassword();
+        $currentPassword = $user->getPassword();
 
         $form = $this->createForm(UserProfileType::class, $user);
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Si pas de changement de mot de passe :
+            if ($user->getPassword() === 'noChange' ) {
+                $user->setPassword($currentPassword);
+            } else {
+                $oldPasswordInput = $request->request->get('oldPassword');
+
+                if ($currentPassword === $oldPasswordInput) {
+                    dump('Les mots de passe corresponde');die;
+                } else {
+                    dump('NON!!!');die;
+                }
+//                $oldPasswordInput = $request->request->get('oldPassword');
+//                dump('oldPassword Input : ' . $oldPasswordInput);
+//                dump('oldPassword Input : ' . $encoder->encodePassword($user, $oldPasswordInput));
+//                dump('oldPassword BDD : ' . $currentPassword);
+
+
+
+
+//                // On récupere l'ancien mot de passe saisie par l'utilisateur
+//                $oldPassword = $request->request->get('oldPassword');
+//                // Encode ancien mot passe afin de pouvoir le comparer
+//                $oldPasswordEncoded = $encoder->encodePassword($user, $oldPassword);
+//                dump('Ancien mot de passe : ' . $oldPassword);
+//                dump('Ancien mot de passe Encodé : ' . $oldPasswordEncoded);
+//                dump('Ancien mot de passe origine encodé : ' . $currentPassword);
+//
+//                if ($oldPasswordEncoded !== $currentPassword) {
+//                    dump('Mot de passe pas identique');
+//                }
+//
+//                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+            }
+
+            $user->setUpdatedAt(new \DateTime());
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Les modifications ont été enregistrées !'
+            );
+
+//            return $this->redirectToRoute('app_user_profile', [
+//                'slug' => $user->getSlug()
+//            ]);
+
+        }
 
 
         return $this->render('user/update.html.twig', [
