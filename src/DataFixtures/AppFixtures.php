@@ -4,6 +4,8 @@ namespace App\DataFixtures;
 
 use App\DataFixtures\FakerProvider\DataProvider;
 use App\Entity\Mentor;
+use App\Entity\Question;
+use App\Entity\Quizzes;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Enum\LevelEnum;
@@ -25,6 +27,7 @@ class AppFixtures extends Fixture
     private $listMentors;
     private $listTags;
     private $listQuizzes;
+    private $listQuestions;
 
     public function __construct(UserPasswordEncoderInterface $encoder, ObjectManager $manager, Slugger $slugger)
     {
@@ -47,6 +50,7 @@ class AppFixtures extends Fixture
         dump('===============================');
         $this->listQuizzes = $this->createQuizzes();
         dump('===============================');
+        $this->listQuestions = $this->createQuestions();
     }
 
     public function createUsers()
@@ -54,7 +58,7 @@ class AppFixtures extends Fixture
         $listUsers = array();
 
         // Création de 20 étudiants
-        for ( $i=0 ; $i<5 ; $i++ ) {
+        for ( $i=0 ; $i<20 ; $i++ ) {
 
             $randDate = $this->generator->dateTimeBetween('-5 years', 'now');
 
@@ -86,7 +90,7 @@ class AppFixtures extends Fixture
         $listMentors = array();
 
         // Choisir 5 Users aléatoirement pour les passer Mentor
-        for ( $i=0 ; $i<1 ; $i++ ) {
+        for ( $i=0 ; $i<5 ; $i++ ) {
             $rand = array_rand($this->listUsers);
             $randUser = $this->listUsers[$rand];
 
@@ -157,11 +161,78 @@ class AppFixtures extends Fixture
         $listQuizzes = array();
 
         // Création des questionnaires => 20
-        for ( $i=0 ; $i>20 ; $i++ ) {
-            // random sur la difficultée
-            $level = LevelEnum::get_class_constants();
-            dump($level);
+        for ( $i=0 ; $i<20 ; $i++ ) {
+            // random sur l'auteur
+            $rand = array_rand($this->listMentors);
+            $randAuthor = $this->listMentors[$rand];
+
+            $quiz = new Quizzes();
+            $quiz->setTitle($this->generator->sentence(6))
+                ->setDescription($this->generator->text(100))
+                ->setCreatedAt($this->generator->dateTimeBetween('-1 year', 'now'))
+                ->setAuthor($randAuthor);
+
+            $this->manager->persist($quiz);
+            $this->manager->flush();
+
+            dump('Création de la question n°' . $i);
+            $listQuizzes[] = $quiz;
         }
+
+        // Ajout de Tags pour chaque questions
+        foreach ($listQuizzes as $quiz) {
+            shuffle($this->listTags);
+            $rand = rand(1, 2);
+            for ( $i=0 ; $i < $rand ; $i++ ) {
+                $quiz->addTag($this->listTags[$i]);
+            }
+        }
+
+        return $listQuizzes;
     }
 
+    public function createQuestions()
+    {
+        $listQuestions = array();
+
+        // Récupération des clés des levels
+        $level = LevelEnum::getConstants();
+        $keyLevel = array();
+        foreach ($level as $key => $value) {
+            $keyLevel[] = $key;
+        }
+
+        for ( $i=0 ; $i<count($this->listQuizzes) ; $i++ ) {
+            $quiz = $this->listQuizzes[$i];
+            dump($quiz->getTitle());
+
+            // Nombre aléatoir pour choisir le nombre de question entre 15 et 20
+            $randQuestions = rand(5, 10);
+            dump($randQuestions);
+
+            for ( $y=0 ; $y<$randQuestions ; $y++ ) {
+                // random sur la difficultée
+                $rand = array_rand($keyLevel);
+                $randLevel = $level[$keyLevel[$rand]];
+
+                $question = new Question();
+                $question->setQuiz($quiz)
+                    ->setQuestion($this->generator->quizName())
+                    ->setProp1('Réponse 1')
+                    ->setProp2('Réponse 2')
+                    ->setProp3('Réponse 3')
+                    ->setProp4('Réponse 4')
+                    ->setLevel($randLevel[0]);
+
+                $this->manager->persist($question);
+                $this->manager->flush();
+
+                dump($question->getQuestion());
+
+                $listQuestions[] = $question;
+            }
+        }
+
+        return $listQuestions;
+    }
 }

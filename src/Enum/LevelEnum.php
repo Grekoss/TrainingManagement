@@ -4,11 +4,11 @@ namespace App\Enum;
 
 /**
  * List of level
- * #, name, color, backgroundColor
+ * nameConst, name, number level, color, backgroundColor
  */
 class LevelEnum extends AbstractEnum
 {
-    public const EASY = [1, 'Facile', '#fff', '#28a745'];
-    public const MEDIUM = [2, 'Moyen', '#212529', '#ffc107'];
-    public const HARD = [3, 'Difficile', '#fff', '#dc354'];
+    public const EASY = ['EASY', 'Facile', 1, '#fff', '#28a745'];
+    public const MEDIUM = ['MEDIUM', 'Moyen', 2, '#212529', '#ffc107'];
+    public const HARD = ['HARD', 'Difficile', 3, '#fff', '#dc354'];
 }
