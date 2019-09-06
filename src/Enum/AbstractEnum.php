@@ -17,4 +17,10 @@ abstract class AbstractEnum
 
         return $oClass->getConstants();
     }
+
+    public static function get_class_constants()
+    {
+        $reflect = new \ReflectionClass(get_class(static::class));
+        return $reflect->getConstants();
+    }
 }

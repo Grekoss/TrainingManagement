@@ -2,8 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\DataFixtures\FakerProvider\DataProvider;
 use App\Entity\Mentor;
+use App\Entity\Tag;
 use App\Entity\User;
+use App\Enum\LevelEnum;
 use App\Enum\RoleEnum;
 use App\Service\Slugger;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -20,20 +23,30 @@ class AppFixtures extends Fixture
 
     private $listUsers;
     private $listMentors;
+    private $listTags;
+    private $listQuizzes;
 
     public function __construct(UserPasswordEncoderInterface $encoder, ObjectManager $manager, Slugger $slugger)
     {
         $this->manager = $manager;
         $this->encoder = $encoder;
         $this->generator = Faker\Factory::create('fr_FR');
+        $this->generator->addProvider(new DataProvider($this->generator));
         $this->slugger = $slugger;
     }
 
     public function load(ObjectManager $manager)
     {
         $this->listUsers = $this->createUsers();
+        dump('===============================');
         $this->listMentors = $this->createMentors();
+        dump('===============================');
         $this->manageMentors();
+        dump('===============================');
+        $this->listTags = $this->createAllTags();
+        dump('===============================');
+        $this->listQuizzes = $this->createQuizzes();
+        dump('===============================');
     }
 
     public function createUsers()
@@ -115,4 +128,40 @@ class AppFixtures extends Fixture
 
         }
     }
+
+    public function createAllTags()
+    {
+        $listTags = array();
+
+        // Création de la liste des Tags
+        for ( $i=0 ; $i<9 ; $i++) {
+
+            $tag = new Tag();
+            $tag->setName($this->generator->unique()->tagName())
+                ->setTextColor($this->generator->hexColor)
+                ->setBackgroundColor($this->generator->hexColor);
+
+            $this->manager->persist($tag);
+            $this->manager->flush();
+
+            $listTags [] = $tag;
+
+            dump('Création du tag : ' . $tag->getName());
+        }
+
+        return $listTags;
+    }
+
+    public function createQuizzes()
+    {
+        $listQuizzes = array();
+
+        // Création des questionnaires => 20
+        for ( $i=0 ; $i>20 ; $i++ ) {
+            // random sur la difficultée
+            $level = LevelEnum::get_class_constants();
+            dump($level);
+        }
+    }
+
 }
