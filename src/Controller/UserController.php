@@ -39,8 +39,13 @@ class UserController extends AbstractController
             ['student' => $this->getUser()->getId()]
         );
 
+        // Controle si l'utilisateur n'est pas un mentor
+        if ($mentor) {
+            $mentor = $mentor->getMentor();
+        }
+
         return $this->render('user/profile.html.twig', [
-            'mentor' => $mentor->getMentor(),
+            'mentor' => $mentor,
         ]);
     }
 
