@@ -166,10 +166,13 @@ class AppFixtures extends Fixture
             $rand = array_rand($this->listMentors);
             $randAuthor = $this->listMentors[$rand];
 
+            $date = $this->generator->dateTimeBetween('-1 year', 'now');
+
             $quiz = new Quizzes();
             $quiz->setTitle($this->generator->sentence(6))
                 ->setDescription($this->generator->text(100))
-                ->setCreatedAt($this->generator->dateTimeBetween('-1 year', 'now'))
+                ->setCreatedAt($date)
+                ->setUpdatedAt($date)
                 ->setAuthor($randAuthor);
 
             $this->manager->persist($quiz);
