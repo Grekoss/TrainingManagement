@@ -3,7 +3,7 @@
         <div class="badge badge-success my-auto">{{ quiz.questions|length }} questions</div>
         <div class="text-right">
             {% for tag in quiz.tags %}
-                <div class="badge" style="background-color: {{ tag.backgroundColor }}; color: {{ tag.textColor }};">{{ tag.name }}</div>
+                {{ include('partiels/_showTagBadge.html.twig') }}
             {% endfor %}
         </div>
     </div>

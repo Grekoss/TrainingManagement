@@ -2,13 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ResultRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="ResultRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ResultRepository")
  */
 class Result
 {

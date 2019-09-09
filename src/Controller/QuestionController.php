@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Quiz;
+use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use App\Repository\ResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/question", name="app_question")
+     * @Route("/quizzes", name="app_question")
      */
     public function index(QuizRepository $quizRepository, ResultRepository $resultRepository)
     {
@@ -22,8 +23,6 @@ class QuestionController extends AbstractController
             $results[$i] = $resultRepository->findByQuizAndUser($quizzes[$i], $this->getUser());
         }
 
-        dump($results);
-
         return $this->render('question/index.html.twig', [
             'quizzes' => $quizzes,
             'results' => $results
@@ -31,11 +30,18 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/question/{id}/show", name="app_question_show")
+     * @Route("/quizzes/{id}/show", name="app_question_show")
      */
-    public function questions(Quiz $quizzes)
+    public function showQuestions(Quiz $quiz, QuestionRepository $questionRepository, ResultRepository $resultRepository)
     {
+       // $questions = $questionRepository->findByQuiz($quiz);
+
+        $results = $resultRepository->findByQuizAndUser($quiz, $this->getUser());
+
         return $this->render('question/show.html.twig', [
+            'quiz' => $quiz,
+            'questions' => $questions,
+            'results' => $results
 
         ]);
     }
