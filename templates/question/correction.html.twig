@@ -1,0 +1,52 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Correction : {{ result.quiz.title|capitalize }}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('question') }}
+{% endblock %}
+
+{% block content %}
+    <div class="correction-container-title">
+        <h1 class="correction-title">{{ result.quiz.title|capitalize }}</h1>
+        <div class="text-right text-muted">{{ result.dateAt|date('d/m/Y') }}</div>
+        {{ include('partiels/_barProgressForResult.html.twig') }}
+    </div>
+
+    <table class="table table-bordered table-striped my-3 text-center">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Votre réponse</th>
+            <th scope="col">La réponse</th>
+            <th scope="col">Niveau</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for key, response in result.responses %}
+            {% if response[2] == true %}
+            <tr style="background-color: #a0f73e">
+            {% else %}
+            <tr>
+            {% endif %}
+                <th scope="row">{{ key+1 }}</th>
+                <td>{{ response[0].question }}</td>
+                {% if response[1] == response[0].prop1 %}
+                <td colspan="2">{{  response[1] }}</td>
+                {% else %}
+                <td>{{ response[1] }}</td>
+                <td>{{ response[0].prop1 }}</td>
+                {% endif %}
+                <td>
+                    <div class="badge {{ response[0].level }}">{{ response[0].level }}</div>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_question_show', {'id' : result.quiz.id}) }}" class="btn btn-outline-secondary">Retour</a>
+{% endblock %}

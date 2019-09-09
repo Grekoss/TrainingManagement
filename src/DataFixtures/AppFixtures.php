@@ -244,7 +244,7 @@ class AppFixtures extends Fixture
                     ->setProp2('Réponse 2')
                     ->setProp3('Réponse 3')
                     ->setProp4('Réponse 4')
-                    ->setLevel($randLevel[0]);
+                    ->setLevel($randLevel);
 
                 $this->manager->persist($question);
                 $this->manager->flush();

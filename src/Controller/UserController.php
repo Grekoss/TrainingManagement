@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserProfileType;
 use App\Repository\MentorRepository;
+use App\Repository\ResultRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -22,7 +23,7 @@ class UserController extends AbstractController
      *
      * @return RedirectResponse|Response
      */
-    public function profile(User $user, MentorRepository $mentorRepository)
+    public function profile(User $user, MentorRepository $mentorRepository, ResultRepository $resultRepository)
     {
         // Controle si c'est pour afficher le profile de l'utilisateur connecté
         if ( $this->getUser() !== $user)
@@ -44,8 +45,12 @@ class UserController extends AbstractController
             $mentor = $mentor->getMentor();
         }
 
+        // Connaitre tout les résultat de l'étudiant
+        $results = $resultRepository->findByUser($this->getUser());
+
         return $this->render('user/profile.html.twig', [
             'mentor' => $mentor,
+            'results' => $results
         ]);
     }
 

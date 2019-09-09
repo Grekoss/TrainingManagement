@@ -1,0 +1,9 @@
+{% set color = 'success' %}
+                {% if result.score < 75 and result.score > 50%}
+                    {% set color = 'warning' %}
+                {% elseif result.score < 50 %}
+                    {% set color = 'danger' %}
+                {% endif %}
+<div class="progress">
+    <div class="progress-bar bg-{{color}}" role="progressbar" style="width: {{ result.score }}%;" aria-valuenow="{{ result.score }}" aria-valuemin="0" aria-valuemax="100">{{ result.score }}%</div>
+</div>

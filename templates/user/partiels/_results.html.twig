@@ -11,227 +11,33 @@
         </tr>
         </thead>
         <tbody>
+
+        {% for result in results %}
         <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
+            <th scope="row">{{ result.id }}</th>
+            <th>{{ result.quiz.title}}</th>
             <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
+                {% for tag in result.quiz.tags %}
+                    {{ include('partiels/_showTagBadge.html.twig')}}
+                {% endfor %}
             </th>
             <th>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
+                {{ include('partiels/_barProgressForResult.html.twig') }}
             </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
+            <th>{{ result.dateAt|date('d/m/Y') }}</th>
             <th>
-                <a href="#" title="Voir le résultat" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+                <a href="{{ path('app_correction', {'id': result.id })}}" title="Voir le résultat" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
                 <a href="#" title="Recommencer le questionnaire" class="btn btn-outline-warning"><i class="fas fa-undo"></i></a>
             </th>
         </tr>
+
+        {% else %}
+
         <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
+            <th colspan="6">Pas de test effectué !</th>
         </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ 'now'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-warning">Cuisine</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
-                </div>
-            </th>
-            <th>{{ '-10 days'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <th>Questionnaire N°2</th>
-            <th>
-                <div class="badge badge-success">Responsable zone</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                </div>
-            </th>
-            <th>{{ '-30 days'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
-        <tr>
-            <th scope="row">1</th>
-            <th>Questionnaire N°1</th>
-            <th>
-                <div class="badge badge-danger">Sécurité Alimentaire</div>
-            </th>
-            <th>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div>
-                </div>
-            </th>
-            <th>{{ '-30 days'|date('d/m/Y') }}</th>
-            <th>
-                <a href="#" target="Voir le résultat" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                <a href="#" target="Recommencer le questionnaire" class="btn btn-warning"><i class="fas fa-undo"></i></a>
-            </th>
-        </tr>
+        {% endfor %}
+
         </tbody>
     </table>
 </div>

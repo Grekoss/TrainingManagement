@@ -8,7 +8,7 @@ namespace App\Enum;
  */
 class LevelEnum extends AbstractEnum
 {
-    public const EASY = ['EASY', 'Facile', 1, '#fff', '#28a745'];
-    public const MEDIUM = ['MEDIUM', 'Moyen', 2, '#212529', '#ffc107'];
-    public const HARD = ['HARD', 'Difficile', 3, '#fff', '#dc354'];
+    public const EASY = 'Facile';
+    public const MEDIUM = 'Moyen';
+    public const HARD = 'Difficile';
 }

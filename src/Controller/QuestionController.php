@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Quiz;
+use App\Entity\Result;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use App\Repository\ResultRepository;
@@ -32,17 +33,24 @@ class QuestionController extends AbstractController
     /**
      * @Route("/quizzes/{id}/show", name="app_question_show")
      */
-    public function showQuestions(Quiz $quiz, QuestionRepository $questionRepository, ResultRepository $resultRepository)
+    public function showQuestions(Quiz $quiz, ResultRepository $resultRepository)
     {
-       // $questions = $questionRepository->findByQuiz($quiz);
-
         $results = $resultRepository->findByQuizAndUser($quiz, $this->getUser());
 
         return $this->render('question/show.html.twig', [
             'quiz' => $quiz,
-            'questions' => $questions,
             'results' => $results
 
+        ]);
+    }
+
+    /**
+     * @Route("/quizzes/correction/{id}", name="app_correction")
+     */
+    public function showCorrection(Result $result)
+    {
+        return $this->render('question/correction.html.twig', [
+            'result' => $result
         ]);
     }
 }

@@ -20,7 +20,7 @@ class ResultRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Result[] Retourne un tableau d'objet de rséultat en fonction de l'utilisateur et du questionnaire
+     * @return Result[] Retourne un tableau d'objet de résultat en fonction de l'utilisateur et du questionnaire
      */
     public function findByQuizAndUser($quiz, $user)
     {
@@ -35,32 +35,17 @@ class ResultRepository extends ServiceEntityRepository
         ;
     }
 
-    // /**
-    //  * @return Results[] Returns an array of Results objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Result[] Retourne un tableau d'objet de résultat en fonction de l'utilisateur
+     */
+    public function findByUser($user)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('r.student = :student')
+            ->setParameter('student', $user)
+            ->orderBy('r.dateAt', 'DESC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Results
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
