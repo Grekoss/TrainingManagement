@@ -101,6 +101,11 @@ class User implements UserInterface, EquatableInterface
      */
     private $students;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Result", mappedBy="student", orphanRemoval=true)
+     */
+    private $results;
+
     public function __construct()
     {
         $this->role = RoleEnum::ROLE_USER[0];
@@ -108,6 +113,7 @@ class User implements UserInterface, EquatableInterface
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->students = new ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     public function __toString()
@@ -328,6 +334,37 @@ class User implements UserInterface, EquatableInterface
             // set the owning side to null (unless already changed)
             if ($student->getMentor() === $this) {
                 $student->setMentor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Result[]
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): self
+    {
+        if (!$this->results->contains($result)) {
+            $this->results[] = $result;
+            $result->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResult(Result $result): self
+    {
+        if ($this->results->contains($result)) {
+            $this->results->removeElement($result);
+            // set the owning side to null (unless already changed)
+            if ($result->getStudent() === $this) {
+                $result->setStudent(null);
             }
         }
 

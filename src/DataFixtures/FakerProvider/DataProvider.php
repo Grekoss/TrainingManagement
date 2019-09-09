@@ -59,9 +59,6 @@ class DataProvider extends \Faker\Provider\Base
         'Quel anniversaire Fort Boyard a-t-ilfêté cette année ?'
     ];
 
-    /**
-     * @Return string
-     */
     public function tagName()
     {
         return static::randomElement(static::$tags);

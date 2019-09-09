@@ -11,13 +11,17 @@
         <h5 class="card-title text-center">{{ quiz.title }}</h5>
         <p class="card-text">{{ quiz.description }}</p>
         <div class="text-center">
-            {#                    FIXME: Mettre un systeme pour afficher le dernier passage de l'user avec date et résultat#}
-            <div class="text-muted">Dernier passage : {{ '-15 days'|date('d/m/Y') }}</div>
-            <div>Résultat : 80 %</div>
+            {% if results[key] %}
+                <div class="text-muted">Dernier passage : {{ results[key][0].dateAt|date('d/m/Y') }}</div>
+                {% set color = 'green' %}
+                {% if  results[key][0].score < 75 %}
+                    {% set color = 'red' %}
+                {% endif %}
+                <div class="font-weight-bold" style="color: {{ color }};">Résultat : {{ results[key][0].score }} %</div>
+            {% endif %}
         </div>
     </div>
     <div class="card-footer">
-        {#                FIXME: mettre le lien#}
         <a class="btn btn-outline-info w-100" href="{{ path('app_question_show', {'id': quiz.id}) }}">Commencer le questionnaire</a>
     </div>
 </div>

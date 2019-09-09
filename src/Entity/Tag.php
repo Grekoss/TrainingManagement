@@ -34,7 +34,7 @@ class Tag
     private $backgroundColor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Quizzes", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Quiz", mappedBy="tags")
      */
     private $quizzes;
 
@@ -85,14 +85,14 @@ class Tag
     }
 
     /**
-     * @return Collection|Quizzes[]
+     * @return Collection|Quiz[]
      */
     public function getQuizzes(): Collection
     {
         return $this->quizzes;
     }
 
-    public function addQuiz(Quizzes $quiz): self
+    public function addQuiz(Quiz $quiz): self
     {
         if (!$this->quizzes->contains($quiz)) {
             $this->quizzes[] = $quiz;
@@ -102,7 +102,7 @@ class Tag
         return $this;
     }
 
-    public function removeQuiz(Quizzes $quiz): self
+    public function removeQuiz(Quiz $quiz): self
     {
         if ($this->quizzes->contains($quiz)) {
             $this->quizzes->removeElement($quiz);

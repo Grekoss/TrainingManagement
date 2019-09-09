@@ -17,7 +17,7 @@ class Question
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Quizzes", inversedBy="questions")
+     * @ORM\ManyToOne(targetEntity="Quiz", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $quiz;
@@ -57,12 +57,12 @@ class Question
         return $this->id;
     }
 
-    public function getQuiz(): ?Quizzes
+    public function getQuiz(): ?Quiz
     {
         return $this->quiz;
     }
 
-    public function setQuiz(?Quizzes $quiz): self
+    public function setQuiz(?Quiz $quiz): self
     {
         $this->quiz = $quiz;
 

@@ -5,11 +5,13 @@ namespace App\DataFixtures;
 use App\DataFixtures\FakerProvider\DataProvider;
 use App\Entity\Mentor;
 use App\Entity\Question;
-use App\Entity\Quizzes;
+use App\Entity\Quiz;
+use App\Entity\Result;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Enum\LevelEnum;
 use App\Enum\RoleEnum;
+use App\Repository\QuestionRepository;
 use App\Service\Slugger;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,6 +20,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    //Paramatres pour les tests de la base de données:
+    const NB_USERS = 20; // Nombre de création d'étudiants
+    const NB_MENTORS = 5; // Nombre de mentors
+    const NB_TAGS = 5; // Nombre de tags
+    const NB_QUIZZES = 20; // Nombre de Questionnaires
+    const NB_QUESTIONS_MIN = 5; // Nombre de questions minimum
+    const NB_QUESTIONS_MAX = 10; // Nombre de questions maximum
+    const NB_RESULTS = 100; // Nombre de réponses
+
     private $generator;
     private $encoder;
     private $manager;
@@ -51,14 +62,17 @@ class AppFixtures extends Fixture
         $this->listQuizzes = $this->createQuizzes();
         dump('===============================');
         $this->listQuestions = $this->createQuestions();
+        dump('===============================');
+        $this->createResultsQuizzes();
+
     }
 
     public function createUsers()
     {
         $listUsers = array();
 
-        // Création de 20 étudiants
-        for ( $i=0 ; $i<20 ; $i++ ) {
+        // Création des étudiants
+        for ( $i=0 ; $i<self::NB_USERS ; $i++ ) {
 
             $randDate = $this->generator->dateTimeBetween('-5 years', 'now');
 
@@ -89,8 +103,8 @@ class AppFixtures extends Fixture
     {
         $listMentors = array();
 
-        // Choisir 5 Users aléatoirement pour les passer Mentor
-        for ( $i=0 ; $i<5 ; $i++ ) {
+        // Choisir Users aléatoirement pour les passer Mentor
+        for ( $i=0 ; $i<self::NB_MENTORS ; $i++ ) {
             $rand = array_rand($this->listUsers);
             $randUser = $this->listUsers[$rand];
 
@@ -138,7 +152,7 @@ class AppFixtures extends Fixture
         $listTags = array();
 
         // Création de la liste des Tags
-        for ( $i=0 ; $i<9 ; $i++) {
+        for ( $i=0 ; $i<self::NB_TAGS ; $i++) {
 
             $tag = new Tag();
             $tag->setName($this->generator->unique()->tagName())
@@ -160,15 +174,15 @@ class AppFixtures extends Fixture
     {
         $listQuizzes = array();
 
-        // Création des questionnaires => 20
-        for ( $i=0 ; $i<20 ; $i++ ) {
+        // Création des questionnaires => 5
+        for ( $i=0 ; $i<self::NB_QUIZZES ; $i++ ) {
             // random sur l'auteur
             $rand = array_rand($this->listMentors);
             $randAuthor = $this->listMentors[$rand];
 
             $date = $this->generator->dateTimeBetween('-1 year', 'now');
 
-            $quiz = new Quizzes();
+            $quiz = new Quiz();
             $quiz->setTitle($this->generator->sentence(6))
                 ->setDescription($this->generator->text(100))
                 ->setCreatedAt($date)
@@ -199,7 +213,11 @@ class AppFixtures extends Fixture
         $listQuestions = array();
 
         // Récupération des clés des levels
-        $level = LevelEnum::getConstants();
+        $level = null;
+        try {
+            $level = LevelEnum::getConstants();
+        } catch (\ReflectionException $e) {
+        }
         $keyLevel = array();
         foreach ($level as $key => $value) {
             $keyLevel[] = $key;
@@ -207,10 +225,11 @@ class AppFixtures extends Fixture
 
         for ( $i=0 ; $i<count($this->listQuizzes) ; $i++ ) {
             $quiz = $this->listQuizzes[$i];
+            dump('');
             dump($quiz->getTitle());
 
-            // Nombre aléatoir pour choisir le nombre de question entre 15 et 20
-            $randQuestions = rand(5, 10);
+            // Nombre aléatoir pour choisir le nombre de question entre 3 et 5
+            $randQuestions = rand(self::NB_QUESTIONS_MIN, self::NB_QUESTIONS_MAX);
             dump($randQuestions);
 
             for ( $y=0 ; $y<$randQuestions ; $y++ ) {
@@ -237,5 +256,61 @@ class AppFixtures extends Fixture
         }
 
         return $listQuestions;
+    }
+
+    public function createResultsQuizzes()
+    {
+        // On va choisir au hasard un utlisateur et un questionnaire pour lui faire remplir le questionnaires avec pour cahque réponses, un choix aléatoire
+        for ( $i=0 ; $i<self::NB_RESULTS ; $i++ ) {
+
+            // Choisir un étudiant au hasard
+            $student = $this->listUsers[array_rand($this->listUsers)];
+
+            // Choisir un questionnaire au hasard
+            $quiz = $this->listQuizzes[array_rand($this->listQuizzes)];
+            // Récupération de toutes les questions du Quiz sélectionné
+            $listQuestions = $this->manager->getRepository(Question::class)->findByQuiz($quiz);
+
+            // Création des réponses pour chaques questions
+            $responses = array();
+            for ( $y=0 ; $y<count($listQuestions) ; $y++ ) {
+                $question = $listQuestions[$y];
+
+                $rand = rand(1, 4);
+                $prop = 'getProp'.$rand;
+                $responseUser = $question->$prop();
+
+                $isGood = false;
+                if ( $rand === 1) {
+                    $isGood = true;
+                }
+
+                $responses[] = [$question, $responseUser, $isGood];
+            }
+
+            // compter le nombre de bonne réponses:
+            $goodResponses = 0;
+            for ( $x=0 ; $x<count($responses) ; $x++ ) {
+                if ($responses[$x][2]) {
+                    $goodResponses++;
+                }
+            }
+
+            //Calcul du pourcentage de bonne réponse et convertion en entier:
+            $pourcent = ($goodResponses * 100) / count($listQuestions);
+            $pourcent = intval($pourcent);
+
+            $result = new Result();
+            $result->setStudent($student)
+                ->setQuiz($quiz)
+                ->setDateAt($this->generator->dateTimeBetween('-1 month', 'now'))
+                ->setResponses($responses)
+                ->setScore($pourcent);
+
+            $this->manager->persist($result);
+            $this->manager->flush();
+
+            dump($result->getStudent()->getFirstName() . ' a répondu ' . $result->getScore() . '% de bonnes réponses !');
+        }
     }
 }

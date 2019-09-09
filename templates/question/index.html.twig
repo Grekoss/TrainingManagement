@@ -9,7 +9,7 @@
 {% block content %}
     <div class="card-deck">
 
-        {% for quiz in quizzes %}
+        {% for key, quiz in quizzes %}
             {{ include('question/partiels/_card_question.html.twig') }}
         {% endfor %}
 
