@@ -17,7 +17,7 @@ class Slugger
         $separator = $this->use_hyphen ? '-' : '';
 
         // Créer un array sans les caractères indésirables
-        $unwantedChars = array(',', '!', '?', '.', '\"', '\'');
+        $unwantedChars = array(',', '!', '?', '.', '\"', '\'', '’', '«', '»');
         $chaine = str_replace($unwantedChars, '', $strToConvert);
 
         // Suppression des accents

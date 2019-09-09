@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Entity\Result;
 use App\Repository\QuestionRepository;
@@ -62,9 +63,25 @@ class QuestionController extends AbstractController
     /**
      * @Route("quizzes/start-quiz/{id}", name="app_start_quiz")
      */
-    public function startQuiz(Quiz $quiz)
+    public function startQuiz(Quiz $quiz, QuestionRepository $questionRepository)
     {
+        $questions = $questionRepository->findByQuiz($quiz);
+
+        //On mélange les réponses de chaque questions
+        $mixedAnswers = array();
+        for ( $i=0 ; $i<count($questions) ; $i++ ) {
+            $listAnswers = [$questions[$i]->getProp1(), $questions[$i]->getProp2(), $questions[$i]->getProp3(), $questions[$i]->getProp4()];
+            shuffle($listAnswers);
+            $mixedAnswers[] = $listAnswers;
+        }
+
+        dump($questions);
+        dump($mixedAnswers);
+
         return $this->render('question/startQuiz.html.twig', [
+            'questions' => $questions,
+            'mixedAnswers' => $mixedAnswers,
+            'quiz' => $quiz
 
         ]);
     }

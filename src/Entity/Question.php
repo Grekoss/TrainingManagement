@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\Slugger;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -139,5 +140,12 @@ class Question
         $this->level = $level;
 
         return $this;
+    }
+
+    public function getSlug()
+    {
+        $slug = new Slugger(false);
+
+        return $slug->slugify($this->getQuestion());
     }
 }
