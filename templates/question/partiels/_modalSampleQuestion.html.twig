@@ -1,0 +1,19 @@
+<div class="modal fade" id="modalSampleQuestion" tabindex="-1" role="dialog" aria-labelledby="modalSampleQuestionLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalSampleQuestionLabel">Exemple de question</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font-weight-bold">{{ sampleQuestion.question|capitalize }}</p>
+                <p class="text-center text-success">{{ sampleQuestion.prop1|capitalize }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+            </div>
+        </div>
+    </div>
+</div>

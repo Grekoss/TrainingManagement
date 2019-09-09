@@ -30,6 +30,25 @@
 
 fieldset {
   border: 1px solid grey;
+}
+
+.fieldset-sample {
+  margin-top: -2em;
+  position: relative;
+  padding: 0 20px;
+}
+
+.fieldset-sample p {
+  text-align: center;
+}
+
+.fieldset-sample button {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 20px;
+}
+
+.fieldset-results {
   padding: 20px;
   width: 50%;
 }
@@ -82,6 +101,11 @@ legend {
 .Difficile {
   color: #fff;
   background-color: #dc3545;
+}
+
+/* ==========[START-QUIZ]========== */
+#listQuestions {
+
 }
 
 @media (min-width: 576px) {

@@ -33,13 +33,18 @@ class QuestionController extends AbstractController
     /**
      * @Route("/quizzes/{id}/show", name="app_question_show")
      */
-    public function showQuestions(Quiz $quiz, ResultRepository $resultRepository)
+    public function showQuestions(Quiz $quiz, ResultRepository $resultRepository, QuestionRepository $questionRepository)
     {
         $results = $resultRepository->findByQuizAndUser($quiz, $this->getUser());
 
+        // Afficher une question du question en aléatoire
+        $questions = $questionRepository->findByQuiz($quiz);
+        shuffle($questions);
+
         return $this->render('question/show.html.twig', [
             'quiz' => $quiz,
-            'results' => $results
+            'results' => $results,
+            'sampleQuestion' => $questions[0]
 
         ]);
     }
@@ -51,6 +56,16 @@ class QuestionController extends AbstractController
     {
         return $this->render('question/correction.html.twig', [
             'result' => $result
+        ]);
+    }
+
+    /**
+     * @Route("quizzes/start-quiz/{id}", name="app_start_quiz")
+     */
+    public function startQuiz(Quiz $quiz)
+    {
+        return $this->render('question/startQuiz.html.twig', [
+
         ]);
     }
 }
