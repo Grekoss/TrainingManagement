@@ -44,7 +44,7 @@ let app = {
                 elmt[0].style.backgroundImage = 'url(' + imgUser + ')';
                 break;
 
-            case 'question' :
+            case 'quizzes' :
                 elmt[0].style.backgroundImage = 'url(' + imgQuestion + ')';
                 break;
 

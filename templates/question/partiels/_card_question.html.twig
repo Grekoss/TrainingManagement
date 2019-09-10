@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-header">
+        <div class="badge badge-success my-auto">{{ quiz.questions|length }} questions</div>
+        <div class="text-right">
+            {% for tag in quiz.tags %}
+                {{ include('partiels/_showTagBadge.html.twig') }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title text-center">{{ quiz.title }}</h5>
+        <p class="card-text">{{ quiz.description }}</p>
+        <div class="text-center">
+            {% if results[key] %}
+                <div class="text-muted">Dernier passage : {{ results[key][0].dateAt|date('d/m/Y') }}</div>
+                {% set color = 'green' %}
+                {% if  results[key][0].score < 75 %}
+                    {% set color = 'red' %}
+                {% endif %}
+                <div class="font-weight-bold" style="color: {{ color }};">Résultat : {{ results[key][0].score }} %</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-outline-info w-100" href="{{ path('app_question_show', {'id': quiz.id}) }}">Voir le questionnaire</a>
+    </div>
+</div>

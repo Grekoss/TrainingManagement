@@ -1,0 +1,62 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Questionnaire : {{ quiz.title|capitalize }}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('startQuiz') }}
+{% endblock %}
+
+{% block content %}
+    <a id="quitter" href="{{ path('app_question_show', {'id': quiz.id}) }}" class="btn btn-outline-secondary" title="ATTENTION! Cela annulera vos réponses">Retour</a>
+
+    <div class="container-info-quiz">
+        <div class="badge badge-success my-auto">{{ quiz.questions|length }} questions</div>
+        <div class="info-title">{{  quiz.title|capitalize }}</div>
+        <div class="container-tag">
+            {% for tag in quiz.tags %}
+                {{ include('partiels/_showTagBadge.html.twig') }}
+            {% endfor %}
+        </div>
+    </div>
+    <div id="listQuestions" class="list-group">
+
+        {% for key, question in questions %}
+            <a class="list-group-item list-group-item-action" href="#list-question-{{ key + 1 }}">{{ key + 1 }}</a>
+        {% endfor %}
+    </div>
+
+    <form method="post">
+        <div id="container-questions" data-spy="scroll" data-target="#listQuestion">
+            <div data-spy="scroll" data-target="#listQuestions" data-offset="0" class="scrollspy-questions">
+
+                {% for key, question in questions %}
+                <fieldset id="list-question-{{ key + 1 }}">
+                    <legend class="question-title">Question {{ key + 1 }} <em class="ml-3 badge {{ question.level }}">{{ question.level }}</em></legend>
+                    <div class="text-center">
+                        <p class="question-question">{{ question.question|capitalize }}</p>
+
+                        <ul>
+
+                            {% for id, answer in mixedAnswers[key] %}
+                            <div>
+                                <input type="radio" class="checkbox" id="{{ id }}-{{ question.slug }}" name="{{ question.id }}" value="{{ answer }}"/>
+                                <label for="{{ id }}-{{ question.slug }}">{{ answer }}</label>
+                            </div>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </fieldset>
+                {% endfor %}
+
+            </div>
+
+            <button class="btn btn-outline-success w-100 p-3 btn-valid" type="submit">Valider le questionnaire</button>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('startQuiz') }}
+{% endblock %}

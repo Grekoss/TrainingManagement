@@ -1,0 +1,107 @@
+@import '~bootstrap/scss/bootstrap';
+
+@font-face {
+  font-family: Chilanka-Regular;
+  src: url('../fonts/chilanka/Chilanka-Regular.ttf');
+}
+
+/* ==========[CHECKBOX]========= */
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  height: 1rem;
+  margin-right: .75rem;
+  outline: 0;
+  position: relative;
+  width: 1rem;
+
+  &:before {
+    border: 2px solid #f2f2f2;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    z-index: 1;
+  }
+
+  &:checked:before {
+    border-color: #8bc34a;
+    border-right-style: none;
+    border-top-style: none;
+    height: 50%;
+    transform: rotate(-45deg);
+  }
+}
+
+/* =========[HEADER]========== */
+.container-info-quiz {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-title {
+  background-color: $primary;
+  border-radius: 25px 25px 0 0;
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 0px 20px 0 20px;
+}
+
+/* ==========[QUESTION]========== */
+#listQuestions {
+  flex-direction: row;
+  position: fixed;
+  text-align: center;
+  width: 70%;
+}
+
+#container-questions {
+  height: 75vh;
+  margin-left: -15px;
+  margin-top: 60px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 10px 15px;
+  position: fixed;
+  right: 0;
+  width: 75%;
+}
+
+fieldset {
+  border: solid 1px grey;
+  margin-bottom: 5em;
+  padding: 20px;
+}
+
+legend {
+  margin: auto;
+  padding: 0 20px;
+  width: auto;
+}
+.question-title {
+  font-family: Chilanka-Regular, cursive;
+  font-size: 2.5em;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.question-question {
+  font-family: Chilanka-Regular, cursive;
+  font-size: 1.5em;
+}
+
+#quitter {
+  position: fixed;
+  top: 10px;
+  padding: 0 5px 0 5px;
+}
+
+.btn-valid {
+  margin-bottom: 4em;
+}
+

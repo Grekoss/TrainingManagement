@@ -2,7 +2,6 @@
     <fieldset class="text-center w-100">
         <legend>Mes données</legend>
 
-        {# FIXME: Lors de la création du restaurant ne pas oublié de mettre la variable #}
         {% if mentor %}
             <p class="text-center">Mon mentor est {{ mentor.firstName|capitalize }} {{ mentor.lastName|capitalize }} du restaurant de Nogent le Rotrou</p>
         {% endif %}

@@ -1,0 +1,74 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Questionnaire : {{ quiz.title|capitalize }}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('question') }}
+{% endblock %}
+
+{% block content %}
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
+    <div class="jumbotron jumbotron-fluid" style="position: relative;">
+        <div class="container-length-tags w-100">
+            <div class="badge badge-success my-auto">{{ quiz.questions|length }} questions</div>
+            <div class="container-tag">
+                {% for tag in quiz.tags %}
+                    {{ include('partiels/_showTagBadge.html.twig') }}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="container">
+            <h1 class="display-4">{{ quiz.title|capitalize }}</h1>
+            <p class="lead">{{ quiz.description }}</p>
+        </div>
+    </div>
+
+    <fieldset class="fieldset-sample">
+        <legend>Exemple de question :</legend>
+        <p>{{ sampleQuestion.question|capitalize }}</p>
+        <button class="btn btn-outline-info" title="Afficher la réponse" data-toggle="modal" data-target="#modalSampleQuestion">Afficher la réponse</button>
+    </fieldset>
+
+    <div class="container-results">
+        <fieldset class="fieldset-results">
+            <legend>Résultats :</legend>
+
+            <table class="table table-striped table-bordered table-sm text-center">
+                <thead>
+                <tr class="table-info">
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+
+            {% for result in results %}
+
+
+                <tr>
+                    <th>{{ result.dateAt|date('d/m/Y') }}</th>
+                    <td>{{ result.score }} %</td>
+                    <td><a href="{{ path('app_correction', {'id': result.id })}}" title="Voir le résultat" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a></td>
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <th colspan="3">Vous n'avez pas encore effectué de test sur ce questionnaire.</th>
+                </tr>
+            {% endfor %}
+
+                </tbody>
+            </table>
+
+        </fieldset>
+        <div class="container-buttons">
+            <a href="{{ path('app_start_quiz', {'id': quiz.id}) }}" class="btn btn-outline-primary">Lancer le test !</a>
+            <a href="{{ path('app_question') }}" class="btn btn-outline-secondary">Retour</a>
+        </div>
+    </div>
+
+    {{ include('question/partiels/_modalSampleQuestion.html.twig') }}
+{% endblock %}

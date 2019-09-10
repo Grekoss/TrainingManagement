@@ -1,4 +1,4 @@
-/* ==========[INDEX]========== */*
+/* ==========[INDEX]========== */
 .card {
   min-width: 30%;
 }
@@ -12,6 +12,81 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+/* ==========[SHOW QUIZ]========== */
+.container-length-tags {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: absolute;
+  top: 10px;
+}
+
+.container-results {
+  display: flex;
+}
+
+fieldset {
+  border: 1px solid grey;
+}
+
+.fieldset-sample {
+  margin-top: -2em;
+  position: relative;
+  padding: 0 20px;
+}
+
+.fieldset-sample p {
+  text-align: center;
+}
+
+.fieldset-sample button {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 20px;
+}
+
+.fieldset-results {
+  margin-bottom: 2em;
+  padding: 20px;
+  width: 50%;
+}
+
+legend {
+  display: inline-block;
+  margin: 0;
+  padding: 0 10px;
+  width: auto;
+}
+
+.container-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  width: 50%;
+}
+
+.container-buttons a:first-of-type {
+  font-weight: bold;
+  font-size: 3em;
+  margin-bottom: 2em;
+}
+
+.container-buttons a:nth-of-type(2) {
+  margin: auto;
+  width: 50%;
+}
+
+/* ==========[CORRECTION]========== */
+.correction-container-title {
+  background-color: #a0f73e;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
 }
 
 @media (min-width: 576px) {
