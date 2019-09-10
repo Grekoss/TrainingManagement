@@ -31,8 +31,8 @@
 
                 {% for key, question in questions %}
                 <fieldset id="list-question-{{ key + 1 }}">
-                    <legend class="question-title">Question {{ key + 1 }}</legend>
-                    <div>
+                    <legend class="question-title">Question {{ key + 1 }} <em class="ml-3 badge {{ question.level }}">{{ question.level }}</em></legend>
+                    <div class="text-center">
                         <p class="question-question">{{ question.question|capitalize }}</p>
 
                         <ul>
@@ -51,16 +51,9 @@
 
             </div>
 
-            <button class="btn btn-outline-success w-100 p-3" type="submit">Valider le questionnaire</button>
-
-
-
-
+            <button class="btn btn-outline-success w-100 p-3 btn-valid" type="submit">Valider le questionnaire</button>
         </div>
-
     </form>
-
-
 
 {% endblock %}
 

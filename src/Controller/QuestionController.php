@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Entity\Result;
+use App\Form\ResultType;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use App\Repository\ResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionController extends AbstractController
@@ -63,7 +65,7 @@ class QuestionController extends AbstractController
     /**
      * @Route("quizzes/start-quiz/{id}", name="app_start_quiz")
      */
-    public function startQuiz(Quiz $quiz, QuestionRepository $questionRepository)
+    public function startQuiz(Quiz $quiz, QuestionRepository $questionRepository, Request $request)
     {
         $questions = $questionRepository->findByQuiz($quiz);
 
@@ -75,8 +77,67 @@ class QuestionController extends AbstractController
             $mixedAnswers[] = $listAnswers;
         }
 
-        dump($questions);
-        dump($mixedAnswers);
+        //On récupere les questions avec la correspondance de l'indexe avec l'ID
+        $newArrayQuestions = array();
+        for ( $i=0 ; $i<count($questions) ; $i++ ) {
+            $newArrayQuestions[$questions[$i]->getId()] = $questions[$i];
+        }
+
+        if ($request->isMethod('post')) {
+
+            // Récupere toutes les key dans du tableau newArrayQuestions
+            $listKey = array_keys($newArrayQuestions);
+            // On recherche la valeur la plus haute pour déterminer la dernière key
+            $lastKey = max($listKey);
+
+            $responses = array();
+            for ( $i=0 ; $i< ($lastKey + 1) ; $i++ ) {
+                if (array_key_exists($i, $newArrayQuestions)) {
+                    $question = $newArrayQuestions[$i];
+
+                    $responseUser = 'pas de réponse';
+                    if (array_key_exists($i, $_POST)) {
+                        $responseUser = $_POST[$i];
+                    }
+
+
+                    $isGood = false;
+                    if ( array_key_exists($i, $_POST) && $_POST[$i] === $newArrayQuestions[$i]->getProp1()) {
+                        $isGood = true;
+                    }
+
+                    $responses[] = [$question, $responseUser, $isGood];
+                }
+            }
+
+            // Calculer le nombre de bonne réponses et le pourcentage en convertissant en entier
+            $goodResponses = 0;
+            for ( $i=0 ; $i<count($responses) ; $i++ ) {
+                if ($responses[$i][2]) {
+                    $goodResponses++;
+                }
+            }
+
+            $percent = ( $goodResponses * 100 ) / count($questions);
+            $percent = intval($percent);
+
+            $result = new Result();
+            $result->setScore($percent)
+                ->setResponses($responses)
+                ->setQuiz($quiz)
+                ->setStudent($this->getUser());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($result);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre score de ' . $percent . '% a été enregistré !'
+            );
+
+            return $this->redirectToRoute('app_question_show', ['id' => $quiz->getId()]);
+        }
 
         return $this->render('question/startQuiz.html.twig', [
             'questions' => $questions,

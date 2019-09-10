@@ -1,4 +1,4 @@
-/* ==========[INDEX]========== */*
+/* ==========[INDEX]========== */
 .card {
   min-width: 30%;
 }
@@ -49,6 +49,7 @@ fieldset {
 }
 
 .fieldset-results {
+  margin-bottom: 2em;
   padding: 20px;
   width: 50%;
 }
@@ -86,21 +87,6 @@ legend {
   padding: 10px;
   text-align: center;
   width: 100%;
-}
-
-.Facile {
-  color: #fff;
-  background-color: #28a745;
-}
-
-.Moyen {
-  color: #212529;
-  background-color: #ffc107;
-}
-
-.Difficile {
-  color: #fff;
-  background-color: #dc3545;
 }
 
 @media (min-width: 576px) {

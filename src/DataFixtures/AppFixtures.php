@@ -297,15 +297,15 @@ class AppFixtures extends Fixture
             }
 
             //Calcul du pourcentage de bonne réponse et convertion en entier:
-            $pourcent = ($goodResponses * 100) / count($listQuestions);
-            $pourcent = intval($pourcent);
+            $percent = ($goodResponses * 100) / count($listQuestions);
+            $percent = intval($percent);
 
             $result = new Result();
             $result->setStudent($student)
                 ->setQuiz($quiz)
                 ->setDateAt($this->generator->dateTimeBetween('-1 month', 'now'))
                 ->setResponses($responses)
-                ->setScore($pourcent);
+                ->setScore($percent);
 
             $this->manager->persist($result);
             $this->manager->flush();

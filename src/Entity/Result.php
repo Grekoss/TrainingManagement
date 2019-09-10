@@ -48,6 +48,7 @@ class Result
     {
         $this->student = new ArrayCollection();
         $this->quiz = new ArrayCollection();
+        $this->dateAt = new \DateTime();
     }
 
     public function getId(): ?int

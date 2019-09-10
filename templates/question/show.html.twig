@@ -7,6 +7,8 @@
 {% endblock %}
 
 {% block content %}
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
     <div class="jumbotron jumbotron-fluid" style="position: relative;">
         <div class="container-length-tags w-100">
             <div class="badge badge-success my-auto">{{ quiz.questions|length }} questions</div>
