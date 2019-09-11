@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="text-right my-3">
-        <a href="#" class="btn btn-outline-primary"><i class="fas fa-plus-circle mr-2"></i>Ajouter un rapport</a>
+        <a href="{{ path('app_report_new')}}" class="btn btn-outline-primary"><i class="fas fa-plus-circle mr-2"></i>Ajouter un rapport</a>
     </div>
 
     <table class="table table-striped text-center">
@@ -34,7 +34,8 @@
             <th class="report-show-yes"></th>
             <th>3 commentaires</th>
             <th>
-                <a href="#" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+                <a href="{{ path('app_report_show') }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+{#                <a href="{{ path('app_report_show', {'id': }) }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>#}
             </th>
         </tr>
         <tr>

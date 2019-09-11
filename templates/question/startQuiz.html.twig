@@ -31,7 +31,7 @@
 
                 {% for key, question in questions %}
                 <fieldset id="list-question-{{ key + 1 }}">
-                    <legend class="question-title">Question {{ key + 1 }} <em class="ml-3 badge {{ question.level }}">{{ question.level }}</em></legend>
+                    <legend class="question-title">Question {{ key + 1 }} <em class="ml-3 badge {{ question.level }}">{{ question.level|capitalize }}</em></legend>
                     <div class="text-center">
                         <p class="question-question">{{ question.question|capitalize }}</p>
 

@@ -6,11 +6,15 @@ use App\DataFixtures\FakerProvider\DataProvider;
 use App\Entity\Mentor;
 use App\Entity\Question;
 use App\Entity\Quiz;
+use App\Entity\Report;
 use App\Entity\Result;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Enum\FunctionEnum;
 use App\Enum\LevelEnum;
 use App\Enum\RoleEnum;
+use App\Enum\ShiftEnum;
+use App\Enum\ZoneEnum;
 use App\Repository\QuestionRepository;
 use App\Service\Slugger;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -28,6 +32,7 @@ class AppFixtures extends Fixture
     const NB_QUESTIONS_MIN = 5; // Nombre de questions minimum
     const NB_QUESTIONS_MAX = 10; // Nombre de questions maximum
     const NB_RESULTS = 100; // Nombre de réponses
+    const NB_REPORTS = 100; // Nombre de rapports
 
     private $generator;
     private $encoder;
@@ -64,7 +69,9 @@ class AppFixtures extends Fixture
         $this->listQuestions = $this->createQuestions();
         dump('===============================');
         $this->createResultsQuizzes();
-
+        dump('===============================');
+        $this->createReport();
+        dump('===============================');
     }
 
     public function createUsers()
@@ -108,7 +115,11 @@ class AppFixtures extends Fixture
             $rand = array_rand($this->listUsers);
             $randUser = $this->listUsers[$rand];
 
+            $function = [FunctionEnum::ZONE_MANAGER, FunctionEnum::MANAGER, FunctionEnum::DEPUTY_DIRECTOR, FunctionEnum::DIRECTOR];
+            shuffle($function);
+
             $randUser->setRoles(RoleEnum::ROLE_TEACHER[0])
+                ->setFunction($function[0])
                 ->setIsActive(true);
 
             $this->manager->persist($randUser);
@@ -311,6 +322,44 @@ class AppFixtures extends Fixture
             $this->manager->flush();
 
             dump($result->getStudent()->getFirstName() . ' a répondu ' . $result->getScore() . '% de bonnes réponses !');
+        }
+    }
+
+    public function createReport()
+    {
+        for ( $i=0 ; $i<self::NB_REPORTS ; $i++ ) {
+
+            // On récupere le moment de la journée et on l'attribut aléatoirement tout comme la zone
+            $rush = ShiftEnum::getConstants();
+            $rushKey = array_keys($rush);
+            shuffle($rushKey);
+
+            $zone = ZoneEnum::getConstants();
+            $zoneKey = array_keys($zone);
+            shuffle($zoneKey);
+
+            shuffle($this->listMentors);
+            shuffle($this->listUsers);
+
+            $report = new Report();
+            $report->setDateAt($this->generator->dateTimeBetween('-6 months', 'now'))
+                ->setRushOf($rush[$rushKey[0]])
+                ->setStartAt($this->generator->dateTime())
+                ->setStopAt($this->generator->dateTime())
+                ->setManager($this->listMentors[0])
+                ->setZone($zone[$zoneKey[0]])
+                ->setPosition($this->generator->positionName())
+                ->setIsResponsible($this->generator->boolean)
+                ->setGoals($this->generator->text(100))
+                ->setStudentComments($this->generator->text(400))
+                ->setFeelRush(rand(0,5))
+                ->setStudent($this->listUsers[0])
+                ->setIsShow($this->generator->boolean);
+
+            $this->manager->persist($report);
+            $this->manager->flush();
+
+            dump('L\'étudiant ' . $report->getStudent()->getFirstName() . ' ' . $report->getStudent()->getLastName()[0] . '. a écrit un rapport. Il était posté en ' . $report->getZone());
         }
     }
 }

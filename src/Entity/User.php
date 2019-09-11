@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\FunctionEnum;
 use App\Enum\RoleEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -106,6 +107,16 @@ class User implements UserInterface, EquatableInterface
      */
     private $results;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $function;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Report", mappedBy="student", orphanRemoval=true)
+     */
+    private $reports;
+
     public function __construct()
     {
         $this->role = RoleEnum::ROLE_USER[0];
@@ -114,6 +125,8 @@ class User implements UserInterface, EquatableInterface
         $this->updatedAt = new \DateTime();
         $this->students = new ArrayCollection();
         $this->results = new ArrayCollection();
+        $this->function = FunctionEnum::TEAM_MEMBER;
+        $this->reports = new ArrayCollection();
     }
 
     public function __toString()
@@ -365,6 +378,49 @@ class User implements UserInterface, EquatableInterface
             // set the owning side to null (unless already changed)
             if ($result->getStudent() === $this) {
                 $result->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFunction(): ?string
+    {
+        return $this->function;
+    }
+
+    public function setFunction(string $function): self
+    {
+        $this->function = $function;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->contains($report)) {
+            $this->reports->removeElement($report);
+            // set the owning side to null (unless already changed)
+            if ($report->getStudent() === $this) {
+                $report->setStudent(null);
             }
         }
 

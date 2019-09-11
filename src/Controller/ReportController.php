@@ -16,4 +16,25 @@ class ReportController extends AbstractController
             'controller_name' => 'ReportController',
         ]);
     }
+
+    /**
+     * @Route("/report/new", name="app_report_new")
+     */
+    public function newReport()
+    {
+        return $this->render('report/add.html.twig', [
+
+        ]);
+    }
+
+//    FIXME: Remettre l'id à la place du chiffre mis temporairement pour les essais
+    /**
+     * @Route("/report/123/show", name="app_report_show")
+     */
+    public function showReport()
+    {
+        return $this->render('report/show.html.twig', [
+
+        ]);
+    }
 }

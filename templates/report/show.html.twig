@@ -1,0 +1,26 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Hello ReportController!{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('report') }}
+{% endblock %}
+
+{% block content %}
+
+    <img src="{{ asset('images/icons/valide.png') }}" alt="Vue par le mentor">
+    <div>Rapport d'un Rush</div>
+    <img src="{{ asset('images/icons/soir.png') }}" alt="Icone Soir" />
+    <div>{{ 'now'|localizeddate('full', 'none')|capitalize }}</div>
+    <div>Rush : {{ 'midi'|capitalize }}</div>
+    <div>de : 12h00 à 14h00</div>
+    <div>Manager : Cédric Pourrias</div>
+    <div>Zone</div>
+    <div>Poste : {{ 'piano'|capitalize }}</div>
+    <div>Responsable de zone ?</div>
+    <input type="checkbox" checked disabled />
+    <div>Objectifs :Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab nobis obcaecati quibusdam sapiente sint? Eius eum fugit labore magni pariatur, quam quis! Ad illum inventore, natus nesciunt quo sed voluptatem? Cupiditate dignissimos doloremque ducimus eius error fuga id iusto magnam repellat, sunt vero vitae voluptate! Eligendi non porro rem vel!</div>
+    <div>Commentaires : Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti, excepturi iste magni non perspiciatis quae quo temporibus unde. Animi, architecto asperiores atque, dicta et eum exercitationem facilis iste molestiae, molestias nesciunt quasi qui reiciendis rem repellat repellendus reprehenderit repudiandae rerum suscipit ullam vel voluptas voluptates! Alias aliquid aperiam autem beatae delectus error eveniet harum inventore magnam minus nulla obcaecati praesentium quos, ratione unde vel velit. Alias aliquid animi, aspernatur at atque consequuntur culpa dicta dolorem ducimus ea enim explicabo id illo impedit labore laboriosam magnam mollitia nobis perferendis porro quidem quis quisquam ratione rem sapiente similique sit suscipit veritatis voluptates voluptatum. Adipisci beatae dolor dolore eos expedita fuga fugiat harum iusto laudantium maxime mollitia nemo nesciunt nostrum, possimus, quaerat quam sequi! Accusamus autem beatae debitis esse exercitationem hic nesciunt non perspiciatis tempora voluptatum! Aspernatur consequuntur cupiditate exercitationem expedita fugit, in ipsam, itaque natus neque nobis quam vero, voluptate voluptatibus.</div>
+    <div>Resenti du rush : {{ makeStar(3)|raw }}</div>
+
+{% endblock %}
