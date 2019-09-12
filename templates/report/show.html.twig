@@ -7,9 +7,10 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="container">
-        <div class="row">
+
+        <div class="row position-relative">
+            <a href="{{ path('app_report') }}" class="btn btn-outline-secondary position-absolute">Retour</a>
             <div class="title">Rapport du Rush du {{ report.dateAt|localizeddate('full', 'none') }}</div>
         </div>
         <div class="row position-relative justify-content-center">
@@ -49,7 +50,6 @@
                 </fieldset>
             </div>
 
-
             <div class="container-rush">
             {% if report.rushOf is same as ('open') %}
                 <img class="rush-img" src="{{ asset('images/icons/midi.png') }}" alt="open" title="Open"/>
@@ -59,8 +59,13 @@
                 <div class="m-auto font-weight-bold text-secondary">{{ report.rushOf|upper }}</div>
             </div>
         </div>
+
         <div class="row row-goals">
-            <fieldset class="w-100">
+
+            <fieldset class="w-100 position-relative">
+                {% if report.isSeen %}
+                    <img class="img-report-isSeen" src="{{ asset('images/icons/valide.png') }}" alt="Vue par le mentor">
+                {% endif %}
                 <legend>Objectifs</legend>
                 <p>{{ report.goals }}</p>
             </fieldset>
@@ -124,6 +129,8 @@
                             <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
                             <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
                         </div>
+{#Faire un rapprochemant avec Javascript pour qu'il fasse apparaitre un modal pour ajouter un commentaire #}
+                        <button class="btn btn-warning"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
 
                     </fieldset>
 

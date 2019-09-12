@@ -81,12 +81,12 @@ class Report
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isShow;
+    private $isSeen;
 
     public function __construct()
     {
         $this->dateAt = new \DateTime();
-        $this->isShow = false;
+        $this->isSeen = false;
     }
 
     public function getId(): ?int
@@ -238,14 +238,14 @@ class Report
         return $this;
     }
 
-    public function getIsShow(): ?bool
+    public function getIsSeen(): ?bool
     {
-        return $this->isShow;
+        return $this->isSeen;
     }
 
-    public function setIsShow(bool $isShow): self
+    public function setIsSeen(bool $isSeen): self
     {
-        $this->isShow = $isShow;
+        $this->isSeen = $isSeen;
 
         return $this;
     }
