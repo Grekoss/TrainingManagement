@@ -1,12 +1,14 @@
 {% extends 'baseMain.html.twig' %}
 
-{% block title %}Hello ReportController!{% endblock %}
+{% block title %}Liste des rapports{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('report') }}
 {% endblock %}
 
 {% block content %}
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
     <div class="text-right my-3">
         <a href="{{ path('app_report_new')}}" class="btn btn-outline-primary"><i class="fas fa-plus-circle mr-2"></i>Ajouter un rapport</a>
     </div>
@@ -25,31 +27,31 @@
         </tr>
         </thead>
         <tbody>
+        {% for report in reports %}
         <tr>
-            <th scope="row">1</th>
-            <th>{{ ('now')|date('d/m/Y') }}</th>
-            <th>Open</th>
-            <th>Cuisine</th>
-            <th>{{ makeStar(2)|raw }}</th>
-            <th class="report-show-yes"></th>
-            <th>3 commentaires</th>
-            <th>
-                <a href="{{ path('app_report_show') }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
-{#                <a href="{{ path('app_report_show', {'id': }) }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>#}
-            </th>
+            <th scope="row">{{ report.id }}</th>
+            <td title="{{ report.dateAt|localizeddate('none', 'none', null, null, 'EEEE')|capitalize }}">{{ report.dateAt|date('d/m/Y') }}</td>
+            <td>
+                {% if report.rushOf is same as ('open') %}
+                    <img class="rush-img-little" src="{{ asset('images/icons/midi.png') }}" alt="open" title="Open" />
+                {% else %}
+                    <img class="rush-img-little" src="{{ asset('images/icons/soir.png') }}" alt="close" title="Close" />
+                {% endif %}
+            </td>
+            <td title="{{ report.position|capitalize }}">{{ report.zone|capitalize }}</td>
+            <td>{{ makeStar(report.feelRush)|raw }}</td>
+            <td class="report-show-{{ report.isShow }}"></td>
+{#            FIXME: Ajouter les commentaires #}
+            <td>3 commentaires</td>
+            <td>
+                <a href="{{ path('app_report_show', {'id': report.id}) }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+            </td>
         </tr>
+        {% else %}
         <tr>
-            <th scope="row">2</th>
-            <th>{{ ('-2 days')|date('d/m/Y') }}</th>
-            <th>Open</th>
-            <th>Cuisine</th>
-            <th>{{ makeStar(3)|raw }}</th>
-            <th class="report-show-no"></th>
-            <th>0 commentaire</th>
-            <th>
-                <a href="#" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
-            </th>
+            <th scope="row" colspan="8">Pas de rapport</th>
         </tr>
+        {% endfor %}
         </tbody>
     </table>
 

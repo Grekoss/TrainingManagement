@@ -2,6 +2,11 @@
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 
+@font-face {
+  font-family: Chilanka-Regular;
+  src: url('../fonts/chilanka/Chilanka-Regular.ttf');
+}
+
 .table th, .table td {
   vertical-align: middle;
 }
@@ -10,7 +15,11 @@ p.ratingBox-event {
   margin: 0;
 }
 
-.report-show-yes::before {
+.rush-img-little {
+  height: 50px;
+}
+
+.report-show-1::before {
   @extend %fa-icon;
   @extend .fas;
   color: $success;
@@ -18,10 +27,102 @@ p.ratingBox-event {
   font-size: 30px;
 }
 
-.report-show-no::before {
+.report-show-::before {
   @extend %fa-icon;
   @extend .fas;
   color: $danger;
   content: fa-content($fa-var-times-circle);
   font-size: 30px;
+}
+
+/* ==========[SHOW]========== */
+
+fieldset {
+  border: solid 1px grey;
+  border-radius: 15px;
+  height: max-content;
+  padding: 0 20px 5px;
+  text-align: center;
+}
+
+legend {
+  font-size: 20px;
+  padding: 0 5px;
+  text-decoration: underline;
+  width: auto;
+}
+
+.title {
+  color: $info;
+  font-family: Chilanka-Regular, cursive;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: auto;
+  text-decoration: underline;
+}
+
+.container-rush-info {
+  display: flex;
+}
+
+.container-rush {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 150px;
+}
+
+.rush-img {
+  margin: auto;
+  width: 50%;
+}
+
+.detail-box {
+  margin: 0 20px;
+}
+.detail-item {
+  display: flex;
+}
+
+.detail-item-title {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.row-goals fieldset {
+  margin: 20px 0;
+}
+
+.row-comments {
+  justify-content: space-around;
+}
+
+.comments-text {
+  text-align: justify;
+}
+
+.comments-mentors {
+  width: 48%;
+}
+.comments-mentors-box {
+  border-radius: 20px;
+  padding: 10px 10px 0;
+}
+.comments-mentors-box:nth-child(even) {
+  background-color: #a5d6a7;
+}
+
+.comments-mentors-box:nth-child(odd) {
+  background-color: #d7ffd9;
+}
+
+.comments-mentors-author {
+  margin-right: 20px;
+  text-align: right;
+}
+
+.comments-mentors-author em {
+  font-weight: bold;
 }

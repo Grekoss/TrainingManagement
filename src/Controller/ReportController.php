@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Report;
+use App\Repository\ReportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -10,10 +12,12 @@ class ReportController extends AbstractController
     /**
      * @Route("/report", name="app_report")
      */
-    public function index()
+    public function index(ReportRepository $reportRepository)
     {
+        $reports = $reportRepository->findByUser($this->getUser());
+
         return $this->render('report/index.html.twig', [
-            'controller_name' => 'ReportController',
+            'reports' => $reports
         ]);
     }
 
@@ -27,14 +31,13 @@ class ReportController extends AbstractController
         ]);
     }
 
-//    FIXME: Remettre l'id à la place du chiffre mis temporairement pour les essais
     /**
-     * @Route("/report/123/show", name="app_report_show")
+     * @Route("/report/{id}/show", name="app_report_show")
      */
-    public function showReport()
+    public function showReport(Report $report)
     {
         return $this->render('report/show.html.twig', [
-
+            'report' => $report
         ]);
     }
 }

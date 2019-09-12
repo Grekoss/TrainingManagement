@@ -1,6 +1,6 @@
 {% extends 'baseMain.html.twig' %}
 
-{% block title %}Hello ReportController!{% endblock %}
+{% block title %}{{ report.dateAt|localizeddate('full', 'none') }}{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('report') }}
@@ -8,19 +8,131 @@
 
 {% block content %}
 
-    <img src="{{ asset('images/icons/valide.png') }}" alt="Vue par le mentor">
-    <div>Rapport d'un Rush</div>
-    <img src="{{ asset('images/icons/soir.png') }}" alt="Icone Soir" />
-    <div>{{ 'now'|localizeddate('full', 'none')|capitalize }}</div>
-    <div>Rush : {{ 'midi'|capitalize }}</div>
-    <div>de : 12h00 à 14h00</div>
-    <div>Manager : Cédric Pourrias</div>
-    <div>Zone</div>
-    <div>Poste : {{ 'piano'|capitalize }}</div>
-    <div>Responsable de zone ?</div>
-    <input type="checkbox" checked disabled />
-    <div>Objectifs :Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab nobis obcaecati quibusdam sapiente sint? Eius eum fugit labore magni pariatur, quam quis! Ad illum inventore, natus nesciunt quo sed voluptatem? Cupiditate dignissimos doloremque ducimus eius error fuga id iusto magnam repellat, sunt vero vitae voluptate! Eligendi non porro rem vel!</div>
-    <div>Commentaires : Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti, excepturi iste magni non perspiciatis quae quo temporibus unde. Animi, architecto asperiores atque, dicta et eum exercitationem facilis iste molestiae, molestias nesciunt quasi qui reiciendis rem repellat repellendus reprehenderit repudiandae rerum suscipit ullam vel voluptas voluptates! Alias aliquid aperiam autem beatae delectus error eveniet harum inventore magnam minus nulla obcaecati praesentium quos, ratione unde vel velit. Alias aliquid animi, aspernatur at atque consequuntur culpa dicta dolorem ducimus ea enim explicabo id illo impedit labore laboriosam magnam mollitia nobis perferendis porro quidem quis quisquam ratione rem sapiente similique sit suscipit veritatis voluptates voluptatum. Adipisci beatae dolor dolore eos expedita fuga fugiat harum iusto laudantium maxime mollitia nemo nesciunt nostrum, possimus, quaerat quam sequi! Accusamus autem beatae debitis esse exercitationem hic nesciunt non perspiciatis tempora voluptatum! Aspernatur consequuntur cupiditate exercitationem expedita fugit, in ipsam, itaque natus neque nobis quam vero, voluptate voluptatibus.</div>
-    <div>Resenti du rush : {{ makeStar(3)|raw }}</div>
+    <div class="container">
+        <div class="row">
+            <div class="title">Rapport du Rush du {{ report.dateAt|localizeddate('full', 'none') }}</div>
+        </div>
+        <div class="row position-relative justify-content-center">
+            <div class="container-rush-info">
+                <div>
+                    <fieldset>
+                        <legend>Manager de shift</legend>
+                        {{ report.manager.firstName|capitalize }} {{ report.manager.lastName|slice(0, 1)|capitalize }}.
+                    </fieldset>
+                    <fieldset>
+                        <legend>Ressenti du Rush</legend>
+                        {{ makeStar(report.feelRush)|raw }}
+                    </fieldset>
+                </div>
+
+                <fieldset class="detail-box">
+                    <legend>Détails</legend>
+                    <div class="detail-item">
+                        <div class="detail-item-title">Crénaux :</div>
+                        <div>{{ report.startAt|localizeddate('none', 'short') }}</div>
+                        <div class="mx-1">à</div>
+                        <div>{{ report.stopAt|localizeddate('none', 'short') }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-title">Zone :</div>
+                        <div>{{  report.zone|capitalize }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-title">Poste :</div>
+                        <div>{{ report.position|capitalize }}</div>
+                    </div>
+                    {% if report.isResponsible %}
+                    <div class="detail-item">
+                        <div class="font-weight-bold text-danger text-center">Responsable de la zone</div>
+                    </div>
+                    {% endif %}
+                </fieldset>
+            </div>
+
+
+            <div class="container-rush">
+            {% if report.rushOf is same as ('open') %}
+                <img class="rush-img" src="{{ asset('images/icons/midi.png') }}" alt="open" title="Open"/>
+            {% else %}
+                <img src="{{ asset('images/icons/soir.png') }}" alt="close" class="rush-img" title="Close"/>
+            {% endif %}
+                <div class="m-auto font-weight-bold text-secondary">{{ report.rushOf|upper }}</div>
+            </div>
+        </div>
+        <div class="row row-goals">
+            <fieldset class="w-100">
+                <legend>Objectifs</legend>
+                <p>{{ report.goals }}</p>
+            </fieldset>
+            <div class="row row-comments">
+                {#FIXME: mettre une condition, si commentaire alors widht = 48% sinon 100% !#}
+                {% set widthComments = 48 %}
+{#                {% if %}#}
+{#                {% set widthComments = 48 %}#}
+{#                {% endif %}#}
+                <div class="comments-student" style="width: {{ widthComments }}%;">
+                    <fieldset>
+                        <legend>Commentaire du formé</legend>
+                        <p class="comments-text">{{ report.studentComments }}</p>
+                    </fieldset>
+                </div>
+{#                FIXME: pour les commentaires des mentors#}
+                <div class="comments-mentors">
+                    <fieldset>
+                        <legend>Commentaires de la direction</legend>
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P <a href="#" title="Envoyer un message"><i class="far fa-envelope"></i></a></p>
+                        </div>
+
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
+                        </div>
+
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
+                        </div>
+
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
+                        </div>
+
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
+                        </div>
+
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
+                        </div>
+
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
+                        </div>
+
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
+                        </div>
+
+                        <div class="comments-mentors-box">
+                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
+                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
+                        </div>
+
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#    <img src="{{ asset('images/icons/valide.png') }}" alt="Vue par le mentor">#}
+
 
 {% endblock %}

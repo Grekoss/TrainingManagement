@@ -19,6 +19,20 @@ class ReportRepository extends ServiceEntityRepository
         parent::__construct($registry, Report::class);
     }
 
+    /**
+     * @return Report[] Retourne la liste des rapport par users
+     */
+    public function findByUser($user)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.student = :user')
+            ->setParameter('user', $user)
+            ->orderBy('r.dateAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Report[] Returns an array of Report objects
     //  */
