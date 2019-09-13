@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -83,10 +85,16 @@ class Report
      */
     private $isSeen;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentReport", mappedBy="report")
+     */
+    private $commentReports;
+
     public function __construct()
     {
         $this->dateAt = new \DateTime();
         $this->isSeen = false;
+        $this->commentReports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,6 +254,37 @@ class Report
     public function setIsSeen(bool $isSeen): self
     {
         $this->isSeen = $isSeen;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CommentReport[]
+     */
+    public function getCommentReports(): Collection
+    {
+        return $this->commentReports;
+    }
+
+    public function addCommentReport(CommentReport $commentReport): self
+    {
+        if (!$this->commentReports->contains($commentReport)) {
+            $this->commentReports[] = $commentReport;
+            $commentReport->setReport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentReport(CommentReport $commentReport): self
+    {
+        if ($this->commentReports->contains($commentReport)) {
+            $this->commentReports->removeElement($commentReport);
+            // set the owning side to null (unless already changed)
+            if ($commentReport->getReport() === $this) {
+                $commentReport->setReport(null);
+            }
+        }
 
         return $this;
     }

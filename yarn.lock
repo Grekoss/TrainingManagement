@@ -1120,11 +1120,6 @@ atob@^2.1.1:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-awesome-bootstrap-checkbox@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/awesome-bootstrap-checkbox/-/awesome-bootstrap-checkbox-1.0.1.tgz#dab10146b6001129ab0a0ec1e54bb77c6c30457a"
-  integrity sha1-2rEBRrYAESmrCg7B5Uu3fGwwRXo=
-
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"

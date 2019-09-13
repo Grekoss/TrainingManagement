@@ -107,15 +107,18 @@ legend {
   justify-content: space-around;
 }
 
+.comments-mentors-box,
 .comments-text {
-  text-align: justify;
+  text-align: left;
 }
 
 .comments-mentors {
+  order: 2;
   width: 48%;
 }
 .comments-mentors-box {
   border-radius: 20px;
+  margin-bottom: 1em;
   padding: 10px 10px 0;
 }
 .comments-mentors-box:nth-child(even) {
@@ -126,11 +129,16 @@ legend {
   background-color: #d7ffd9;
 }
 
-.comments-mentors-author {
-  margin-right: 20px;
-  text-align: right;
+.comments-footer {
+  display: flex;
+  justify-content: space-between;
 }
 
-.comments-mentors-author em {
+.comments-footer em {
   font-weight: bold;
+}
+
+.comments-footer-buttonsBox button {
+  font-size: 10px;
+  opacity: 0.6;
 }

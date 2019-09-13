@@ -7,6 +7,8 @@
 {% endblock %}
 
 {% block content %}
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
     <div class="container">
 
         <div class="row position-relative">
@@ -70,76 +72,55 @@
                 <p>{{ report.goals }}</p>
             </fieldset>
             <div class="row row-comments">
-                {#FIXME: mettre une condition, si commentaire alors widht = 48% sinon 100% !#}
-                {% set widthComments = 48 %}
-{#                {% if %}#}
-{#                {% set widthComments = 48 %}#}
-{#                {% endif %}#}
+
+                {% set widthComments = 100 %}
+                {% if report.commentReports|length > 1 %}
+                    {% set widthComments = 48 %}
+
+                    <div class="comments-mentors">
+                        <fieldset>
+                            <legend>{{ report.commentReports|length > 1 ? 'Commentaires':'Commentaire'}} de la hiérarchie</legend>
+
+                            {% for comment in report.commentReports|sort|reverse  %}
+
+                                <div class="comments-mentors-box">
+                                    {{ comment.content|raw }}
+                                    <div class="comments-footer">
+                                        <div><em>Ecrit le : </em>{{ comment.dateAt|date('d/m/Y') }}</div>
+
+                                        {% if app.user == comment.author %}
+                                        <div class="comments-footer-buttonsBox">
+                                            {{ include('report/partiels/_delete_comment.html.twig') }}
+                                        </div>
+                                        {% endif %}
+
+                                        {#FIXME: Mettre lien pour l'envoie d'un message #}
+                                        <div><em>Auteur : </em>{{ comment.author.firstName|capitalize }} {{ comment.author.lastName|slice(0, 1)|capitalize }}.<a href="#" title="Envoyer un message"><i class="far fa-envelope ml-2"></i></a></div>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+
+                            {#FIXME: Faire un IF role >= mentor alors on affiche ceci #}
+                            <button class="btn btn-warning" title="Ecrire un commentaire" data-toggle="modal" data-target="#modalCommentReport"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
+
+                        </fieldset>
+
+                    </div>
+                {% endif %}
+
                 <div class="comments-student" style="width: {{ widthComments }}%;">
                     <fieldset>
                         <legend>Commentaire du formé</legend>
-                        <p class="comments-text">{{ report.studentComments }}</p>
+                        <p class="comments-text">{{ report.studentComments|raw }}</p>
                     </fieldset>
                 </div>
-{#                FIXME: pour les commentaires des mentors#}
-                <div class="comments-mentors">
-                    <fieldset>
-                        <legend>Commentaires de la direction</legend>
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P <a href="#" title="Envoyer un message"><i class="far fa-envelope"></i></a></p>
-                        </div>
 
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
-                        </div>
 
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
-                        </div>
-
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
-                        </div>
-
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
-                        </div>
-
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
-                        </div>
-
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
-                        </div>
-
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
-                        </div>
-
-                        <div class="comments-mentors-box">
-                            <p class="comments-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque blanditiis, consectetur consequatur cum, cumque debitis dicta dolor dolore ea eligendi enim eum excepturi facilis, fuga fugit harum illo iste maiores maxime modi mollitia nam nihil nisi non obcaecati officiis placeat porro provident qui quidem sapiente tempore veritatis voluptates.</p>
-                            <p class="comments-mentors-author"><em>Auteur : </em>Cédric P</p>
-                        </div>
-{#Faire un rapprochemant avec Javascript pour qu'il fasse apparaitre un modal pour ajouter un commentaire #}
-                        <button class="btn btn-warning"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
-
-                    </fieldset>
-
-                </div>
             </div>
         </div>
     </div>
 
-{#    <img src="{{ asset('images/icons/valide.png') }}" alt="Vue par le mentor">#}
-
+    {{ include('report/partiels/_modalCommentReport.html.twig') }}
 
 {% endblock %}

@@ -117,6 +117,11 @@ class User implements UserInterface, EquatableInterface
      */
     private $reports;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentReport", mappedBy="author", orphanRemoval=true)
+     */
+    private $commentReports;
+
     public function __construct()
     {
         $this->role = RoleEnum::ROLE_USER[0];
@@ -127,6 +132,7 @@ class User implements UserInterface, EquatableInterface
         $this->results = new ArrayCollection();
         $this->function = FunctionEnum::TEAM_MEMBER;
         $this->reports = new ArrayCollection();
+        $this->commentReports = new ArrayCollection();
     }
 
     public function __toString()
@@ -421,6 +427,37 @@ class User implements UserInterface, EquatableInterface
             // set the owning side to null (unless already changed)
             if ($report->getStudent() === $this) {
                 $report->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CommentReport[]
+     */
+    public function getCommentReports(): Collection
+    {
+        return $this->commentReports;
+    }
+
+    public function addCommentReport(CommentReport $commentReport): self
+    {
+        if (!$this->commentReports->contains($commentReport)) {
+            $this->commentReports[] = $commentReport;
+            $commentReport->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentReport(CommentReport $commentReport): self
+    {
+        if ($this->commentReports->contains($commentReport)) {
+            $this->commentReports->removeElement($commentReport);
+            // set the owning side to null (unless already changed)
+            if ($commentReport->getAuthor() === $this) {
+                $commentReport->setAuthor(null);
             }
         }
 
