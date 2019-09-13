@@ -100,9 +100,10 @@
                                 </div>
 
                             {% endfor %}
-
-                            {#FIXME: Faire un IF role >= mentor alors on affiche ceci #}
-                            <button class="btn btn-warning" title="Ecrire un commentaire" data-toggle="modal" data-target="#modalCommentReport"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
+                            
+                            {% if is_granted('ROLE_TEACHER') %}
+                                <button class="btn btn-warning" title="Ecrire un commentaire" data-toggle="modal" data-target="#modalCommentReport"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
+                            {% endif %}
 
                         </fieldset>
 
