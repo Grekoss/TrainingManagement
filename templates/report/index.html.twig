@@ -22,7 +22,7 @@
             <th scope="col">Zone</th>
             <th scope="col">Sentiment</th>
             <th scope="col">Vu</th>
-            <th scope="col">Commentaire(s)</th>
+            <th scope="col">Commentaires</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -41,8 +41,7 @@
             <td title="{{ report.position|capitalize }}">{{ report.zone|capitalize }}</td>
             <td>{{ makeStar(report.feelRush)|raw }}</td>
             <td class="report-show-{{ report.isSeen }}"></td>
-{#            FIXME: Ajouter les commentaires #}
-            <td>3 commentaires</td>
+            <td>{{ report.commentReports|length }} {{ report.commentReports|length > 1 ? 'commentaires' : 'commentaire' }}</td>
             <td>
                 <a href="{{ path('app_report_show', {'id': report.id}) }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
             </td>
