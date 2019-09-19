@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReportRepository")
@@ -51,6 +52,7 @@ class Report
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Enter a position")
      */
     private $position;
 
@@ -60,12 +62,14 @@ class Report
     private $isResponsible;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
+     * @Assert\NotNull(message="Write the goals")
      */
     private $goals;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotNull(message="Write your comment")
      */
     private $studentComments;
 
@@ -92,6 +96,7 @@ class Report
 
     public function __construct()
     {
+        $this->dateAt = new \DateTime();
         $this->isSeen = false;
         $this->commentReports = new ArrayCollection();
     }
