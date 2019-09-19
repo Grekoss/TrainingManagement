@@ -99,6 +99,33 @@ class ReportController extends AbstractController
     }
 
     /**
+     * @Route("/report/{id}/update", name="app_report_update")
+     */
+    public function updateReport(ObjectManager $manager, Report $report, Request $request)
+    {
+        $form = $this->createForm(ReportType::class, $report);
+
+        $form->handleRequest($request);
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $report->setStudent($this->getUser());
+
+            $manager->persist($report);
+            $manager->flush();
+
+            $this->addFlash(
+                'info',
+                'Rapport modifié'
+            );
+
+            return $this->redirectToRoute('app_report');
+        }
+
+        return $this->render('report/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/report/comment/delete/{id}", name="app_comment_delete", methods="DELETE")
      */
     public function delete(CommentReport $commentReport, Request $request)
