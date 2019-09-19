@@ -92,7 +92,6 @@ class Report
 
     public function __construct()
     {
-        $this->dateAt = new \DateTime();
         $this->isSeen = false;
         $this->commentReports = new ArrayCollection();
     }

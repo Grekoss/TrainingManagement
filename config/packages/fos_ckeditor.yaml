@@ -5,12 +5,13 @@ fos_ck_editor:
   configs:
     base_config:
       language: fr
-
-    comment_report:
-      language: fr
       toolbar: 'simple_toolbar'
+    goal:
+      language: fr
+      toolbar: 'goal'
 
   toolbars:
     configs:
-      simple_toolbar: [ ['Bold', 'Italic', 'Underline' ], ['TextColor', 'BGColor'], ['Smiley'], ['Scayt']]
+      simple_toolbar: [ ['Bold', 'Italic', 'Underline' ], ['TextColor', 'BGColor'], ['BulletedList'], ['Smiley'], ['Scayt']]
+      goal: [ ['Bold', 'Italic', 'Underline' ], ['TextColor', 'BGColor'], ['BulletedList'], ['Scayt']]
 

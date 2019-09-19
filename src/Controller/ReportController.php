@@ -6,6 +6,7 @@ use App\Entity\CommentReport;
 use App\Entity\Report;
 use App\Enum\RoleEnum;
 use App\Form\CommentReportType;
+use App\Form\ReportType;
 use App\Repository\ReportRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,10 +30,29 @@ class ReportController extends AbstractController
     /**
      * @Route("/report/new", name="app_report_new")
      */
-    public function newReport()
+    public function newReport(Request $request, ObjectManager $manager)
     {
-        return $this->render('report/add.html.twig', [
+        $report = new Report();
 
+        $form = $this->createForm(ReportType::class, $report);
+
+        $form->handleRequest($request);
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $report->setStudent($this->getUser());
+
+            $manager->persist($report);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Rapport enregistré'
+            );
+
+            return $this->redirectToRoute('app_report');
+        }
+
+        return $this->render('report/new.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 

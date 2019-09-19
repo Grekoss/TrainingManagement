@@ -14,7 +14,7 @@ class CommentReportType extends AbstractType
     {
         $builder
             ->add('content', CKEditorType::class, array(
-                'config_name' => 'comment_report',
+                'config_name' => 'base_config',
                 'label' => false
             ))
         ;

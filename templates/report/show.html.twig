@@ -42,7 +42,7 @@
                     </div>
                     <div class="detail-item">
                         <div class="detail-item-title">Poste :</div>
-                        <div>{{ report.position|capitalize }}</div>
+                        <div>{{ report.position }}</div>
                     </div>
                     {% if report.isResponsible %}
                     <div class="detail-item">
@@ -69,12 +69,14 @@
                     <img class="img-report-isSeen" src="{{ asset('images/icons/valide.png') }}" alt="Vue par le mentor">
                 {% endif %}
                 <legend>Objectifs</legend>
-                <p>{{ report.goals }}</p>
+                <div class="comments-text">
+                    {{ report.goals|raw }}
+                </div>
             </fieldset>
             <div class="row row-comments">
 
                 {% set widthComments = 100 %}
-                {% if report.commentReports|length > 1 %}
+                {% if report.commentReports|length > 0 %}
                     {% set widthComments = 48 %}
 
                     <div class="comments-mentors">
@@ -100,10 +102,6 @@
                                 </div>
 
                             {% endfor %}
-                            
-                            {% if is_granted('ROLE_TEACHER') %}
-                                <button class="btn btn-warning" title="Ecrire un commentaire" data-toggle="modal" data-target="#modalCommentReport"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
-                            {% endif %}
 
                         </fieldset>
 
@@ -113,12 +111,15 @@
                 <div class="comments-student" style="width: {{ widthComments }}%;">
                     <fieldset>
                         <legend>Commentaire du formé</legend>
-                        <p class="comments-text">{{ report.studentComments|raw }}</p>
+                        <div class="comments-text">{{ report.studentComments|raw }}</div>
                     </fieldset>
                 </div>
-
-
             </div>
+
+            {% if is_granted('ROLE_TEACHER') %}
+                <button class="btn btn-warning" title="Ecrire un commentaire" data-toggle="modal" data-target="#modalCommentReport"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
+            {% endif %}
+
         </div>
     </div>
 
