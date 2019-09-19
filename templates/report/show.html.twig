@@ -1,0 +1,128 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}{{ report.dateAt|localizeddate('full', 'none') }}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('report') }}
+{% endblock %}
+
+{% block content %}
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
+    <div class="container">
+
+        <div class="row position-relative">
+            <a href="{{ path('app_report') }}" class="btn btn-outline-secondary position-absolute">Retour</a>
+            <div class="title">Rapport du Rush du {{ report.dateAt|localizeddate('full', 'none') }}</div>
+        </div>
+        <div class="row position-relative justify-content-center">
+            <div class="container-rush-info">
+                <div>
+                    <fieldset>
+                        <legend>Manager de shift</legend>
+                        {{ report.manager.firstName|capitalize }} {{ report.manager.lastName|slice(0, 1)|capitalize }}.
+                    </fieldset>
+                    <fieldset>
+                        <legend>Ressenti du Rush</legend>
+                        {{ makeStar(report.feelRush)|raw }}
+                    </fieldset>
+                </div>
+
+                <fieldset class="detail-box">
+                    <legend>Détails</legend>
+                    <div class="detail-item">
+                        <div class="detail-item-title">Crénaux :</div>
+                        <div>{{ report.startAt|localizeddate('none', 'short') }}</div>
+                        <div class="mx-1">à</div>
+                        <div>{{ report.stopAt|localizeddate('none', 'short') }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-title">Zone :</div>
+                        <div>{{  report.zone|capitalize }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-title">Poste :</div>
+                        <div>{{ report.position }}</div>
+                    </div>
+                    {% if report.isResponsible %}
+                    <div class="detail-item">
+                        <div class="font-weight-bold text-danger text-center">Responsable de la zone</div>
+                    </div>
+                    {% endif %}
+                </fieldset>
+            </div>
+
+            <div class="container-rush">
+            {% if report.rushOf is same as ('open') %}
+                <img class="rush-img" src="{{ asset('images/icons/midi.png') }}" alt="open" title="Open"/>
+            {% else %}
+                <img src="{{ asset('images/icons/soir.png') }}" alt="close" class="rush-img" title="Close"/>
+            {% endif %}
+                <div class="m-auto font-weight-bold text-secondary">{{ report.rushOf|upper }}</div>
+            </div>
+        </div>
+
+        <div class="row row-goals">
+
+            <fieldset class="w-100 position-relative">
+                {% if report.isSeen %}
+                    <img class="img-report-isSeen" src="{{ asset('images/icons/valide.png') }}" alt="Vue par le mentor">
+                {% endif %}
+                <legend>Objectifs</legend>
+                <div class="comments-text">
+                    {{ report.goals|raw }}
+                </div>
+            </fieldset>
+            <div class="row row-comments">
+
+                {% set widthComments = 100 %}
+                {% if report.commentReports|length > 0 %}
+                    {% set widthComments = 48 %}
+
+                    <div class="comments-mentors">
+                        <fieldset>
+                            <legend>{{ report.commentReports|length > 1 ? 'Commentaires':'Commentaire'}} de la hiérarchie</legend>
+
+                            {% for comment in report.commentReports|sort|reverse  %}
+
+                                <div class="comments-mentors-box">
+                                    {{ comment.content|raw }}
+                                    <div class="comments-footer">
+                                        <div><em>Ecrit le : </em>{{ comment.dateAt|date('d/m/Y') }}</div>
+
+                                        {% if app.user == comment.author %}
+                                        <div class="comments-footer-buttonsBox">
+                                            {{ include('report/partiels/_delete_comment.html.twig') }}
+                                        </div>
+                                        {% endif %}
+
+                                        {#FIXME: Mettre lien pour l'envoie d'un message #}
+                                        <div><em>Auteur : </em>{{ comment.author.firstName|capitalize }} {{ comment.author.lastName|slice(0, 1)|capitalize }}.<a href="#" title="Envoyer un message"><i class="far fa-envelope ml-2"></i></a></div>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+
+                        </fieldset>
+
+                    </div>
+                {% endif %}
+
+                <div class="comments-student" style="width: {{ widthComments }}%;">
+                    <fieldset>
+                        <legend>Commentaire du formé</legend>
+                        <div class="comments-text">{{ report.studentComments|raw }}</div>
+                    </fieldset>
+                </div>
+            </div>
+
+            {% if is_granted('ROLE_TEACHER') %}
+                <button class="btn btn-warning" title="Ecrire un commentaire" data-toggle="modal" data-target="#modalCommentReport"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
+            {% endif %}
+
+        </div>
+    </div>
+
+    {{ include('report/partiels/_modalCommentReport.html.twig') }}
+
+{% endblock %}

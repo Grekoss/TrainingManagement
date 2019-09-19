@@ -59,6 +59,22 @@ class DataProvider extends \Faker\Provider\Base
         'Quel anniversaire Fort Boyard a-t-ilfêté cette année ?'
     ];
 
+    protected static $positions = [
+        'Boissons / Desserts',
+        'OAT',
+        'Piano',
+        'Frites',
+        'Encaissement comptoir',
+        'Position libre',
+        'Cuisson Viandes',
+        'Cuisson Fries',
+        'UHC',
+        'Garnitures',
+        'Pains',
+        'Casque drive',
+        'Controle drive'
+    ];
+
     public function tagName()
     {
         return static::randomElement(static::$tags);
@@ -67,5 +83,10 @@ class DataProvider extends \Faker\Provider\Base
     public function quizName()
     {
         return static::randomElement(static::$quizzes);
+    }
+
+    public function positionName()
+    {
+        return static::randomElement(static::$positions);
     }
 }

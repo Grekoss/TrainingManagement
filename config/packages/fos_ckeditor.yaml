@@ -1,0 +1,17 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+fos_ck_editor:
+  default_config: base_config
+  configs:
+    base_config:
+      language: fr
+      toolbar: 'simple_toolbar'
+    goal:
+      language: fr
+      toolbar: 'goal'
+
+  toolbars:
+    configs:
+      simple_toolbar: [ ['Bold', 'Italic', 'Underline' ], ['TextColor', 'BGColor'], ['BulletedList'], ['Smiley'], ['Scayt']]
+      goal: [ ['Bold', 'Italic', 'Underline' ], ['TextColor', 'BGColor'], ['BulletedList'], ['Scayt']]
+

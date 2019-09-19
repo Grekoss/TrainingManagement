@@ -3,15 +3,19 @@
 namespace App\DataFixtures;
 
 use App\DataFixtures\FakerProvider\DataProvider;
+use App\Entity\CommentReport;
 use App\Entity\Mentor;
 use App\Entity\Question;
 use App\Entity\Quiz;
+use App\Entity\Report;
 use App\Entity\Result;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Enum\FunctionEnum;
 use App\Enum\LevelEnum;
 use App\Enum\RoleEnum;
-use App\Repository\QuestionRepository;
+use App\Enum\ShiftEnum;
+use App\Enum\ZoneEnum;
 use App\Service\Slugger;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -21,13 +25,16 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AppFixtures extends Fixture
 {
     //Paramatres pour les tests de la base de données:
-    const NB_USERS = 20; // Nombre de création d'étudiants
-    const NB_MENTORS = 5; // Nombre de mentors
-    const NB_TAGS = 5; // Nombre de tags
-    const NB_QUIZZES = 20; // Nombre de Questionnaires
-    const NB_QUESTIONS_MIN = 5; // Nombre de questions minimum
-    const NB_QUESTIONS_MAX = 10; // Nombre de questions maximum
-    const NB_RESULTS = 100; // Nombre de réponses
+    const NB_USERS = 20;                    // Nombre de création d'étudiants
+    const NB_MENTORS = 5;                   // Nombre de mentors
+    const NB_TAGS = 5;                      // Nombre de tags
+    const NB_QUIZZES = 20;                  // Nombre de Questionnaires
+    const NB_QUESTIONS_MIN = 5;             // Nombre de questions minimum
+    const NB_QUESTIONS_MAX = 10;            // Nombre de questions maximum
+    const NB_RESULTS = 100;                 // Nombre de réponses
+    const NB_REPORTS = 100;                 // Nombre de rapports
+    const NB_COMMENTS_REPORT_MIN = 0;       // Nombre de commentaires d'un rapport minimum
+    const NB_COMMENTS_REPORT_MAX = 10;      // Nombre de commentaires d'un rapport maximum
 
     private $generator;
     private $encoder;
@@ -39,6 +46,7 @@ class AppFixtures extends Fixture
     private $listTags;
     private $listQuizzes;
     private $listQuestions;
+    private $listReports;
 
     public function __construct(UserPasswordEncoderInterface $encoder, ObjectManager $manager, Slugger $slugger)
     {
@@ -64,7 +72,11 @@ class AppFixtures extends Fixture
         $this->listQuestions = $this->createQuestions();
         dump('===============================');
         $this->createResultsQuizzes();
-
+        dump('===============================');
+        $this->listReports = $this->createReport();
+        dump('===============================');
+        $this->createCommentReport();
+        dump('===============================');
     }
 
     public function createUsers()
@@ -108,7 +120,11 @@ class AppFixtures extends Fixture
             $rand = array_rand($this->listUsers);
             $randUser = $this->listUsers[$rand];
 
+            $function = [FunctionEnum::ZONE_MANAGER, FunctionEnum::MANAGER, FunctionEnum::DEPUTY_DIRECTOR, FunctionEnum::DIRECTOR];
+            shuffle($function);
+
             $randUser->setRoles(RoleEnum::ROLE_TEACHER[0])
+                ->setFunction($function[0])
                 ->setIsActive(true);
 
             $this->manager->persist($randUser);
@@ -225,12 +241,11 @@ class AppFixtures extends Fixture
 
         for ( $i=0 ; $i<count($this->listQuizzes) ; $i++ ) {
             $quiz = $this->listQuizzes[$i];
-            dump('');
             dump($quiz->getTitle());
 
             // Nombre aléatoir pour choisir le nombre de question entre 3 et 5
             $randQuestions = rand(self::NB_QUESTIONS_MIN, self::NB_QUESTIONS_MAX);
-            dump($randQuestions);
+            dump($randQuestions . '\n');
 
             for ( $y=0 ; $y<$randQuestions ; $y++ ) {
                 // random sur la difficultée
@@ -311,6 +326,77 @@ class AppFixtures extends Fixture
             $this->manager->flush();
 
             dump($result->getStudent()->getFirstName() . ' a répondu ' . $result->getScore() . '% de bonnes réponses !');
+        }
+    }
+
+    public function createReport()
+    {
+        $listReports = array();
+
+        for ( $i=0 ; $i<self::NB_REPORTS ; $i++ ) {
+
+            // On récupere le moment de la journée et on l'attribut aléatoirement tout comme la zone
+            $rush = ShiftEnum::getConstants();
+            $rushKey = array_keys($rush);
+            shuffle($rushKey);
+
+            $zone = ZoneEnum::getConstants();
+            $zoneKey = array_keys($zone);
+            shuffle($zoneKey);
+
+            shuffle($this->listMentors);
+            shuffle($this->listUsers);
+
+            $report = new Report();
+            $report->setDateAt($this->generator->dateTimeBetween('-6 months', 'now'))
+                ->setRushOf($rush[$rushKey[0]])
+                ->setStartAt($this->generator->dateTime())
+                ->setStopAt($this->generator->dateTime())
+                ->setManager($this->listMentors[0])
+                ->setZone($zone[$zoneKey[0]])
+                ->setPosition($this->generator->positionName())
+                ->setIsResponsible($this->generator->boolean)
+                ->setGoals($this->generator->text(100))
+                ->setStudentComments($this->generator->text(400))
+                ->setFeelRush(rand(0,5))
+                ->setStudent($this->listUsers[0])
+                ->setIsSeen($this->generator->boolean);
+
+            $this->manager->persist($report);
+            $this->manager->flush();
+
+            dump('L\'étudiant ' . $report->getStudent()->getFirstName() . ' ' . $report->getStudent()->getLastName()[0] . '. a écrit un rapport. Il était posté en ' . $report->getZone());
+
+            $listReports[] = $report;
+        }
+
+        return $listReports;
+    }
+
+    public function createCommentReport()
+    {
+        for ( $i=0 ; $i<count($this->listReports) ; $i++ ) {
+
+            for ( $j=0 ; $j<rand(self::NB_COMMENTS_REPORT_MIN, self::NB_COMMENTS_REPORT_MAX) ; $j++ ) {
+
+                shuffle($this->listMentors);
+
+                $comment = new CommentReport();
+                $comment->setDateAt($this->generator->dateTimeBetween($this->listReports[$i]->getDateAt(), 'now'))
+                    ->setAuthor($this->listMentors[0])
+                    ->setContent($this->generator->text(rand(100, 200)))
+                    ->setReport($this->listReports[$i]);
+
+                $this->manager->persist($comment);
+                $this->manager->flush();
+
+                // Convertion du format de la date pour l'afficher dans le dump
+                $date = $this->listReports[$i]->getDateAt();
+                $seeDate = $date->format('d/m/Y');
+
+                dump('Commentaire n°' . $j . ' du rapport du ' . $seeDate . ' de ' . $this->listReports[$i]->getStudent()->getFirstName() . ' ' . $this->listReports[$i]->getStudent()->getLastName()[0] . '.');
+            }
+
         }
     }
 }
