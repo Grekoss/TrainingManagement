@@ -1,0 +1,109 @@
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+
+
+.pdf::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-pdf);
+  color: red;
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.xls::before,
+.xlsx::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-excel);
+  color: green;
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.doc::before,
+.docx::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-word);
+  color: blue;
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.jpeg::before, .jpg::before,
+.png::before, .gif::before,
+.bmp::before, .tif::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-image);
+  color: orange;
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.avi::before, .mov::before,
+.mpg::before, .wma::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-video);
+  color: grey;
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.zip::before, .rar::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-archive);
+  color: yellow;
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.link-icon {
+  display: flex;
+}
+
+.btn-category {
+  background-color: #dfdfdf;
+  border: solid 1px #6f6f6f;
+  display: block;
+  height: 200px;
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.4s;
+  width: 270px;
+}
+
+.btn-category:hover {
+  text-decoration: none;
+  transform: scale(1.15);
+}
+
+.btn-category div {
+  color: #117700;
+  font-weight: bold;
+}
+
+img {
+  border-radius: 15px;
+  margin: auto;
+  max-height: 150px;
+  max-width: 250px;
+}
+
+.container-buttons-lessons a:nth-child(2) {
+  padding: 20px 0;
+}
+.container-buttons-lessons a:nth-child(2) img {
+  height: 150px;
+}

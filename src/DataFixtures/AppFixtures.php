@@ -3,7 +3,9 @@
 namespace App\DataFixtures;
 
 use App\DataFixtures\FakerProvider\DataProvider;
+use App\Entity\CategoryLesson;
 use App\Entity\CommentReport;
+use App\Entity\Lesson;
 use App\Entity\Mentor;
 use App\Entity\Question;
 use App\Entity\Quiz;
@@ -11,6 +13,7 @@ use App\Entity\Report;
 use App\Entity\Result;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Enum\CategoryEnum;
 use App\Enum\FunctionEnum;
 use App\Enum\LevelEnum;
 use App\Enum\RoleEnum;
@@ -35,6 +38,7 @@ class AppFixtures extends Fixture
     const NB_REPORTS = 100;                 // Nombre de rapports
     const NB_COMMENTS_REPORT_MIN = 0;       // Nombre de commentaires d'un rapport minimum
     const NB_COMMENTS_REPORT_MAX = 10;      // Nombre de commentaires d'un rapport maximum
+    const NB_LESSONS = 100;                 // Nombre de leçons
 
     private $generator;
     private $encoder;
@@ -76,6 +80,8 @@ class AppFixtures extends Fixture
         $this->listReports = $this->createReport();
         dump('===============================');
         $this->createCommentReport();
+        dump('===============================');
+        $this->createLessons();
         dump('===============================');
     }
 
@@ -397,6 +403,34 @@ class AppFixtures extends Fixture
                 dump('Commentaire n°' . $j . ' du rapport du ' . $seeDate . ' de ' . $this->listReports[$i]->getStudent()->getFirstName() . ' ' . $this->listReports[$i]->getStudent()->getLastName()[0] . '.');
             }
 
+        }
+    }
+
+    public function createLessons()
+    {
+        for ( $i=0 ; $i<self::NB_LESSONS ; $i++ ) {
+            $categories = CategoryEnum::getConstants();
+            $categoriesKey = array_keys($categories);
+            shuffle($categoriesKey);
+
+
+            shuffle($this->listMentors);
+            $date = $this->generator->dateTimeBetween('-1 year', 'now');
+
+            $lesson = new Lesson();
+
+            $lesson->setCreateBy($this->listMentors[0])
+                ->setTitle($this->generator->sentence(5))
+                ->setCreatedAt($date)
+                ->setUpdatedAt($date)
+                ->setFile('faker/FAKER.pdf')
+                ->setDescription($this->generator->paragraph(2))
+                ->setCategory($categories[$categoriesKey[0]]);
+
+            $this->manager->persist($lesson);
+            $this->manager->flush();
+
+            dump('Leçon n°' . $i . ' : ' . $lesson->getTitle());
         }
     }
 }

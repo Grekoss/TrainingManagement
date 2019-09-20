@@ -122,6 +122,11 @@ class User implements UserInterface, EquatableInterface
      */
     private $commentReports;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Lesson", mappedBy="createBy")
+     */
+    private $lessons;
+
     public function __construct()
     {
         $this->role = RoleEnum::ROLE_USER[0];
@@ -133,6 +138,7 @@ class User implements UserInterface, EquatableInterface
         $this->function = FunctionEnum::TEAM_MEMBER;
         $this->reports = new ArrayCollection();
         $this->commentReports = new ArrayCollection();
+        $this->lessons = new ArrayCollection();
     }
 
     public function __toString()
@@ -458,6 +464,37 @@ class User implements UserInterface, EquatableInterface
             // set the owning side to null (unless already changed)
             if ($commentReport->getAuthor() === $this) {
                 $commentReport->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lesson[]
+     */
+    public function getLessons(): Collection
+    {
+        return $this->lessons;
+    }
+
+    public function addLesson(Lesson $lesson): self
+    {
+        if (!$this->lessons->contains($lesson)) {
+            $this->lessons[] = $lesson;
+            $lesson->setCreateBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): self
+    {
+        if ($this->lessons->contains($lesson)) {
+            $this->lessons->removeElement($lesson);
+            // set the owning side to null (unless already changed)
+            if ($lesson->getCreateBy() === $this) {
+                $lesson->setCreateBy(null);
             }
         }
 
