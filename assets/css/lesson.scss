@@ -66,19 +66,24 @@
   display: flex;
 }
 
-button {
+.btn-category {
+  background-color: #dfdfdf;
+  border: solid 1px #6f6f6f;
+  display: block;
   height: 200px;
   margin: 10px;
   padding: 20px;
+  text-align: center;
   transition: all 0.4s;
   width: 270px;
 }
 
-button:hover {
+.btn-category:hover {
+  text-decoration: none;
   transform: scale(1.15);
 }
 
-button div {
+.btn-category div {
   color: #117700;
   font-weight: bold;
 }

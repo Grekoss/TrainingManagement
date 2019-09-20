@@ -1,0 +1,36 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}{{ slug }} - Lecons{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('lesson') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('app_lesson') }}" class="btn btn-outline-secondary d-flex flex-column justify-content-center">Retour</a>
+        <h1>{{ title }}</h1>
+    </div>
+
+
+    <div class="list-group my-2">
+
+        {% for item in list %}
+            <a href="{{ asset( item.file ) }}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ item.title }}</h5>
+                <p class="mb-1">{{ item.description|truncate(225, true) }}</p>
+                <div class="d-flex w-100 justify-content-between">
+                    {% if item.file %}
+                        <div class="{{ item.extension }} link-icon"></div>
+                    {% endif %}
+                    <small class="my-auto">{{ item.updatedAt|date('d/m/Y') }}</small>
+                </div>
+            </a>
+        {% else %}
+            <div>Aucun enregistrement actuellement</div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

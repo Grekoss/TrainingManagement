@@ -153,4 +153,12 @@ class Lesson
 
         return strtolower($extension[1]);
     }
+
+    public function getSlug()
+    {
+        $str = mb_strtolower($this->category, 'UTF-8');
+        $str = str_replace(" ","", $str);
+
+        return $str;
+    }
 }
