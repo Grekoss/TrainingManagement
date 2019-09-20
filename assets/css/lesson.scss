@@ -7,6 +7,7 @@
   @extend %fa-icon;
   @extend .far;
   content: fa-content($fa-var-file-pdf);
+  color: red;
   font-size: 20px;
   margin: auto;
   padding-right: 0.5em;
@@ -17,6 +18,7 @@
   @extend %fa-icon;
   @extend .far;
   content: fa-content($fa-var-file-excel);
+  color: green;
   font-size: 20px;
   margin: auto;
   padding-right: 0.5em;
@@ -27,6 +29,7 @@
   @extend %fa-icon;
   @extend .far;
   content: fa-content($fa-var-file-word);
+  color: blue;
   font-size: 20px;
   margin: auto;
   padding-right: 0.5em;
@@ -38,6 +41,7 @@
   @extend %fa-icon;
   @extend .far;
   content: fa-content($fa-var-file-image);
+  color: orange;
   font-size: 20px;
   margin: auto;
   padding-right: 0.5em;
@@ -48,6 +52,7 @@
   @extend %fa-icon;
   @extend .far;
   content: fa-content($fa-var-file-video);
+  color: grey;
   font-size: 20px;
   margin: auto;
   padding-right: 0.5em;
@@ -57,6 +62,7 @@
   @extend %fa-icon;
   @extend .far;
   content: fa-content($fa-var-file-archive);
+  color: yellow;
   font-size: 20px;
   margin: auto;
   padding-right: 0.5em;
