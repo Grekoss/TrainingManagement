@@ -1,20 +1,42 @@
 {% extends 'baseMain.html.twig' %}
 
-{% block title %}Hello LessonController!{% endblock %}
+{% block title %}Lecons{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('lesson') }}
 {% endblock %}
 
 {% block content %}
-    <nav class="nav nav-tabs">
-        <a href="#foodSafety" class="nav-item nav-link active" data-toggle="tab">Sécurité Alimentaire</a>
-        <a href="#" class="nav-item nav-link" data-toggle="tab">Comptoir</a>
-        <a href="#" class="nav-item nav-link" data-toggle="tab">Cuisine</a>
-    </nav>
 
-    <div class="tab-content">
-        {% include('lesson/partiels/_foodSafety.html.twig') %}
+    <div class="d-flex w-100 flex-wrap">
+        <button>
+            <img src="{{ asset('assets/images/buttons/foodSafty.png') }}">
+            <div>Sécurité Alimentaire - ({{ listFoodSafety|length }})</div>
+        </button>
+        <button>
+            <img src="{{ asset('assets/images/buttons/management.png') }}">
+            <div>Gestion de quart  - ({{ listManagement|length }})</div>
+        </button>
+        <button>
+            <img src="{{ asset('assets/images/buttons/counter.png') }}">
+            <div>Comptoir  - ({{ listCounter|length }})</div>
+        </button>
+        <button>
+            <img src="{{ asset('assets/images/buttons/kitchen.jpg') }}">
+            <div>Cuisine  - ({{ listKitchen|length }})</div>
+        </button>
+        <button>
+            <img src="{{ asset('assets/images/buttons/administation.jpg') }}">
+            <div>Administration  - ({{ listAdministration|length }})</div>
+        </button>
+        <button>
+            <img src="{{ asset('assets/images/buttons/PEP.png') }}">
+            <div>PEP  - ({{ listPEP|length }})</div>
+        </button>
+        <button>
+            <img src="{{ asset('assets/images/buttons/various.png') }}">
+            <div>Divers  - ({{ listVarious|length }})</div>
+        </button>
     </div>
 
 {% endblock %}

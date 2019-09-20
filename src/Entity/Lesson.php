@@ -32,7 +32,7 @@ class Lesson
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $description;
 
@@ -48,7 +48,7 @@ class Lesson
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CategoryLesson", inversedBy="lessons")
+     * @ORM\Column(type="string", length=255)
      */
     private $category;
 
@@ -135,15 +135,22 @@ class Lesson
         return $this;
     }
 
-    public function getCategory(): ?CategoryLesson
+    public function getCategory(): ?string
     {
         return $this->category;
     }
 
-    public function setCategory(?CategoryLesson $category): self
+    public function setCategory(string $category): self
     {
         $this->category = $category;
 
         return $this;
+    }
+
+    public function getExtension()
+    {
+        $extension = explode('.', $this->file);
+
+        return strtolower($extension[1]);
     }
 }

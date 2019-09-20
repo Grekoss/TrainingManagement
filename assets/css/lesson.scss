@@ -1,0 +1,91 @@
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+
+
+.pdf::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-pdf);
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.xls::before,
+.xlsx::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-excel);
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.doc::before,
+.docx::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-word);
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.jpeg::before, .jpg::before,
+.png::before, .gif::before,
+.bmp::before, .tif::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-image);
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.avi::before, .mov::before,
+.mpg::before, .wma::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-video);
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.zip::before, .rar::before {
+  @extend %fa-icon;
+  @extend .far;
+  content: fa-content($fa-var-file-archive);
+  font-size: 20px;
+  margin: auto;
+  padding-right: 0.5em;
+}
+
+.link-icon {
+  display: flex;
+}
+
+button {
+  height: 200px;
+  margin: 10px;
+  padding: 20px;
+  transition: all 0.4s;
+  width: 270px;
+}
+
+button:hover {
+  transform: scale(1.15);
+}
+
+button div {
+  color: #117700;
+  font-weight: bold;
+}
+
+img {
+  border-radius: 15px;
+  margin: auto;
+  max-height: 150px;
+  max-width: 250px;
+}

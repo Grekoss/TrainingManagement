@@ -13,6 +13,7 @@ use App\Entity\Report;
 use App\Entity\Result;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Enum\CategoryEnum;
 use App\Enum\FunctionEnum;
 use App\Enum\LevelEnum;
 use App\Enum\RoleEnum;
@@ -37,7 +38,6 @@ class AppFixtures extends Fixture
     const NB_REPORTS = 100;                 // Nombre de rapports
     const NB_COMMENTS_REPORT_MIN = 0;       // Nombre de commentaires d'un rapport minimum
     const NB_COMMENTS_REPORT_MAX = 10;      // Nombre de commentaires d'un rapport maximum
-    const NB_CATEGORIES = 5;                // Nombre de catégories
     const NB_LESSONS = 100;                 // Nombre de leçons
 
     private $generator;
@@ -51,7 +51,6 @@ class AppFixtures extends Fixture
     private $listQuizzes;
     private $listQuestions;
     private $listReports;
-    private $listCategories;
 
     public function __construct(UserPasswordEncoderInterface $encoder, ObjectManager $manager, Slugger $slugger)
     {
@@ -81,8 +80,6 @@ class AppFixtures extends Fixture
         $this->listReports = $this->createReport();
         dump('===============================');
         $this->createCommentReport();
-        dump('===============================');
-        $this->listCategories = $this->createCategory();
         dump('===============================');
         $this->createLessons();
         dump('===============================');
@@ -409,48 +406,26 @@ class AppFixtures extends Fixture
         }
     }
 
-    public function createCategory()
-    {
-        $list = array();
-
-        for ( $i=0 ; $i<self::NB_CATEGORIES ; $i++ ) {
-            $rand = rand(1, 5);
-
-            for ( $j=0 ; $j<$rand ; $j++ ) {
-                $category = new CategoryLesson();
-
-                $category->setTitle('Titre ' . $i);
-                $category->setSubtitle('Sous-titre ' . $j);
-
-                $this->manager->persist($category);
-                $this->manager->flush();
-
-                dump($category->getId() . ' ' . $category->getTitle() . ' -> ' . $category->getSubtitle());
-
-                $list[] = $category;
-            }
-        }
-
-        return $list;
-    }
-
     public function createLessons()
     {
         for ( $i=0 ; $i<self::NB_LESSONS ; $i++ ) {
+            $categories = CategoryEnum::getConstants();
+            $categoriesKey = array_keys($categories);
+            shuffle($categoriesKey);
+
+
             shuffle($this->listMentors);
-            shuffle($this->listCategories);
             $date = $this->generator->dateTimeBetween('-1 year', 'now');
 
             $lesson = new Lesson();
-
 
             $lesson->setCreateBy($this->listMentors[0])
                 ->setTitle($this->generator->sentence(5))
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date)
                 ->setFile('faker/FAKER.pdf')
-                ->setDescription($this->generator->paragraph(5))
-                ->setCategory($this->listCategories[0]);
+                ->setDescription($this->generator->paragraph(2))
+                ->setCategory($categories[$categoriesKey[0]]);
 
             $this->manager->persist($lesson);
             $this->manager->flush();

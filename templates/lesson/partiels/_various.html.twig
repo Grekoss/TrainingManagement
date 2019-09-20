@@ -1,0 +1,22 @@
+<div class="tab-pane active" id="various">
+    <div class="list-group">
+
+        {% for various in listVarious %}
+            <a href="{{ asset( various.file ) }}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ various.title }}</h5>
+                <p class="mb-1">{{ various.description|truncate(225, true) }}</p>
+                <div class="d-flex w-100 justify-content-between">
+                    {% if various.file %}
+                        <div class="{{ various.extension }} link-icon"></div>
+                    {% endif %}
+                    <small class="my-auto">{{ various.updatedAt|date('d/m/Y') }}</small>
+                </div>
+{#                FIXME: A retirer#}
+                {{ dump(various.category) }}
+            </a>
+        {% else %}
+            <div>Aucun enregistrement actuellement</div>
+        {% endfor %}
+
+    </div>
+</div>
