@@ -8,6 +8,15 @@
 
 {% block content %}
 
-    <div>TEST</div>
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
+    <div class="container">
+        <div class="row">
+            {{ form_start(formInvitation) }}
+            {{ form_widget(formInvitation.email) }}
+            <button class="btn btn-outline-dark m-auto" type="submit">Inviter</button>
+            {{ form_end(formInvitation) }}
+        </div>
+    </div>
 
 {% endblock %}

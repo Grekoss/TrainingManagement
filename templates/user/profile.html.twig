@@ -7,6 +7,9 @@
 {% block title %}{{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}{% endblock %}
 
 {% block content %}
+
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
     <nav class="nav nav-tabs">
 {#        <a href="#messages" class="nav-item nav-link active" data-toggle="tab">Messages</a>#}
         <a href="#results" class="nav-item nav-link active" data-toggle="tab">Résultats</a>

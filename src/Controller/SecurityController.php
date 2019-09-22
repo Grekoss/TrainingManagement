@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ForgotPasswordType;
 use App\Repository\UserRepository;
+use App\Service\Random;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,38 +46,10 @@ class SecurityController extends AbstractController
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 
-    public function randomPassword($choice = 'all', $size = 10)
-    {
-        $numeric = '0123456789';
-        $alpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        switch ($choice) {
-            case 'numeric':
-                $code = $numeric;
-                break;
-            case 'alpha':
-                $code = $alpha;
-                break;
-            case 'all':
-                $code = $numeric . $alpha;
-                break;
-        }
-
-        $pass = array();
-        $alphaLength = strlen($code) - 1;
-
-        for ( $i=0 ; $i<$size ; $i++ ) {
-            $n = rand(0, $alphaLength);
-            $pass[] = $code[$n];
-        }
-
-        return implode($pass);
-    }
-
     /**
      * @Route("/forgotPassword", name="app_forgot_password")
      */
-    public function forgotPassword(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, ObjectManager $manager, Swift_Mailer $mailer)
+    public function forgotPassword(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, ObjectManager $manager, Swift_Mailer $mailer, Random $random)
     {
         $formForgotPassword = $this->createForm(ForgotPasswordType::class);
         $formForgotPassword->handleRequest($request);
@@ -96,7 +69,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_forgot_password');
             }
 
-            $newPassword = $this->randomPassword();
+            $newPassword = $random->randomPassword('all', 10);
             $user->setPassword($encoder->encodePassword($user, $newPassword))
                 ->setUpdatedAt(new \DateTime());
             $manager->persist($user);
