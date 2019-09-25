@@ -1,2 +1,14 @@
-{{ dump(data) }}
-{{ dump(token) }}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Invitation</title>
+    </head>
+    <body>
+        <h1>Inscription</h1>
+        <p>Vous êtes invité à vous inscrire à l'application mise à votre disposition pour suivre votre formation.</p>
+        <p>Utiliser ce support comme un moyen de communication, d'entrainement, d'exercices pour votre formation, votre futur nouveau poste.</p>
+        <br />
+        <a href="{{ absolute_url('/register/' ~ token ) }}">S'inscrire</a>
+    </body>
+</html>
