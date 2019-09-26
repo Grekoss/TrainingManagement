@@ -7,6 +7,7 @@ use App\Entity\CategoryLesson;
 use App\Entity\CommentReport;
 use App\Entity\Lesson;
 use App\Entity\Mentor;
+use App\Entity\Message;
 use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Entity\Report;
@@ -39,6 +40,7 @@ class AppFixtures extends Fixture
     const NB_COMMENTS_REPORT_MIN = 0;       // Nombre de commentaires d'un rapport minimum
     const NB_COMMENTS_REPORT_MAX = 10;      // Nombre de commentaires d'un rapport maximum
     const NB_LESSONS = 100;                 // Nombre de leçons
+    const NB_MESSAGES = 100;                // Nombre de messages
 
     private $generator;
     private $encoder;
@@ -82,6 +84,8 @@ class AppFixtures extends Fixture
         $this->createCommentReport();
         dump('===============================');
         $this->createLessons();
+        dump('===============================');
+        $this->createMessages();
         dump('===============================');
     }
 
@@ -431,6 +435,26 @@ class AppFixtures extends Fixture
             $this->manager->flush();
 
             dump('Leçon n°' . $i . ' : ' . $lesson->getTitle());
+        }
+    }
+
+    public function createMessages()
+    {
+        $allUsers = array_merge($this->listMentors, $this->listUsers);
+
+        for ( $i=0 ; $i<self::NB_MESSAGES ; $i++ ) {
+            shuffle($allUsers);
+
+            $message = new Message();
+            $message->setSender($allUsers[0])
+                ->setReceived($allUsers[1])
+                ->setWriteAt($this->generator->dateTimeBetween('-60 months', 'now'))
+                ->setContent($this->generator->text(200));
+
+            $this->manager->persist($message);
+            $this->manager->flush();
+
+            dump($message->getSender()->getFirstName() . ' a écrit un message à ' . $message->getReceived()->getFirstName());
         }
     }
 }
