@@ -27,6 +27,8 @@ import imgQuestion from '../images/backgrounds/question.jpg';
 import imgReport from '../images/backgrounds/report.jpg';
 import imgLesson from '../images/backgrounds/lesson.jpg';
 import imgCommunication from '../images/backgrounds/communication.jpg';
+import imgTeacher from '../images/backgrounds/teacher.jpg';
+import imgWelcome from '../images/backgrounds/welcome.jpg';
 
 let app = {
     init: function() {
@@ -58,6 +60,14 @@ let app = {
 
             case 'communication' :
                 elmt[0].style.backgroundImage = 'url(' + imgCommunication + ')';
+                break;
+
+            case 'teacher' :
+                elmt[0].style.backgroundImage = 'url(' + imgTeacher + ')';
+                break;
+
+            case 'register' :
+                elmt[0].style.backgroundImage = 'url(' + imgWelcome + ')';
                 break;
 
             default:

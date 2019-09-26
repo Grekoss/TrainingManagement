@@ -1,0 +1,41 @@
+{#FIXME: Faire mieux#}
+
+<header>
+    <style>
+        table, td {
+            border: 1px solid #333;
+        }
+    </style>
+</header>
+
+<body>
+<h1>Votre nouveau mot de passe!</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th colspan="2">Voici votre nouveau mot de passe</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td style="color: white; background-color:black; font-weight:bold;">Votre Speudo</td>
+        <td style="color: white; background-color:black; font-weight:bold;">Votre nouveau mot de passe</td>
+    </tr>
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ newPassword }}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th colspan="2">
+            <a href="{{ absolute_url('/') }}" role="button"
+               style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 4.8px; line-height: 30px; display: inline-block; font-weight: normal; white-space: nowrap; background-color: #007bff; color: #ffffff; padding: 8px 16px; border: 1px solid #007bff;">
+                Se connecter
+            </a>
+        </th>
+    </tr>
+    </tfoot>
+</table>
+</body>

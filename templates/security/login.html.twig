@@ -16,6 +16,8 @@
                         <div class="alert alert-danger my-2">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
 
+                    {% include('partiels/_messageFlashes.html.twig') %}
+
                     <span class="login100-form-title">
                         Connexion au compte
                     </span>
@@ -49,8 +51,7 @@
                     </div>
 
                     <div class="container-login100-forgot">
-                        <a href="#" class="txt2">
-{#                            FIXME: Faire le lien#}
+                        <a href="{{ path('app_forgot_password') }}" class="txt2" title="Mot de passe oublié">
                             Mot de passe
                         </a>
                         <span class="txt1">
@@ -69,6 +70,7 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
 
 {% block javascripts %}

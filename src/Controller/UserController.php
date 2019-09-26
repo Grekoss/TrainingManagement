@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\NewUserType;
 use App\Form\UserProfileType;
+use App\Repository\InvitationRepository;
 use App\Repository\MentorRepository;
 use App\Repository\ResultRepository;
+use App\Service\Slugger;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -119,6 +122,52 @@ class UserController extends AbstractController
 
         return $this->render('user/update.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/register/{token}", name="app_user_new")
+     */
+    public function createUser($token, InvitationRepository $invitationRepository, Request $request, UserPasswordEncoderInterface $encoder, Slugger $slugger, ObjectManager $manager)
+    {
+        // On recherche si une invitation a été envoyé en vérifiant le Token
+        $searchToken = $invitationRepository->findOneBy(['token' => $token]);
+
+        $user = new User();
+
+        $form = $this->createForm(NewUserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // on doit comparer le token et l'adresse mail si ok, alors on supprimer l'inviation et confirmer l'inscription sinon, on annonce le problème
+            if ($searchToken->getToken() === $token && $searchToken->getMail() === $user->getEmail()) {
+                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+                $user->setSlug($slugger->slugify($user->getFirstName() . ' ' . $user->getLastName()));
+
+                $manager->persist($user);
+
+                $manager->remove($searchToken);
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Votre inscription est validé !'
+                );
+
+                return $this->redirectToRoute('app_login');
+
+            } else {
+                $this->addFlash(
+                    'danger',
+                    'Vous n\'avez pas access pour vous inscrire ! Si cela est une erreur, merci de contacter un administateur'
+                );
+            }
+        }
+
+        return $this->render('user/new.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
