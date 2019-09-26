@@ -146,6 +146,9 @@ class UserController extends AbstractController
                 $user->setSlug($slugger->slugify($user->getFirstName() . ' ' . $user->getLastName()));
 
                 $manager->persist($user);
+
+                $manager->remove($searchToken);
+
                 $manager->flush();
 
                 $this->addFlash(
@@ -154,6 +157,7 @@ class UserController extends AbstractController
                 );
 
                 return $this->redirectToRoute('app_login');
+
             } else {
                 $this->addFlash(
                     'danger',
