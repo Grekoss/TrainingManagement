@@ -97,7 +97,7 @@
                                         {% endif %}
 
                                         {#FIXME: Mettre lien pour l'envoie d'un message #}
-                                        <div><em>Auteur : </em>{{ comment.author.firstName|capitalize }} {{ comment.author.lastName|slice(0, 1)|capitalize }}.<a href="#" title="Envoyer un message"><i class="far fa-envelope ml-2"></i></a></div>
+                                        <div><em>Auteur : </em>{{ comment.author.firstName|capitalize }} {{ comment.author.lastName|slice(0, 1)|capitalize }}.<a href="{{ path('app_send_message_report', {'user': comment.author.id, 'report': comment.report.id}) }}" title="Envoyer un message"><i class="far fa-envelope ml-2"></i></a></div>
                                     </div>
                                 </div>
 
@@ -117,7 +117,7 @@
             </div>
 
             {% if is_granted('ROLE_TEACHER') %}
-                <button class="btn btn-warning" title="Ecrire un commentaire" data-toggle="modal" data-target="#modalCommentReport"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
+                <button class="btn btn-warning m-auto" title="Ecrire un commentaire" data-toggle="modal" data-target="#modalCommentReport"><i class="fas fa-plus-circle mr-2"></i>Ajouter un commentaire</button>
             {% endif %}
 
         </div>

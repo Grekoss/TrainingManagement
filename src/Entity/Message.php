@@ -38,6 +38,11 @@ class Message
      */
     private $content;
 
+    public function __construct()
+    {
+        $this->writeAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

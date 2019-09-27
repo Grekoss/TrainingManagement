@@ -1,0 +1,14 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Hello CommunicationController!{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('communication') }}
+{% endblock %}
+
+{% block content %}
+{{ form_start(form)}}
+    {{ form_row(form.content) }}
+    <button class="btn btn-outline-success">Envoyer</button>
+{{ form_end(form) }}
+{% endblock %}
