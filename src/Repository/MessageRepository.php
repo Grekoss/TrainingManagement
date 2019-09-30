@@ -27,7 +27,24 @@ class MessageRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('m')
             ->orWhere('m.received = :user')
             ->orWhere('m.sender = :user')
+            ->orderBy('m.writeAt', 'DESC')
             ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Message[] Retourne un tableau de messages regroupant deux utilisateurs
+     */
+    public function messagesForTwoUsers($mainUser, $secondaryUser)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.sender = :mainUser')
+            ->andWhere('m.received = :secondaryUser')
+            ->setParameter('mainUser', $mainUser)
+            ->setParameter('secondaryUser', $secondaryUser)
+            ->orderBy('m.writeAt', 'DESC')
             ->getQuery()
             ->getResult()
             ;

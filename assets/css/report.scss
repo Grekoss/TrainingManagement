@@ -19,22 +19,6 @@ p.ratingBox-event {
   height: 50px;
 }
 
-.report-show-1::before {
-  @extend %fa-icon;
-  @extend .fas;
-  color: $success;
-  content: fa-content($fa-var-check-circle);
-  font-size: 30px;
-}
-
-.report-show-::before {
-  @extend %fa-icon;
-  @extend .fas;
-  color: $danger;
-  content: fa-content($fa-var-times-circle);
-  font-size: 30px;
-}
-
 /* ==========[SHOW]========== */
 ul {
   list-style: circle;

@@ -1,6 +1,7 @@
 @import 'reset';
 @import '~bootstrap/scss/bootstrap';
-
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
 
 @font-face {
     font-family: GochiHand-Regular;
@@ -11,6 +12,8 @@
 // Variables de bootsrap modifié pour le projet:
 $success: #00ad5f;
 $danger: #c80000;
+$posteYellow: #FFEA31;
+$posteBlue: #003D8F;
 
 body {
     background-color: lightgray;
@@ -154,4 +157,20 @@ body {
     color: #fff;
     background-color: #dc3545;
     font-size: 12px !important;
+}
+
+.array-show-1::before {
+    @extend %fa-icon;
+    @extend .fas;
+    color: $success;
+    content: fa-content($fa-var-check-circle);
+    font-size: 30px;
+}
+
+.array-show-::before {
+    @extend %fa-icon;
+    @extend .fas;
+    color: $danger;
+    content: fa-content($fa-var-times-circle);
+    font-size: 30px;
 }

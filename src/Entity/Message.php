@@ -95,4 +95,9 @@ class Message
 
         return $this;
     }
+
+    public function getInterlocutors(): ?array
+    {
+        return [$this->getSender(), $this->getReceived()];
+    }
 }

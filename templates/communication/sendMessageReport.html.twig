@@ -1,6 +1,6 @@
 {% extends 'baseMain.html.twig' %}
 
-{% block title %}Hello CommunicationController!{% endblock %}
+{% block title %}Ecrire à {{ userReceived.firstName|capitalize }}{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('communication') }}
@@ -8,7 +8,12 @@
 
 {% block content %}
 {{ form_start(form)}}
+    <h1>Vous écrivez à :</h1>
+    <h3 class="text-center">{{ userReceived.firstName|capitalize }}</h3>
     {{ form_row(form.content) }}
-    <button class="btn btn-outline-success">Envoyer</button>
+    <div class="d-flex justify-content-around">
+        <a href="{{ path('app_report_show', {'id': report })}}" class="btn btn-outline-secondary">Retour</a>
+        <button class="btn btn-outline-success w-75">Envoyer</button>
+    </div>
 {{ form_end(form) }}
 {% endblock %}

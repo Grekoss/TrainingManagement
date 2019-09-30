@@ -9,7 +9,6 @@ use App\Form\SendMessageCommentType;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use PhpParser\Node\Stmt\Return_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,18 +20,24 @@ class CommunicationController extends AbstractController
      */
     public function index(MessageRepository $messageRepository)
     {
-        $sender = $messageRepository->findBy(['sender' => $this->getUser()]);
+        $allMessages = $messageRepository->messagesByUser($this->getUser());
 
-        $received = $messageRepository->findBy(['received' => $this->getUser()]);
+        $messages = [];
+        foreach ( $allMessages as $message) {
+            $interlocutor = $message->getInterlocutors();
+            // On supprime l'user corrant du tableau
+            unset($interlocutor[array_search($this->getUser(), $interlocutor)]);
+            // On position l'interlocuteur en index 0
+            $interlocutor = array_values($interlocutor);
 
-        $messages = $messageRepository->messagesByUser($this->getUser());
-
-        dump($sender);
-        dump($received);
+            if (!array_key_exists($interlocutor[0]->getId(), $messages)) {
+                $messages[$interlocutor[0]->getId()] = $message;
+            }
+        }
         dump($messages);
 
         return $this->render('communication/index.html.twig', [
-            'controller_name' => 'CommunicationController',
+            'messages' => $messages,
         ]);
     }
 
@@ -42,14 +47,14 @@ class CommunicationController extends AbstractController
     public function sendMessageReport($user, $report, Request $request, ObjectManager $manager, UserRepository $userRepository)
     {
         // $user ayant comme information l'ID de celui-ci, on doit lui retourner l'object User au complet à partir de celui ci
-        $user = $userRepository->findOneBy(['id' => $user]);
+        $userReceived = $userRepository->findOneBy(['id' => $user]);
 
         $message = new Message();
         $form = $this->createForm(SendMessageCommentType::class, $message);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() ) {
             $message->setSender($this->getUser())
-                ->setReceived($user);
+                ->setReceived($userReceived);
 
             $manager->persist($message);
             $manager->flush();
@@ -65,7 +70,9 @@ class CommunicationController extends AbstractController
         }
 
         return $this->render('communication/sendMessageReport.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'userReceived' => $userReceived,
+            'report' => $report
         ]);
     }
 }
