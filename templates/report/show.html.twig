@@ -96,7 +96,6 @@
                                         </div>
                                         {% endif %}
 
-                                        {#FIXME: Mettre lien pour l'envoie d'un message #}
                                         <div><em>Auteur : </em>{{ comment.author.firstName|capitalize }} {{ comment.author.lastName|slice(0, 1)|capitalize }}.<a href="{{ path('app_send_message_report', {'user': comment.author.id, 'report': comment.report.id}) }}" title="Envoyer un message"><i class="far fa-envelope ml-2"></i></a></div>
                                     </div>
                                 </div>
