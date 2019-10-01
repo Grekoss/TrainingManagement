@@ -7,13 +7,14 @@
 {% endblock %}
 
 {% block content %}
+    {{ include('partiels/_messageFlashes.html.twig') }}
     <div class="row">
         <h1 class="main-title"><i class="fas fa-mail-bulk mr-5"></i>Votre Messagerie<i class="fas fa-envelope-open-text ml-5"></i></h1>
     </div>
     <div class="row my-2 d-flex justify-content-around">
-        <a href="#" class="btn btn-outline-success"><i class="fas fa-plus-circle mr-3"></i>Ecrire une nouveau message</a>
+{#        <a href="#" class="btn btn-outline-success"><i class="fas fa-plus-circle mr-3"></i>Ecrire une nouveau message</a>#}
         <div class="userMainSender d-flex align-items-center px-2 rounded">Signifie que vous êtes la dernière personne a avoir écrit un message</div>
-        <a href="#" class="btn btn-outline-info"><i class="fas fa-user-plus mr-3"></i>Ecrire au mentor</a>
+        <a href="{{ path('communication_sendMessageForMentor') }}" class="btn btn-outline-info"><i class="fas fa-user-plus mr-3"></i>Ecrire au mentor</a>
     </div>
     <div class="row">
         <table class="table table-communication">

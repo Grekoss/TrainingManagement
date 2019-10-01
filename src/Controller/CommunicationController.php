@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Form\SendMessageReportType;
 use App\Form\SendMessageType;
+use App\Repository\MentorRepository;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -103,6 +104,39 @@ class CommunicationController extends AbstractController
             'messages' => $messages,
             'otherUser' => $userRepository->find($id),
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/communication/sendMessage", name="communication_sendMessageForMentor")
+     */
+    public function sendMessageForMentor(Request $request, MentorRepository $mentorRepository, ObjectManager $manager)
+    {
+        // On recherche le mentor de l'user
+        $mentor = $mentorRepository->findOneBy( ['student' => $this->getUser()] );
+        $mentor = $mentor->getMentor();
+
+        $message = new Message();
+        $form = $this->createForm(SendMessageReportType::class, $message);
+        $form->handleRequest($request);
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $message->setSender($this->getUser())
+                ->setReceived($mentor);
+
+            $manager->persist($message);
+            $manager->flush();
+
+            $this->addFlash(
+                'info',
+                'Votre message pour votre mentor a été correctement envoyé !'
+            );
+
+            return $this->redirectToRoute('app_communication');
+        }
+
+        return $this->render('communication/sendMessageMentor.html.twig', [
+            'form' => $form->createView(),
+            'mentor' => $mentor
         ]);
     }
 }
