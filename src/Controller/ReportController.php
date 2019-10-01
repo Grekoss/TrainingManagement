@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\CommentReport;
+use App\Entity\Message;
 use App\Entity\Report;
 use App\Enum\RoleEnum;
 use App\Form\CommentReportType;
 use App\Form\ReportType;
+use App\Form\SendMessageType;
 use App\Repository\ReportRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -71,9 +73,7 @@ class ReportController extends AbstractController
         }
 
         $comment = new CommentReport();
-
         $form = $this->createForm(CommentReportType::class, $comment);
-
         $form->handleRequest($request);
         if ( $form->isSubmitted() && $form->isValid() ) {
             $comment->setAuthor($this->getUser())
@@ -94,7 +94,7 @@ class ReportController extends AbstractController
 
         return $this->render('report/show.html.twig', [
             'report' => $report,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 

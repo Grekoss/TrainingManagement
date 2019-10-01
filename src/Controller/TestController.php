@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Enum\ShiftEnum;
+use App\Repository\MentorRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,11 +13,13 @@ class TestController extends AbstractController
     /**
      * @Route("/test", name="test")
      */
-    public function index(UserRepository $userRepository)
+    public function index(MentorRepository $mentorRepository)
     {
-        $test = $userRepository->userForManageRush();
+        dump($mentorRepository->findOneBy(
+            ['student' => $this->getUser()]
+        ));
 
-        dump($test);
+        dump($this->getUser());
 
         return $this->render('test/index.html.twig', [
             'controller_name' => 'TestController',

@@ -40,7 +40,7 @@
             </td>
             <td title="{{ report.position|capitalize }}">{{ report.zone|capitalize }}</td>
             <td>{{ makeStar(report.feelRush)|raw }}</td>
-            <td class="report-show-{{ report.isSeen }}"></td>
+            <td class="array-show-{{ report.isSeen }}"></td>
             <td>{{ report.commentReports|length }} {{ report.commentReports|length > 1 ? 'commentaires' : 'commentaire' }}</td>
             <td>
                 <a href="{{ path('app_report_show', {'id': report.id}) }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>

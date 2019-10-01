@@ -1,0 +1,38 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('communication') }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <a href="{{ path('app_communication') }}" class="btn btn-outline-secondary d-flex justify-content-center flex-column">Retour</a>
+        <h1 class="main-title-secondary">{{ otherUser }}</h1>
+    </div>
+
+    <div class="row">
+        <div class="container-messages" id="js-scroll">
+            {% for message in messages|sort((a, b) => a.writeAt > b.writeAt) %}
+                <div class="message">
+                    <div class="{{ (message.sender == app.user) ? 'sender' : 'received' }}">
+                        <div class="message-content">{{ message.content|raw }}</div>
+                        <div class="message-footer text-muted">
+                            <div>{{ message.sender }}</div>
+                            <div>{{ message.writeAt|date('d/m/Y - H:m') }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {{ form_start(form) }}
+            {{ form_row(form.content) }}
+            <button type="submit" class="btn btn-outline-success">Envoyer</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('communication') }}
+{% endblock %}

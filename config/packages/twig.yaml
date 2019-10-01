@@ -1,4 +1,6 @@
 twig:
+    date:
+        timezone: Europe/Paris
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
     form_themes:
