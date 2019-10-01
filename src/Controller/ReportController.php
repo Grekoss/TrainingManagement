@@ -8,7 +8,7 @@ use App\Entity\Report;
 use App\Enum\RoleEnum;
 use App\Form\CommentReportType;
 use App\Form\ReportType;
-use App\Form\SendMessageCommentType;
+use App\Form\SendMessageType;
 use App\Repository\ReportRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

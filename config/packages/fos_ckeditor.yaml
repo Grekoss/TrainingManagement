@@ -6,6 +6,10 @@ fos_ck_editor:
     base_config:
       language: fr
       toolbar: 'simple_toolbar'
+    small:
+      language: fr
+      toolbar: 'small'
+      height: '50px'
     goal:
       language: fr
       toolbar: 'goal'
@@ -14,4 +18,5 @@ fos_ck_editor:
     configs:
       simple_toolbar: [ ['Bold', 'Italic', 'Underline' ], ['TextColor', 'BGColor'], ['BulletedList'], ['Smiley'], ['Scayt']]
       goal: [ ['Bold', 'Italic', 'Underline' ], ['TextColor', 'BGColor'], ['BulletedList'], ['Scayt']]
+      small: [ ['Bold', 'Italic', 'Underline' ], ['TextColor', 'BGColor'], ['Smiley']]
 

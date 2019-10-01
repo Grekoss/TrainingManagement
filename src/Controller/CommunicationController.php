@@ -3,9 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Message;
-use App\Entity\Report;
-use App\Entity\User;
-use App\Form\SendMessageCommentType;
+use App\Form\SendMessageReportType;
+use App\Form\SendMessageType;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -34,7 +33,6 @@ class CommunicationController extends AbstractController
                 $messages[$interlocutor[0]->getId()] = $message;
             }
         }
-        dump($messages);
 
         return $this->render('communication/index.html.twig', [
             'messages' => $messages,
@@ -50,7 +48,7 @@ class CommunicationController extends AbstractController
         $userReceived = $userRepository->findOneBy(['id' => $user]);
 
         $message = new Message();
-        $form = $this->createForm(SendMessageCommentType::class, $message);
+        $form = $this->createForm(SendMessageReportType::class, $message);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() ) {
             $message->setSender($this->getUser())
@@ -61,7 +59,7 @@ class CommunicationController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Le message a bien été encoyé !'
+                'Le message a bien été envoyé !'
             );
 
             return $this->redirectToRoute('app_report_show', [
@@ -73,6 +71,38 @@ class CommunicationController extends AbstractController
             'form' => $form->createView(),
             'userReceived' => $userReceived,
             'report' => $report
+        ]);
+    }
+
+    /**
+     * @Route("/communication/showMessages/{id}", name="app_show_messages")
+     */
+    public function showMessages($id, MessageRepository $messageRepository, UserRepository $userRepository, Request $request, ObjectManager $manager)
+    {
+        $sender = $messageRepository->messagesForTwoUsers($this->getUser(), $id);
+        $received = $messageRepository->messagesForTwoUsers($id, $this->getUser());
+
+        $userReceived = $userRepository->findOneBy(['id' => $id]);
+
+        $messages = array_merge($sender, $received);
+
+        $message = new Message();
+        $form = $this->createForm(SendMessageType::class, $message);
+        $form->handleRequest($request);
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $message->setSender($this->getUser())
+                ->setReceived($userReceived);
+
+            $manager->persist($message);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_show_messages', ['id'=> $id]);
+        }
+
+        return $this->render('communication/show.html.twig', [
+            'messages' => $messages,
+            'otherUser' => $userRepository->find($id),
+            'form' => $form->createView()
         ]);
     }
 }
