@@ -51,6 +51,11 @@ class Result
         $this->dateAt = new \DateTime();
     }
 
+    public function __toString()
+    {
+        return 'Résultat : ' . $this->getScore() . '% - Le ' . $this->dateAt->format('d/m/Y');
+    }
+
     public function getId(): ?int
     {
         return $this->id;

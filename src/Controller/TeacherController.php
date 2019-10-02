@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Invitation;
 use App\Form\SendInvitationType;
 use App\Repository\InvitationRepository;
+use App\Repository\MentorRepository;
+use App\Repository\ReportRepository;
+use App\Repository\ResultRepository;
 use App\Repository\UserRepository;
 use App\Service\Random;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,7 +21,7 @@ class TeacherController extends AbstractController
     /**
      * @Route("/teacher", name="app_teacher")
      */
-    public function index(Request $request, UserRepository $userRepository, ObjectManager $manager, Random $random, Swift_Mailer $mailer, InvitationRepository $invitationRepository)
+    public function index(Request $request, UserRepository $userRepository, ObjectManager $manager, Random $random, Swift_Mailer $mailer, InvitationRepository $invitationRepository, MentorRepository $mentorRepository, ReportRepository $reportRepository, ResultRepository $resultRepository)
     {
         $formInvitation = $this->createForm(SendInvitationType::class);
         $formInvitation->handleRequest($request);
@@ -72,19 +75,28 @@ class TeacherController extends AbstractController
                     'text/html'
                 );
             $mailer->send($message);
-
-
-
-
-
-
-
-
-
         }
+
+        $listStudents = [];
+        $listTmpStudents = $mentorRepository->findBy(['mentor' => $this->getUser()]);
+        for ( $i=0 ; $i<count($listTmpStudents) ; $i++ ) {
+            $listStudents[$i]['user'] = $listTmpStudents[$i]->getStudent();
+            $listStudents[$i]['reports'] = $reportRepository->findByUser($listStudents[$i]['user']);
+            $listStudents[$i]['results'] = $resultRepository->findByUser($listStudents[$i]['user']);
+        }
+
+        dump($listStudents);
 
         return $this->render('teacher/index.html.twig', [
             'formInvitation' => $formInvitation->createView(),
+            'listStudents' => $listStudents
         ]);
     }
 }
+
+// FIXME: Afficher la liste des étudiants qu'il a en suppervision
+// FIXME: Créer des questionnaires
+// FIXME: Ecrire à ses étudiants
+// FIXME: Ajouter des cours
+// FIXME: Afficher la listes des résultatsquestionaires
+// FIXME: Afficher tout les rapport des étudiants avec un affichage particulier pour ses filleule

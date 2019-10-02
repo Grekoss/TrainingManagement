@@ -26,7 +26,7 @@ class SendInvitationType extends AbstractType
     {
         $resolver->setDefaults([
             'attr' => [
-                'class' => 'd-flex w-75 m-auto'
+                'class' => 'd-flex m-auto'
             ]
         ]);
     }

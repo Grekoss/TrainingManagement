@@ -1,9 +1,9 @@
 {% extends 'baseMain.html.twig' %}
 
-{% block title %}Admin{% endblock %}
+{% block title %}Teacher{% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('admin') }}
+    {{ encore_entry_link_tags('teacher') }}
 {% endblock %}
 
 {% block content %}
@@ -12,10 +12,59 @@
 
     <div class="container">
         <div class="row">
-            {{ form_start(formInvitation) }}
-            {{ form_widget(formInvitation.email) }}
-            <button class="btn btn-outline-dark m-auto" type="submit">Inviter</button>
-            {{ form_end(formInvitation) }}
+            <fieldset class="box-invitation">
+                <legend>Invitation</legend>
+                {{ form_start(formInvitation) }}
+                    {{ form_widget(formInvitation.email) }}
+                    <button class="btn btn-outline-dark" type="submit">Inviter</button>
+                {{ form_end(formInvitation) }}
+            </fieldset>
+        </div>
+        <div class="row mt-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Dernier rapport (Qte)</th>
+                        <th scope="col">Dernier questionnaire</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for key, student in listStudents %}
+                    <tr>
+                        <th scope="row">{{ key }}</th>
+                        {{ dump(student) }}
+                        <td>{{ student['user'].firstName|capitalize }} {{ student['user'].lastName|capitalize|slice(0, 1) }}.</td>
+                        <td>
+                            {% if student['reports'][0] is defined %}
+                            <em>
+                                <a href="{{ path('app_report_show', {'id': student['reports'][0].id}) }}">{{ student['reports'][0] }}</a>
+                            </em>
+                            <em>-</em>
+                            <em>( {{ student['user'].reports|length }} )</em>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if student['results'][0] is defined %}
+                                <a href="{{ path('app_correction', {'id': student['results'][0].id}) }}">{{ student['results'][0] }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+{#                            FIXME: Afficher tout les questionnaires#}
+{#                            FIXME: Afficher tout les rapports#}
+{#                            FIXME: Ecrire#}
+                        </td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <th colspan="5">Pas d'étudiant à charge</th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

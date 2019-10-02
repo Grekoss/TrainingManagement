@@ -31,10 +31,13 @@
         <div>Communication</div>
     </a>
 
-    <a href="{{ path('app_teacher') }}" class="btn-nav alert-danger">
-        <div class="btn-nav-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-        <div>Mentor</div>
-    </a>
+    {% if is_granted('ROLE_TEACHER') %}
+        <a href="{{ path('app_teacher') }}" class="btn-nav alert-danger">
+            <div class="btn-nav-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <div>Mentor</div>
+        </a>
+    {% endif %}
+
     <a href="#" class="btn-nav alert-dark" title="Se déconnecter" data-toggle="modal" data-target="#modalDisconnect">
         <div class="btn-nav-icon"><i class="fas fa-door-open"></i></div>
     </a>
