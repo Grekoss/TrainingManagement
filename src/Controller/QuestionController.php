@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Entity\Result;
+use App\Entity\User;
 use App\Form\ResultType;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
@@ -144,6 +145,16 @@ class QuestionController extends AbstractController
             'mixedAnswers' => $mixedAnswers,
             'quiz' => $quiz
 
+        ]);
+    }
+
+    /**
+     *@Route("quizzes/listResults/{id}", name="question_list_results")
+     */
+    public function listResults(User $user, ResultRepository $resultRepository)
+    {
+        return $this->render('question/listResults.html.twig', [
+            'results' => $resultRepository->findByUser($user)
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\CommentReport;
 use App\Entity\Message;
 use App\Entity\Report;
@@ -145,6 +146,17 @@ class ReportController extends AbstractController
 
         return $this->redirectToRoute('app_report_show', [
             'id' => $report->getId()
+        ]);
+    }
+
+    /**
+     * @Route("/report/listReport/{id}", name="report_list_report")
+     */
+    public function listReport(User $user, ReportRepository $reportRepository)
+    {
+        return $this->render('report/index.html.twig', [
+           'teacher' => true,
+            'reports' => $reportRepository->findByUser($user)
         ]);
     }
 }

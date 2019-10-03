@@ -20,7 +20,14 @@
                 {{ form_end(formInvitation) }}
             </fieldset>
         </div>
-        <div class="row mt-3">
+
+        <div class="row justify-content-around my-3">
+{#            FIXME: A FAIRE!!! les links#}
+            <a href="#" class="btn btn-outline-info">Afficher tout les rapports</a>
+            <a href="#" class="btn btn-outline-info">Afficher tout les résultats des questionnaires</a>
+        </div>
+
+        <div class="row">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -35,7 +42,6 @@
                 {% for key, student in listStudents %}
                     <tr>
                         <th scope="row">{{ key }}</th>
-                        {{ dump(student) }}
                         <td>{{ student['user'].firstName|capitalize }} {{ student['user'].lastName|capitalize|slice(0, 1) }}.</td>
                         <td>
                             {% if student['reports'][0] is defined %}
@@ -52,11 +58,10 @@
                             {% endif %}
                         </td>
                         <td>
-{#                            FIXME: Afficher tout les questionnaires#}
-{#                            FIXME: Afficher tout les rapports#}
-{#                            FIXME: Ecrire#}
+                            <a href="{{ path('question_list_results', {'id': student['user'].id}) }}" class="btn btn-outline-info" title="Afficher la liste des résultats aux questionnaires"><i class="fas fa-question-circle"></i></a>
+                            <a href="{{ path('report_list_report', {'id': student['user'].id}) }}" class="btn btn-outline-success" title="Afficher la liste des rapports"><i class="far fa-list-alt"></i></a>
+                            <a href="{{ path('app_show_messages', {'id': student['user'].id}) }}" class="btn btn-outline-dark" title="Envoyer un message"><i class="far fa-envelope"></i></a>
                         </td>
-
                     </tr>
                 {% else %}
                     <tr>
