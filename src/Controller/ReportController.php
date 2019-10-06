@@ -148,15 +148,4 @@ class ReportController extends AbstractController
             'id' => $report->getId()
         ]);
     }
-
-    /**
-     * @Route("/report/listReport/{id}", name="report_list_report")
-     */
-    public function listReport(User $user, ReportRepository $reportRepository)
-    {
-        return $this->render('report/index.html.twig', [
-           'teacher' => true,
-            'reports' => $reportRepository->findByUser($user)
-        ]);
-    }
 }

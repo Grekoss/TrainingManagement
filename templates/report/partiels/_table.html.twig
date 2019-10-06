@@ -2,6 +2,9 @@
     <thead>
     <tr>
         <th scope="col">#</th>
+        {% if teacher is defined %}
+            <th scope="col">Etudiant</th>
+        {% endif %}
         <th scope="col">Date</th>
         <th scope="col">Shift</th>
         <th scope="col">Zone</th>
@@ -15,6 +18,9 @@
     {% for report in reports %}
         <tr>
             <th scope="row">{{ report.id }}</th>
+            {% if teacher is defined %}
+                <td>{{ report.student.firstName|capitalize }} {{ report.student.lastName|capitalize|slice(0, 1) }}</td>
+            {% endif %}
             <td title="{{ report.dateAt|localizeddate('none', 'none', null, null, 'EEEE')|capitalize }}">{{ report.dateAt|date('d/m/Y') }}</td>
             <td>
                 {% if report.rushOf is same as ('open') %}

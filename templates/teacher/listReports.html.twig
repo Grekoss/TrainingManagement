@@ -1,0 +1,21 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Teacher{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('report') }}
+{% endblock %}
+
+{% block content %}
+
+    <a href="{{ path('app_teacher') }}" class="btn btn-outline-secondary position-absolute btn-back">Retour</a>
+
+    {{ include('report/partiels/_table.html.twig') }}
+
+    <div class="text-center">
+        <div class="navigation d-inline-block m-auto">
+            {{ knp_pagination_render(reports) }}
+        </div>
+    </div>
+
+{% endblock %}

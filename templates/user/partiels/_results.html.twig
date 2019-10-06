@@ -1,7 +1,6 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col">#</th>
         <th scope="col">Nom</th>
         <th scope="col">Thème</th>
         <th scope="col">Résultat</th>
@@ -11,10 +10,9 @@
     </thead>
     <tbody>
 
-    {% for result in results %}
+    {% for key, result in results %}
     <tr>
-        <th scope="row">{{ result.id }}</th>
-        <th>{{ result.quiz.title}}</th>
+        <th scope="row">{{ result.quiz.title}}</th>
         <th>
             {% for tag in result.quiz.tags %}
                 {{ include('partiels/_showTagBadge.html.twig')}}

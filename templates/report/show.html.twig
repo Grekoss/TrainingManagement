@@ -12,7 +12,9 @@
     <div class="container">
 
         <div class="row position-relative">
-            <a href="{{ path('app_report') }}" class="btn btn-outline-secondary position-absolute">Retour</a>
+            {% if report.student == app.user %}
+                <a href="{{ path('app_report') }}" class="btn btn-outline-secondary position-absolute">Retour</a>
+            {% endif %}
             <div class="title">Rapport du Rush du {{ report.dateAt|localizeddate('full', 'none') }}</div>
         </div>
         <div class="row position-relative justify-content-center">
