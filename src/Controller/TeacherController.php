@@ -3,17 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Invitation;
+use App\Entity\Lesson;
 use App\Entity\Result;
+use App\Form\LessonType;
 use App\Form\SendInvitationType;
 use App\Repository\InvitationRepository;
 use App\Repository\MentorRepository;
 use App\Repository\ReportRepository;
 use App\Repository\ResultRepository;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use App\Service\Random;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Swift_Mailer;
@@ -161,6 +165,83 @@ class TeacherController extends AbstractController
         return $this->render('teacher/listResults.html.twig', [
             'results' => $pagination,
             'teacher' => true
+        ]);
+    }
+
+    /**
+     * @Route("/lesson/new", name="teacher_new_lesson", methods="GET|POST")
+     */
+    public function newLesson(Request $request, FileUploader $fileUploader)
+    {
+        $lesson = new Lesson();
+        $form = $this->createForm(LessonType::class, $lesson);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+
+            $file = $form->get('file')->getData();
+            // Téléchargement + stockage du nom du fichier
+            $fileName = $fileUploader->upload($file);
+            $lesson->setFile($fileName);
+
+
+            $lesson->setCreateBy($this->getUser());
+
+            $this->getDoctrine()->getManager()->persist($lesson);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre enregistrement a été validé, il est maintenant disponible !'
+            );
+
+            return $this->redirectToRoute('app_lesson');
+        }
+
+        return $this->render('teacher/lesson/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/lesson/{id}/update", name="teacher_lesson_update", methods="GET|POST")
+     */
+    public function lessonUpdate(Request $request, Lesson $lesson, FileUploader $fileUploader)
+    {
+        // Mémorisation du fichier si celui-ci n'est pas mdifier
+        $oldFile = $lesson->getFile();
+
+        $form = $this->createForm(LessonType::class, $lesson);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form->get('file')->getData();
+            // Téléchargement + stockage du nom du fichier si celui ci est présent
+            if ($file !== null) {
+                // Télécharge et réception du nom du fichier
+                $fileName = $fileUploader->upload($file);
+                $lesson->setFile($fileName);
+            } else {
+                $lesson->setFile($oldFile);
+            }
+
+            $lesson->setUpdatedAt(new \DateTime());
+
+            $this->getDoctrine()->getManager()->persist($lesson);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Mise à jour réussite'
+            );
+
+            return $this->redirectToRoute('app_lesson');
+        }
+
+        return $this->render('teacher/lesson/edit.html.twig', [
+            'lesson' => $lesson,
+            'form' => $form->createView()
         ]);
     }
 }

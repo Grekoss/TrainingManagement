@@ -1,0 +1,21 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Edition de le&ccedil;on{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('teacher') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            {{ include('teacher/lesson/_form.html.twig', {'button_label': 'Update'}) }}
+
+            <a href="{{ path('app_lesson') }}" class="btn btn-outline-secondary">Retour</a>
+
+            {{ include('teacher/lesson/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

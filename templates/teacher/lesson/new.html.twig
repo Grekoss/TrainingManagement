@@ -1,0 +1,17 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Création de le&ccedil;on{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('teacher') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            {{ include('teacher/lesson/_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

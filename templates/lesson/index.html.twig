@@ -8,35 +8,44 @@
 
 {% block content %}
 
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
     <div class="d-flex w-100 flex-wrap container-buttons-lessons">
         <a class="btn-category" href="{{ path('app_lesson_category', {'slug': 'food-safty'}) }}">
-            <img src="{{ asset('assets/images/buttons/foodSafty.png') }}">
+            <img class="img-menu" src="{{ asset('assets/images/buttons/foodSafty.png') }}">
             <div>Sécurité Alimentaire - ({{ listFoodSafety|length }})</div>
         </a>
         <a class="btn-category" href="{{ path('app_lesson_category', {'slug': 'management'}) }}">
-            <img src="{{ asset('assets/images/buttons/management.png') }}">
+            <img class="img-menu" src="{{ asset('assets/images/buttons/management.png') }}">
             <div>Gestion de quart  - ({{ listManagement|length }})</div>
         </a>
         <a class="btn-category" href="{{ path('app_lesson_category', {'slug': 'counter'}) }}">
-            <img src="{{ asset('assets/images/buttons/counter.png') }}">
+            <img class="img-menu" src="{{ asset('assets/images/buttons/counter.png') }}">
             <div>Comptoir  - ({{ listCounter|length }})</div>
         </a>
         <a class="btn-category" href="{{ path('app_lesson_category', {'slug': 'kitchen'}) }}">
-            <img src="{{ asset('assets/images/buttons/kitchen.jpg') }}">
+            <img class="img-menu" src="{{ asset('assets/images/buttons/kitchen.jpg') }}">
             <div>Cuisine  - ({{ listKitchen|length }})</div>
         </a>
         <a class="btn-category" href="{{ path('app_lesson_category', {'slug': 'administration'}) }}">
-            <img src="{{ asset('assets/images/buttons/administation.jpg') }}">
+            <img class="img-menu" src="{{ asset('assets/images/buttons/administation.jpg') }}">
             <div>Administration  - ({{ listAdministration|length }})</div>
         </a>
         <a class="btn-category" href="{{ path('app_lesson_category', {'slug': 'PEP'}) }}">
-            <img src="{{ asset('assets/images/buttons/PEP.png') }}">
+            <img class="img-menu" src="{{ asset('assets/images/buttons/PEP.png') }}">
             <div>PEP  - ({{ listPEP|length }})</div>
         </a>
         <a class="btn-category" href="{{ path('app_lesson_category', {'slug': 'various'}) }}">
-            <img src="{{ asset('assets/images/buttons/various.png') }}">
+            <img class="img-menu" src="{{ asset('assets/images/buttons/various.png') }}">
             <div>Divers  - ({{ listVarious|length }})</div>
         </a>
+
+        {% if is_granted('ROLE_TEACHER') %}
+            <a class="btn-category" href="{{ path('teacher_new_lesson') }}">
+                <img class="img-menu" src="{{ asset('assets/images/buttons/add_notes.svg') }}">
+                <div>Créer une le&ccedil;on</div>
+            </a>
+        {% endif %}
     </div>
 
 {% endblock %}

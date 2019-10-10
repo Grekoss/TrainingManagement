@@ -18,7 +18,7 @@ class FileUploader
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-        $fileName = date('Y').'\\'.$safeFilename.'-'.uniqid().'.'.$file->getExtension();
+        $fileName = date('Y').'\\'.$safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory().'\\'.date('Y').'\\', $fileName);

@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.category) }}
+    {{ form_row(form.file) }}
+    <button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}
