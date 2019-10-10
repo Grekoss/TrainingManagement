@@ -6,7 +6,6 @@
 parameters:
     locale: 'fr_FR'
     slugger_hypen: true
-    file_directory: '%kernel.project_dir%/public/assets/files/'
 
 services:
     # default configuration for services in *this* file
@@ -32,7 +31,3 @@ services:
     App\Service\Slugger:
         arguments:
             $use_hyphen: '%slugger_hypen%'
-
-    App\Service\FileUploader:
-        arguments:
-            $targetDirectory: '%file_directory%'

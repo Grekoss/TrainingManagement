@@ -19,6 +19,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swift_Mailer;
 
@@ -171,7 +172,7 @@ class TeacherController extends AbstractController
     /**
      * @Route("/lesson/new", name="teacher_new_lesson", methods="GET|POST")
      */
-    public function newLesson(Request $request, FileUploader $fileUploader)
+    public function newLesson(Request $request)
     {
         $lesson = new Lesson();
         $form = $this->createForm(LessonType::class, $lesson);
@@ -181,9 +182,14 @@ class TeacherController extends AbstractController
 
             $file = $form->get('file')->getData();
             // Téléchargement + stockage du nom du fichier
-            $fileName = $fileUploader->upload($file);
-            $lesson->setFile($fileName);
+            if ($file === null) {
+                $this->addFlash(
+                    'danger',
+                    'Vous devez ajouter un fichier !'
+                );
 
+                return $this->redirectToRoute('teacher_new_lesson');
+            }
 
             $lesson->setCreateBy($this->getUser());
 
@@ -206,29 +212,15 @@ class TeacherController extends AbstractController
     /**
      * @Route("/lesson/{id}/update", name="teacher_lesson_update", methods="GET|POST")
      */
-    public function lessonUpdate(Request $request, Lesson $lesson, FileUploader $fileUploader)
+    public function lessonUpdate(Request $request, Lesson $lesson)
     {
-        // Mémorisation du fichier si celui-ci n'est pas mdifier
-        $oldFile = $lesson->getFile();
-
         $form = $this->createForm(LessonType::class, $lesson);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData());
 
-            $file = $form->get('file')->getData();
-            // Téléchargement + stockage du nom du fichier si celui ci est présent
-            if ($file !== null) {
-                // Télécharge et réception du nom du fichier
-                $fileName = $fileUploader->upload($file);
-                $lesson->setFile($fileName);
-            } else {
-                $lesson->setFile($oldFile);
-            }
-
-            $lesson->setUpdatedAt(new \DateTime());
-
-            $this->getDoctrine()->getManager()->persist($lesson);
+//            $this->getDoctrine()->getManager()->persist($lesson);
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(
@@ -243,6 +235,25 @@ class TeacherController extends AbstractController
             'lesson' => $lesson,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/lesson/{id}/delete", name="teacher_lesson_delete", methods="DELETE")
+     */
+    public function lessonDelete(Request $request, Lesson $lesson): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$lesson->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($lesson);
+            $em->flush();
+        }
+
+        $this->addFlash(
+            'warning',
+            'La suppression a bien été faite !'
+        );
+
+        return $this->redirectToRoute('app_lesson');
     }
 }
 

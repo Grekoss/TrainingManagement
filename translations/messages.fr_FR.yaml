@@ -36,3 +36,14 @@ Write your comment: Ecrire votre commentaire
 
 # Teacher
 Enter an email address for invitation: Entrez  une adresse email pour l'invitation
+
+# LessonType
+Title: Titre
+Description: Descrisption
+Select the category: Sélectionner la catégorie
+FOOD_SAFETY: Sécurité Alimentaire
+ADMINISTRATION: Administration
+PEP: PEP
+MANAGEMENT: Management
+VARIOUS: Divers
+File: Fichier

@@ -1,0 +1,5 @@
+<form class="ml-3" method="post" action="{{ path('teacher_lesson_delete', {'id': lesson.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette leçon ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ lesson.id) }}">
+    <button class="btn btn-outline-danger">Supprimer</button>
+</form>

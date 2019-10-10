@@ -16,10 +16,6 @@
     <div class="list-group my-2">
 
         {% for item in list %}
-            {% set file = 'assets/files/' ~ item.file %}
-            {% if item.file ends with 'FAKER.pdf' %}
-                {% set file = item.file %}
-            {% endif %}
             <div class="list-group-item list-group-item-action">
                 {% if item.createBy == app.user %}
                 <a href="{{ path('teacher_lesson_update', {'id': item.id}) }}" class="icon-edit">
@@ -30,11 +26,14 @@
                 <h5 class="mb-1">{{ item.title }}</h5>
                 <p class="mb-1">{{ item.description|truncate(225, true) }}</p>
                 <div class="d-flex w-100 justify-content-between">
-                    {% if item.file %}
-                        <a href="{{ asset( file ) }}">
+                    {% if item.fileName  ends with 'FAKER.pdf'%}
+                        <a href="{{ asset(item.fileName) }}">
+                    {% else %}
+                        <a href="{{ vich_uploader_asset(item, 'file') }}">
+                    {% endif %}
                             <div class="{{ item.extension }} link-icon">Cliquer ici</div>
                         </a>
-                    {% endif %}
+
                     <small class="my-auto">{{ item.updatedAt|date('d/m/Y') }}</small>
                 </div>
             </div>
