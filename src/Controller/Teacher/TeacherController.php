@@ -1,23 +1,19 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Teacher;
 
 use App\Entity\Invitation;
-use App\Entity\Lesson;
-use App\Entity\Result;
-use App\Form\LessonType;
 use App\Form\SendInvitationType;
 use App\Repository\InvitationRepository;
 use App\Repository\MentorRepository;
 use App\Repository\ReportRepository;
 use App\Repository\ResultRepository;
 use App\Repository\UserRepository;
-use App\Service\FileUploader;
 use App\Service\Random;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,8 +26,20 @@ class TeacherController extends AbstractController
 {
     /**
      * @Route("/", name="app_teacher")
+     *
+     * @param Request               $request
+     * @param UserRepository        $userRepository
+     * @param ObjectManager         $manager
+     * @param Random                $random
+     * @param Swift_Mailer          $mailer
+     * @param InvitationRepository  $invitationRepository
+     * @param MentorRepository      $mentorRepository
+     * @param ReportRepository      $reportRepository
+     * @param ResultRepository      $resultRepository
+     *
+     * @return RedirectResponse|Response
      */
-    public function index(Request $request, UserRepository $userRepository, ObjectManager $manager, Random $random, Swift_Mailer $mailer, InvitationRepository $invitationRepository, MentorRepository $mentorRepository, ReportRepository $reportRepository, ResultRepository $resultRepository)
+    public function index(Request $request, UserRepository $userRepository, ObjectManager $manager, Random $random, Swift_Mailer $mailer, InvitationRepository $invitationRepository, MentorRepository $mentorRepository, ReportRepository $reportRepository, ResultRepository $resultRepository): Response
     {
         $formInvitation = $this->createForm(SendInvitationType::class);
         $formInvitation->handleRequest($request);
@@ -103,8 +111,14 @@ class TeacherController extends AbstractController
 
     /**
      * @Route("/listReports", name="teacher_list_reports", methods="GET")
+     *
+     * @param ReportRepository      $reportRepository
+     * @param Request               $request
+     * @param PaginatorInterface    $paginator
+     *
+     * @return Response
      */
-    public function listReports(ReportRepository $reportRepository, Request $request, PaginatorInterface $paginator)
+    public function listReports(ReportRepository $reportRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
             $reportRepository->findBy(array(), ['dateAt' => 'DESC']),
@@ -120,8 +134,15 @@ class TeacherController extends AbstractController
 
     /**
      * @Route("/listReports/{id}", name="teacher_list_reports_user", methods="GET")
+     *
+     * @param Int                   $id
+     * @param Request               $request
+     * @param PaginatorInterface    $paginator
+     * @param ReportRepository      $reportRepository
+     *
+     * @return Response
      */
-    public function listRepostsByUser(Int $id, Request $request, PaginatorInterface $paginator, ReportRepository $reportRepository)
+    public function listRepostsByUser(Int $id, Request $request, PaginatorInterface $paginator, ReportRepository $reportRepository): Response
     {
         $pagination = $paginator->paginate(
             $reportRepository->findByUser($id),
@@ -137,8 +158,14 @@ class TeacherController extends AbstractController
 
     /**
      * @Route("/listResults", name="teacher_list_results", methods="GET")
+     *
+     * @param PaginatorInterface    $paginator
+     * @param Request               $request
+     * @param ResultRepository      $resultRepository
+     *
+     * @return Response
      */
-    public function listResults(PaginatorInterface $paginator, Request $request, ResultRepository $resultRepository)
+    public function listResults(PaginatorInterface $paginator, Request $request, ResultRepository $resultRepository): Response
     {
         $pagination = $paginator->paginate(
             $resultRepository->findBy(array(), ['dateAt' => 'DESC']),
@@ -154,8 +181,15 @@ class TeacherController extends AbstractController
 
     /**
      * @Route("/listResults/{id}", name="teacher_list_results_user", methods="GET")
+     *
+     * @param Int                   $id
+     * @param Request               $request
+     * @param PaginatorInterface    $paginator
+     * @param ResultRepository      $resultRepository
+     *
+     * @return Response
      */
-    public function listResultsByUser(Int $id, Request $request, PaginatorInterface $paginator, ResultRepository $resultRepository)
+    public function listResultsByUser(Int $id, Request $request, PaginatorInterface $paginator, ResultRepository $resultRepository): Response
     {
         $pagination = $paginator->paginate(
             $resultRepository->findByUser($id),
@@ -168,95 +202,7 @@ class TeacherController extends AbstractController
             'teacher' => true
         ]);
     }
-
-    /**
-     * @Route("/lesson/new", name="teacher_new_lesson", methods="GET|POST")
-     */
-    public function newLesson(Request $request)
-    {
-        $lesson = new Lesson();
-        $form = $this->createForm(LessonType::class, $lesson);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid() ) {
-
-            $file = $form->get('file')->getData();
-            // Téléchargement + stockage du nom du fichier
-            if ($file === null) {
-                $this->addFlash(
-                    'danger',
-                    'Vous devez ajouter un fichier !'
-                );
-
-                return $this->redirectToRoute('teacher_new_lesson');
-            }
-
-            $lesson->setCreateBy($this->getUser());
-
-            $this->getDoctrine()->getManager()->persist($lesson);
-            $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash(
-                'success',
-                'Votre enregistrement a été validé, il est maintenant disponible !'
-            );
-
-            return $this->redirectToRoute('app_lesson');
-        }
-
-        return $this->render('teacher/lesson/new.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/lesson/{id}/update", name="teacher_lesson_update", methods="GET|POST")
-     */
-    public function lessonUpdate(Request $request, Lesson $lesson)
-    {
-        $form = $this->createForm(LessonType::class, $lesson);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());
-
-//            $this->getDoctrine()->getManager()->persist($lesson);
-            $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash(
-                'success',
-                'Mise à jour réussite'
-            );
-
-            return $this->redirectToRoute('app_lesson');
-        }
-
-        return $this->render('teacher/lesson/edit.html.twig', [
-            'lesson' => $lesson,
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/lesson/{id}/delete", name="teacher_lesson_delete", methods="DELETE")
-     */
-    public function lessonDelete(Request $request, Lesson $lesson): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$lesson->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($lesson);
-            $em->flush();
-        }
-
-        $this->addFlash(
-            'warning',
-            'La suppression a bien été faite !'
-        );
-
-        return $this->redirectToRoute('app_lesson');
-    }
 }
 
 
 // FIXME: Créer des questionnaires
-// FIXME: Ajouter des cours

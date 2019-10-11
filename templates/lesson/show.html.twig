@@ -17,7 +17,7 @@
 
         {% for item in list %}
             <div class="list-group-item list-group-item-action">
-                {% if item.createBy == app.user %}
+                {% if is_granted('EDIT', item) %}
                 <a href="{{ path('teacher_lesson_update', {'id': item.id}) }}" class="icon-edit">
                     <img src="{{ asset('images/icons/edit.png') }}" alt="Edition de la le&ccedil;on" class="img-icon-edit">
                 </a>
