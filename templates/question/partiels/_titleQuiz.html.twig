@@ -1,0 +1,14 @@
+<div class="jumbotron jumbotron-fluid" style="position: relative;">
+    <div class="container-length-tags w-100">
+        <div class="badge badge-success my-auto">{{ quiz.questions|length }} questions</div>
+        <div class="container-tag">
+            {% for tag in quiz.tags %}
+                {{ include('partiels/_showTagBadge.html.twig') }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="display-4">{{ quiz.title|capitalize }}</h1>
+        <p class="lead">{{ quiz.description }}</p>
+    </div>
+</div>

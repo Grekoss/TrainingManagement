@@ -20,11 +20,7 @@ class LessonType extends AbstractType
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
             ->add('file', FileType::class, [
-//                'data_class' => null,
                 'required' => false,
-//                'allow_delete' => true,
-//                'download_label' => 'Télécharger le fichier',
-//                'delete_label' => 'Supprimer le fichier du server'
             ])
             ->add('category', ChoiceType::class, [
                 'label' => 'Select the category',

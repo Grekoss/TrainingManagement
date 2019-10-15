@@ -1,0 +1,58 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Fiche du questionnaire{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('question') }}
+    {{ encore_entry_link_tags('teacher') }}
+{% endblock %}
+
+{% block content %}
+    <a href="{{ path('teacher_quiz_index') }}" class="btn btn-outline-secondary btn-back">Retour</a>
+
+    <div class="correction-container-title my-3">
+        <h1 class="correction-title">{{ quiz.title|capitalize }}</h1>
+    </div>
+
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
+    <table class="table table-bordered table-striped my-3 text-center">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Niveau</th>
+            {% if quiz.author == app.user %}
+            <th scope="col">Actions</th>
+            {% endif %}
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for key, question in quiz.questions %}
+        <tr>
+            <th scope="row">{{ key + 1 }}</th>
+            <td>{{ question.question|capitalize }}</td>
+            <td>
+                <div class="badge {{ question.level }}">{{ question.level|capitalize }}</div>
+            </td>
+            {% if quiz.author == app.user %}
+            <td class="td-container-buttons-actions">
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDropActions" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDropActions">
+                        <a href="{{ path('teacher_quiz_fiche_edit', {'id': question.id}) }}" class="btn btn-outline-dark"><i class="far fa-edit mr-3"></i>Modifier la question</a>
+                        {{ include('teacher/quiz/partiels/_delete_question.html.twig') }}
+                    </div>
+                </div>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a href="{{ path('teacher_quiz_fiche_new', {'id': quiz.id}) }}" class="btn btn-outline-success w-75"><i class="fas fa-plus-circle mx-3"></i>Ajouter une question</a>
+    </div>
+{% endblock %}

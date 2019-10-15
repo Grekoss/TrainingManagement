@@ -47,3 +47,13 @@ PEP: PEP
 MANAGEMENT: Management
 VARIOUS: Divers
 File: Fichier
+
+# QuestionType
+Question: Question
+Bonne réponse : Bonne réponse
+Fausse réponse: Fausse réponse
+Level: Niveau
+EASY: Facile
+MEDIUM: Moyenne
+HARD: Difficile
+
