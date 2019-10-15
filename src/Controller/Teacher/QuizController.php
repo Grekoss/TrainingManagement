@@ -5,6 +5,7 @@ namespace App\Controller\Teacher;
 use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Form\QuestionType;
+use App\Form\QuizType;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use App\Repository\ResultRepository;
@@ -160,9 +161,82 @@ class QuizController extends AbstractController
         return $this->redirectToRoute('teacher_quiz_fiche', ['id' => $quizId]);
     }
 
-//    public function updateQuiz
-    
-//    public function createQuiz
+    /**
+     * @Route("/{id}/update", name="teacher_quiz_update")
+     */
+    public function updateQuiz(Request $request, Quiz $quiz)
+    {
+        if (!$this->isGranted('EDIT', $quiz)) {
+            $this->addFlash('danger', 'Vous n\'avez pas access pour modifier ce quiz !');
 
-//    public function deleteQuiz
+            return $this->redirectToRoute('teacher_quiz_index');
+        }
+
+        $form = $this->createForm(QuizType::class, $quiz);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $quiz->setUpdatedAt(new \DateTime());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($quiz);
+            $em->flush();
+
+            return $this->redirectToRoute('teacher_quiz_index');
+        }
+
+        return $this->render('teacher/quiz/editQuiz.html.twig', [
+            'quiz' => $quiz,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/create", name="teacher_quiz_create")
+     */
+    public function createQuiz(Request $request)
+    {
+        $quiz = new Quiz();
+
+        $form = $this->createForm(QuizType::class, $quiz);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $quiz->setAuthor($this->getUser());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($quiz);
+            $em->flush();
+
+            $this->addFlash('success', 'Quiz ajouté');
+
+            return $this->redirectToRoute('teacher_quiz_index');
+        }
+
+        return $this->render('teacher/quiz/newQuiz.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="teacher_quiz_delete", methods="DELETE")
+     */
+    public function deleteQuiz(Request $request, Quiz $quiz): Response
+    {
+        if (!$this->isGranted('EDIT', $quiz)) {
+            $this->addFlash('danger', 'Vous n\'avez pas access pour supprimer ce quiz !');
+
+            return $this->redirectToRoute('teacher_quiz_index');
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$quiz->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($quiz);
+            $em->flush();
+        }
+
+        $this->addFlash('warning', 'La suppression du quiz a été faite !');
+
+        return $this->redirectToRoute('teacher_quiz_index');
+    }
 }

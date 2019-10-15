@@ -43,6 +43,11 @@ class Tag
         $this->quizzes = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return ucfirst($this->name);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

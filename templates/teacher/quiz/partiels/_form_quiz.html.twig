@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+
+    <fieldset>
+        {{ form_label(form.tags) }}
+        {{ form_widget(form.tags) }}
+    </fieldset>
+
+    <button class="btn btn-outline-success my-2">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

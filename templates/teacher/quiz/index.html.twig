@@ -44,8 +44,10 @@
                                         <a href="{{ path('teacher_quiz_showResults', {'id': quiz.id}) }}" class="btn btn-outline-success" title="Afficher tout les résultats"><i class="fas fa-poll mr-3"></i>Afficher tout les résultats</a>
                                     {% endif %}
                                     <a href="{{ path('teacher_quiz_fiche', {'id': quiz.id}) }}" class="btn btn-outline-primary" title="Voir la fiche du questionnaire"><i class="fas fa-eye mr-3"></i>Voir la fiche du questionnaire</a>
-                                    {# FIXME: Modifier le questionnaires#}
-                                    <a href="#" class="btn btn-outline-dark" title="Editer le questionnaire"><i class="fas fa-edit mr-3"></i>Editer le questionnaire</a>
+                                    {% if quiz.author == app.user %}
+                                        <a href="{{ path('teacher_quiz_update', {'id': quiz.id}) }}" class="btn btn-outline-dark" title="Editer le questionnaire"><i class="fas fa-edit mr-3"></i>Editer le questionnaire</a>
+                                        {{ include('teacher/quiz/partiels/_delete_quiz.html.twig') }}
+                                    {% endif %}
                                 </div>
 
                             </div>
@@ -58,13 +60,18 @@
                 {% endfor %}
                 </tbody>
             </table>
-
         </div>
+        
+
 
         <div class="row">
             <div class="m-auto">
                 {{ knp_pagination_render(listQuizzes) }}
             </div>
+        </div>
+
+        <div class="text-center mt-2">
+            <a href="{{ path('teacher_quiz_create') }}" class="btn btn-outline-success w-75"><i class="fas fa-plus-circle mx-2"></i>Créer un quiz</a>
         </div>
     </div>
 {% endblock %}
