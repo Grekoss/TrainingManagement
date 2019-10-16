@@ -9,6 +9,7 @@ use App\Form\QuizType;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use App\Repository\ResultRepository;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +35,9 @@ class QuizController extends AbstractController
     /**
      * @Route("/", name="teacher_quiz_index")
      *
+     * @param Request               $request
+     * @param PaginatorInterface    $paginator
+     *
      * @return Response
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
@@ -51,6 +55,12 @@ class QuizController extends AbstractController
 
     /**
      * @Route("/{id}/results", name="teacher_quiz_showResults")
+     *
+     * @param Quiz                  $quiz
+     * @param Request               $request
+     * @param PaginatorInterface    $paginator
+     *
+     * @return Response
      */
     public function showResultsByQuiz(Quiz $quiz, Request $request, PaginatorInterface $paginator): Response
     {
@@ -69,8 +79,12 @@ class QuizController extends AbstractController
 
     /**
      * @Route("/{id}/fiche", name="teacher_quiz_fiche")
+     *
+     * @param Quiz  $quiz
+     *
+     * @return Response
      */
-    public function quizFiche(Quiz $quiz)
+    public function quizFiche(Quiz $quiz): Response
     {
         return $this->render('teacher/quiz/showQuestion.html.twig', [
             'quiz' => $quiz
@@ -79,8 +93,13 @@ class QuizController extends AbstractController
 
     /**
      * @Route("/{id}/fiche/edit", name="teacher_quiz_fiche_edit")
+     *
+     * @param Question  $question
+     * @param Request   $request
+     *
+     * @return Response
      */
-    public function quizFicheEdit(Question $question, Request $request)
+    public function quizFicheEdit(Question $question, Request $request): Response
     {
         $quizId = $question->getQuiz()->getId();
 
@@ -110,8 +129,13 @@ class QuizController extends AbstractController
 
     /**
      * @Route("/{id}/fiche/new", name="teacher_quiz_fiche_new")
+     *
+     * @param Quiz      $quiz
+     * @param Request   $request
+     *
+     * @return Response
      */
-    public function quizFicheNew(Quiz $quiz, Request $request)
+    public function quizFicheNew(Quiz $quiz, Request $request): Response
     {
         $question = new Question();
 
@@ -138,6 +162,11 @@ class QuizController extends AbstractController
 
     /**
      * @Route("/{id}/fiche/delete", name="teacher_quiz_fiche_delete", methods="DELETE")
+     *
+     * @param Request   $request
+     * @param Question  $question
+     *
+     * @return Response
      */
     public function quizDelete(Request $request, Question $question): Response
     {
@@ -163,8 +192,14 @@ class QuizController extends AbstractController
 
     /**
      * @Route("/{id}/update", name="teacher_quiz_update")
+     *
+     * @param Request   $request
+     * @param Quiz      $quiz
+     *
+     * @return Response
+     * @throws Exception
      */
-    public function updateQuiz(Request $request, Quiz $quiz)
+    public function updateQuiz(Request $request, Quiz $quiz): Response
     {
         if (!$this->isGranted('EDIT', $quiz)) {
             $this->addFlash('danger', 'Vous n\'avez pas access pour modifier ce quiz !');
@@ -193,8 +228,12 @@ class QuizController extends AbstractController
 
     /**
      * @Route("/create", name="teacher_quiz_create")
+     *
+     * @param Request   $request
+     *
+     * @return Response
      */
-    public function createQuiz(Request $request)
+    public function createQuiz(Request $request): Response
     {
         $quiz = new Quiz();
 
@@ -220,6 +259,11 @@ class QuizController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="teacher_quiz_delete", methods="DELETE")
+     *
+     * @param Request   $request
+     * @param Quiz      $quiz
+     *
+     * @return Response
      */
     public function deleteQuiz(Request $request, Quiz $quiz): Response
     {
