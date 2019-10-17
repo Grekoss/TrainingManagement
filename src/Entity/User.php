@@ -137,6 +137,11 @@ class User implements UserInterface, EquatableInterface
      */
     private $receivedMessages;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
     public function __construct()
     {
         $this->role = RoleEnum::ROLE_USER[0];
@@ -571,6 +576,18 @@ class User implements UserInterface, EquatableInterface
                 $receivedMessage->setReceived(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
 
         return $this;
     }

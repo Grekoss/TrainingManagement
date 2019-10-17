@@ -15,13 +15,14 @@ ID : 'user@formation.fr'
 Password: 'password'  
 ``` 
 
-- [ ] Faire un suivi de chaque Rush afin de renseigner mon formateur des situations, événements, ressentit et permettre à celui-ci de donner des axes de travail.
+- [ ] Message d'erreur lorsqu'un utilisateur désactiver essaye de se connecter
 
-- [ ] Permettre de communiquer plus rapidement de de permettre de répondre rapidement aux éventuelles questions.
+- [ ] Automatiser la suppression de l'invitation au bout de 15 ou 30 jours
 
-- [ ] Pouvoir s'entrainer avec plusieur questionnaires sur différents thèmes.
+- [ ] Créer un compte Store
 
-# 2 - Document README sera complété en temps voulu ainsi que la documentation annexe
+- [ ] Créer un compte super admin avec easyadmin
 
+- [ ] Faire une belle page 404
 
 [&copy; Cédric POURRIAS - pourriascedric@gmail.com](mailto:pourriascedric@gmail.com)  

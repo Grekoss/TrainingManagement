@@ -1,0 +1,53 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Teacher{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('report') }}
+{% endblock %}
+
+{% block content %}
+
+    <a href="{{ path('app_teacher') }}" class="btn btn-outline-secondary position-absolute btn-back">Retour</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Etudiant</th>
+            <th scope="col">Mentor</th>
+            <th scope="col">Dernière Connection</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, user in users %}
+        <tr class={{ (user['user'].isActive) ? '' : 'alert-danger'}}>
+            <th scope="row">{{ key + 1  }}</th>
+            <td>{{ user['user'].firstName|capitalize }} {{ user['user'].lastName|capitalize }}</td>
+            {% if user['mentor'] is not null %}
+                <td>{{ user['mentor'].firstName|capitalize }} {{ user['mentor'].lastName|capitalize }}</td>
+            {% else %}
+                <td class="font-italic">( pas de mentor )</td>
+            {% endif %}
+                {% if user['user'].lastLogin %}
+                    <td>{{ user['user'].lastLogin|date('d/m/Y à H:i') }}</td>
+                {% else %}
+                    <td class="font-italic">( pas de connection )</td>
+                {% endif %}
+            <td>
+                <a href="#" class="btn btn-outline-secondary" title="Activer / Désactiver l'étudiant"><i class="far fa-pause-circle"></i></a>
+                <a href="#" class="btn btn-outline-primary" title="Afficher les informations et modifier le mentor"><i class="far fa-eye"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <div class="navigation d-inline-block m-auto">
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+
+{% endblock %}

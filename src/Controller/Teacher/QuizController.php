@@ -6,43 +6,24 @@ use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Form\QuestionType;
 use App\Form\QuizType;
-use App\Repository\QuestionRepository;
-use App\Repository\QuizRepository;
-use App\Repository\ResultRepository;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/teacher/question")
- */
-class QuizController extends AbstractController
+class QuizController extends TeacherController
 {
-    private $questionRepository;
-    private $quizRepository;
-    private $resultRepository;
-
-    public function __construct(QuestionRepository $questionRepository, QuizRepository $quizRepository, ResultRepository $resultRepository)
-    {
-        $this->questionRepository = $questionRepository;
-        $this->quizRepository = $quizRepository;
-        $this->resultRepository = $resultRepository;
-    }
-
     /**
-     * @Route("/", name="teacher_quiz_index")
+     * @Route("/teacher/question/", name="teacher_quiz_index")
      *
      * @param Request               $request
-     * @param PaginatorInterface    $paginator
      *
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator): Response
+    public function indexQuiz(Request $request): Response
     {
-        $pagination = $paginator->paginate(
+        $pagination = $this->paginator->paginate(
             $this->quizRepository->findBy(array(), ['updatedAt' => 'DESC']),
             $request->query->getInt('page', 1),
             10
@@ -54,17 +35,16 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/results", name="teacher_quiz_showResults")
+     * @Route("/teacher/question/{id}/results", name="teacher_quiz_showResults")
      *
      * @param Quiz                  $quiz
      * @param Request               $request
-     * @param PaginatorInterface    $paginator
      *
      * @return Response
      */
-    public function showResultsByQuiz(Quiz $quiz, Request $request, PaginatorInterface $paginator): Response
+    public function showResultsByQuiz(Quiz $quiz, Request $request): Response
     {
-        $pagination = $paginator->paginate(
+        $pagination = $this->paginator->paginate(
             $this->resultRepository->findByQuiz($quiz),
             $request->query->getInt('page', 1),
             10
@@ -78,7 +58,7 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/fiche", name="teacher_quiz_fiche")
+     * @Route("/teacher/question/{id}/fiche", name="teacher_quiz_fiche")
      *
      * @param Quiz  $quiz
      *
@@ -92,7 +72,7 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/fiche/edit", name="teacher_quiz_fiche_edit")
+     * @Route("/teacher/question/{id}/fiche/edit", name="teacher_quiz_fiche_edit")
      *
      * @param Question  $question
      * @param Request   $request
@@ -113,7 +93,7 @@ class QuizController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->manager->flush();
 
             $this->addFlash('success', 'Mise à jour réussite');
 
@@ -128,7 +108,7 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/fiche/new", name="teacher_quiz_fiche_new")
+     * @Route("/teacher/question/{id}/fiche/new", name="teacher_quiz_fiche_new")
      *
      * @param Quiz      $quiz
      * @param Request   $request
@@ -145,9 +125,8 @@ class QuizController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $question->setQuiz($quiz);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($question);
-            $em->flush();
+            $this->manager->persist($question);
+            $this->manager->flush();
 
             $this->addFlash('success', 'Votre ajout a été validé');
 
@@ -161,7 +140,7 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/fiche/delete", name="teacher_quiz_fiche_delete", methods="DELETE")
+     * @Route("/teacher/question/{id}/fiche/delete", name="teacher_quiz_fiche_delete", methods="DELETE")
      *
      * @param Request   $request
      * @param Question  $question
@@ -180,9 +159,9 @@ class QuizController extends AbstractController
 
 
         if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($question);
-            $em->flush();
+
+            $this->manager->remove($question);
+            $this->manager->flush();
         }
 
         $this->addFlash('warning', 'La suppression de la question a été faite !');
@@ -191,7 +170,7 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/update", name="teacher_quiz_update")
+     * @Route("/teacher/question/{id}/update", name="teacher_quiz_update")
      *
      * @param Request   $request
      * @param Quiz      $quiz
@@ -213,9 +192,8 @@ class QuizController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $quiz->setUpdatedAt(new \DateTime());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($quiz);
-            $em->flush();
+            $this->manager->persist($quiz);
+            $this->manager->flush();
 
             return $this->redirectToRoute('teacher_quiz_index');
         }
@@ -227,7 +205,7 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="teacher_quiz_create")
+     * @Route("/teacher/question/create", name="teacher_quiz_create")
      *
      * @param Request   $request
      *
@@ -243,9 +221,8 @@ class QuizController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $quiz->setAuthor($this->getUser());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($quiz);
-            $em->flush();
+            $this->manager->persist($quiz);
+            $this->manager->flush();
 
             $this->addFlash('success', 'Quiz ajouté');
 
@@ -258,7 +235,7 @@ class QuizController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="teacher_quiz_delete", methods="DELETE")
+     * @Route("/teacher/question/{id}/delete", name="teacher_quiz_delete", methods="DELETE")
      *
      * @param Request   $request
      * @param Quiz      $quiz
@@ -274,9 +251,9 @@ class QuizController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete'.$quiz->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($quiz);
-            $em->flush();
+
+            $this->manager->remove($quiz);
+            $this->manager->flush();
         }
 
         $this->addFlash('warning', 'La suppression du quiz a été faite !');

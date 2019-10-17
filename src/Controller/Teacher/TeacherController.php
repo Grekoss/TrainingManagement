@@ -6,6 +6,8 @@ use App\Entity\Invitation;
 use App\Form\SendInvitationType;
 use App\Repository\InvitationRepository;
 use App\Repository\MentorRepository;
+use App\Repository\QuestionRepository;
+use App\Repository\QuizRepository;
 use App\Repository\ReportRepository;
 use App\Repository\ResultRepository;
 use App\Repository\UserRepository;
@@ -19,27 +21,42 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swift_Mailer;
 
-/**
- * @Route("/teacher")
- */
 class TeacherController extends AbstractController
 {
+    protected $mentorRepository;
+    protected $userRepository;
+    protected $invitationRepository;
+    protected $reportRepository;
+    protected $resultRepository;
+    protected $questionRepository;
+    protected $quizRepository;
+
+    protected $manager;
+    protected $paginator;
+
+    public function __construct(MentorRepository $mentorRepository, UserRepository $userRepository, ObjectManager $manager, InvitationRepository $invitationRepository, ReportRepository $reportRepository, ResultRepository $resultRepository, PaginatorInterface $paginator, QuestionRepository $questionRepository, QuizRepository $quizRepository)
+    {
+        $this->questionRepository = $questionRepository;
+        $this->quizRepository = $quizRepository;
+        $this->mentorRepository = $mentorRepository;
+        $this->userRepository = $userRepository;
+        $this->invitationRepository = $invitationRepository;
+        $this->reportRepository = $reportRepository;
+        $this->resultRepository = $resultRepository;
+        $this->manager = $manager;
+        $this->paginator = $paginator;
+    }
+
     /**
-     * @Route("/", name="app_teacher")
+     * @Route("/teacher/", name="app_teacher")
      *
      * @param Request               $request
-     * @param UserRepository        $userRepository
-     * @param ObjectManager         $manager
      * @param Random                $random
      * @param Swift_Mailer          $mailer
-     * @param InvitationRepository  $invitationRepository
-     * @param MentorRepository      $mentorRepository
-     * @param ReportRepository      $reportRepository
-     * @param ResultRepository      $resultRepository
      *
      * @return RedirectResponse|Response
      */
-    public function index(Request $request, UserRepository $userRepository, ObjectManager $manager, Random $random, Swift_Mailer $mailer, InvitationRepository $invitationRepository, MentorRepository $mentorRepository, ReportRepository $reportRepository, ResultRepository $resultRepository): Response
+    public function index(Request $request, Random $random, Swift_Mailer $mailer): Response
     {
         $formInvitation = $this->createForm(SendInvitationType::class);
         $formInvitation->handleRequest($request);
@@ -50,7 +67,7 @@ class TeacherController extends AbstractController
             $token = $random->randomPassword('all', 100);
 
             // Controle si cette adresse existe déjà
-            $user = $userRepository->findOneBy(['email' => $inviteMail]);
+            $user = $this->userRepository->findOneBy(['email' => $inviteMail]);
             if ($user) {
                 $this->addFlash(
                     'danger',
@@ -61,7 +78,7 @@ class TeacherController extends AbstractController
             }
 
             // Controle si l'inviation a déjà été faite
-            $invited = $invitationRepository->findOneBy(['mail' => $inviteMail]);
+            $invited = $this->invitationRepository->findOneBy(['mail' => $inviteMail]);
             if ($invited) {
                 $this->addFlash(
                     'danger',
@@ -75,8 +92,8 @@ class TeacherController extends AbstractController
             $invitation->setMail($inviteMail)
                 ->setToken($token);
 
-            $manager->persist($invitation);
-            $manager->flush();
+            $this->manager->persist($invitation);
+            $this->manager->flush();
 
             // Envoie du message:
             $message = new \Swift_Message();
@@ -96,11 +113,11 @@ class TeacherController extends AbstractController
         }
 
         $listStudents = [];
-        $listTmpStudents = $mentorRepository->findBy(['mentor' => $this->getUser()]);
+        $listTmpStudents = $this->mentorRepository->findBy(['mentor' => $this->getUser()]);
         for ( $i=0 ; $i<count($listTmpStudents) ; $i++ ) {
             $listStudents[$i]['user'] = $listTmpStudents[$i]->getStudent();
-            $listStudents[$i]['reports'] = $reportRepository->findByUser($listStudents[$i]['user']);
-            $listStudents[$i]['results'] = $resultRepository->findByUser($listStudents[$i]['user']);
+            $listStudents[$i]['reports'] = $this->reportRepository->findByUser($listStudents[$i]['user']);
+            $listStudents[$i]['results'] = $this->resultRepository->findByUser($listStudents[$i]['user']);
         }
 
         return $this->render('teacher/index.html.twig', [
@@ -110,18 +127,16 @@ class TeacherController extends AbstractController
     }
 
     /**
-     * @Route("/listReports", name="teacher_list_reports", methods="GET")
+     * @Route("/teacher/listReports", name="teacher_list_reports", methods="GET")
      *
-     * @param ReportRepository      $reportRepository
      * @param Request               $request
-     * @param PaginatorInterface    $paginator
      *
      * @return Response
      */
-    public function listReports(ReportRepository $reportRepository, Request $request, PaginatorInterface $paginator): Response
+    public function listReports(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $reportRepository->findBy(array(), ['dateAt' => 'DESC']),
+        $pagination = $this->paginator->paginate(
+            $this->reportRepository->findBy(array(), ['dateAt' => 'DESC']),
             $request->query->getInt('page', 1),
             6
         );
@@ -133,19 +148,17 @@ class TeacherController extends AbstractController
     }
 
     /**
-     * @Route("/listReports/{id}", name="teacher_list_reports_user", methods="GET")
+     * @Route("/teacher/listReports/{id}", name="teacher_list_reports_user", methods="GET")
      *
      * @param Int                   $id
      * @param Request               $request
-     * @param PaginatorInterface    $paginator
-     * @param ReportRepository      $reportRepository
      *
      * @return Response
      */
-    public function listRepostsByUser(Int $id, Request $request, PaginatorInterface $paginator, ReportRepository $reportRepository): Response
+    public function listReportsByUser(Int $id, Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $reportRepository->findByUser($id),
+        $pagination = $this->paginator->paginate(
+            $this->reportRepository->findByUser($id),
             $request->query->getInt('page', 1),
             6
         );
@@ -157,18 +170,16 @@ class TeacherController extends AbstractController
     }
 
     /**
-     * @Route("/listResults", name="teacher_list_results", methods="GET")
+     * @Route("/teacher/listResults", name="teacher_list_results", methods="GET")
      *
-     * @param PaginatorInterface    $paginator
      * @param Request               $request
-     * @param ResultRepository      $resultRepository
      *
      * @return Response
      */
-    public function listResults(PaginatorInterface $paginator, Request $request, ResultRepository $resultRepository): Response
+    public function listResults(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $resultRepository->findBy(array(), ['dateAt' => 'DESC']),
+        $pagination = $this->paginator->paginate(
+            $this->resultRepository->findBy(array(), ['dateAt' => 'DESC']),
             $request->query->getInt('page', 1),
             7
         );
@@ -180,19 +191,17 @@ class TeacherController extends AbstractController
     }
 
     /**
-     * @Route("/listResults/{id}", name="teacher_list_results_user", methods="GET")
+     * @Route("/teacher/listResults/{id}", name="teacher_list_results_user", methods="GET")
      *
      * @param Int                   $id
      * @param Request               $request
-     * @param PaginatorInterface    $paginator
-     * @param ResultRepository      $resultRepository
      *
      * @return Response
      */
-    public function listResultsByUser(Int $id, Request $request, PaginatorInterface $paginator, ResultRepository $resultRepository): Response
+    public function listResultsByUser(Int $id, Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $resultRepository->findByUser($id),
+        $pagination = $this->paginator->paginate(
+            $this->resultRepository->findByUser($id),
             $request->query->getInt('page', 1),
             7
         );
@@ -203,6 +212,3 @@ class TeacherController extends AbstractController
         ]);
     }
 }
-
-
-// FIXME: Créer des questionnaires

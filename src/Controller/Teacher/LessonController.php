@@ -4,19 +4,15 @@ namespace App\Controller\Teacher;
 
 use App\Entity\Lesson;
 use App\Form\LessonType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/teacher/lesson")
- */
-class LessonController extends AbstractController
+class LessonController extends TeacherController
 {
     /**
-     * @Route("/lesson/new", name="teacher_new_lesson", methods="GET|POST")
+     * @Route("/teacher/lesson/new", name="teacher_new_lesson", methods="GET|POST")
      *
      * @param Request $request
      *
@@ -46,8 +42,8 @@ class LessonController extends AbstractController
 
             $lesson->setCreateBy($this->getUser());
 
-            $this->getDoctrine()->getManager()->persist($lesson);
-            $this->getDoctrine()->getManager()->flush();
+            $this->manager->persist($lesson);
+            $this->manager->flush();
 
             $this->addFlash('success', 'Votre enregistrement a été validé, il est maintenant disponible !');
 
@@ -60,7 +56,7 @@ class LessonController extends AbstractController
     }
 
     /**
-     * @Route("/lesson/{id}/update", name="teacher_lesson_update", methods="GET|POST")
+     * @Route("/teacher/lesson/{id}/update", name="teacher_lesson_update", methods="GET|POST")
      *
      * @param Request   $request
      * @param Lesson    $lesson
@@ -80,7 +76,7 @@ class LessonController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->manager->flush();
 
             $this->addFlash('success', 'Mise à jour réussite');
 
@@ -94,7 +90,7 @@ class LessonController extends AbstractController
     }
 
     /**
-     * @Route("/lesson/{id}/delete", name="teacher_lesson_delete", methods="DELETE")
+     * @Route("/teacher/lesson/{id}/delete", name="teacher_lesson_delete", methods="DELETE")
      *
      * @param Request   $request
      * @param Lesson    $lesson
@@ -111,9 +107,9 @@ class LessonController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete'.$lesson->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($lesson);
-            $em->flush();
+
+            $this->manager->remove($lesson);
+            $this->manager->flush();
         }
 
         $this->addFlash('warning', 'La suppression a bien été faite !');

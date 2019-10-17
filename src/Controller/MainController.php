@@ -12,6 +12,12 @@ class MainController extends AbstractController
      */
     public function index()
     {
+        // Enregistrer la connection
+        $user = $this->getUser();
+        $user->setLastLogin(new \DateTime());
+        $this->getDoctrine()->getManager()->persist($user);
+        $this->getDoctrine()->getManager()->flush();
+
         return $this->render('main/dashboard.html.twig', [
         ]);
     }
