@@ -110,6 +110,8 @@ class TeacherController extends AbstractController
                     'text/html'
                 );
             $mailer->send($message);
+
+            $this->addFlash('success', 'Invitation envoyée !');
         }
 
         $listStudents = [];

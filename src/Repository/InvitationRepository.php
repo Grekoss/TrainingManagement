@@ -19,22 +19,18 @@ class InvitationRepository extends ServiceEntityRepository
         parent::__construct($registry, Invitation::class);
     }
 
-    // /**
-    //  * @return Invitation[] Returns an array of Invitation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Invitation[] Retourne la liste des invations ayant plus d'un mois
+      */
+    public function findMore1Month()
     {
         return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('i.createdAt < :dateMonth')
+            ->setParameter('dateMonth', new \DateTime('-1 month'))
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Invitation
