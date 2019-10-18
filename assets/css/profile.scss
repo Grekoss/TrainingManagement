@@ -19,13 +19,15 @@ legend {
   width: auto;
 }
 
-.profile-form div.mb-3:nth-child(2) {
+.profile-form div.mb-3:nth-child(2),
+.profile-form div.mb-3:nth-child(3) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.profile-form div.mb-3:nth-child(2) div.input-group {
+.profile-form div.mb-3:nth-child(2) div.input-group,
+.profile-form div.mb-3:nth-child(3) div.input-group {
   width: 49%;
 }
 

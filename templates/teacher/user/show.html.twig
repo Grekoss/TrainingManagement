@@ -1,0 +1,87 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Teacher{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('teacher') }}
+    {{ encore_entry_link_tags('profile') }}
+{% endblock %}
+
+{% block content %}
+
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
+    <div class="container">
+        <div class="row my-3">
+            <h1>{{ user.firstName|capitalize }} {{ user.lastName|capitalize }}</h1>
+        </div>
+
+        <div class="row my-3">
+            <div class="profile-form w-100" >
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Prénom & Nom</span>
+                    </div>
+                    <div class="form-control">{{ user.firstName }}</div>
+                    <div class="form-control">{{ user.lastName }}</div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-email"><i class="fas fa-at"></i></span>
+                        </div>
+                        <div class="form-control">{{ user.email }}</div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-phone"><i class="fas fa-mobile-alt"></i></span>
+                        </div>
+                        <div class="form-control">{{ user.phoneNumber }}</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-role"><i class="fas fa-user-tag"></i></span>
+                        </div>
+                        <div class="form-control">{{ user.role }}</div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-function"><i class="fas fa-users-cog"></i></span>
+                        </div>
+                        <div class="form-control">{{ user.function }}</div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class="last-connection">Dernière mise à jour du compte : {{ user.updatedAt|date('d/m/Y') }}</p>
+                    {% if user.lastLogin %}
+                        <p class="last-connection">Dernière connection : {{ user.lastLogin|date('d/m/Y') }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <a href="{{ path('app_show_messages', {'id': user.id}) }}" class="btn btn-outline-dark" title="Envoyer un message"><i class="far fa-envelope mr-2"></i>Envoyer un message interne</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-3">
+            {{ form_start(form) }}
+            {{ form_row(form.mentor) }}
+            <div class="text-center">
+                <button class="btn btn-outline-primary" type="submit">Enregister</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+        <div class="row my-3">
+            <a href="{{ path('teacher_list_users') }}" class="btn btn-outline-secondary">Retour</a>
+        </div>
+
+    </div>
+
+{% endblock %}

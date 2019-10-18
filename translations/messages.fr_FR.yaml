@@ -58,6 +58,8 @@ MEDIUM: Moyenne
 HARD: Difficile
 
 # QuizType
-
 Categories: Catégories
+
+# MentorType:
+Choice the mentor: Choix du mentor
 

@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Mentor;
+use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,8 +14,16 @@ class MentorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('student')
-            ->add('mentor')
+            ->add('mentor', EntityType::class, [
+                'class' => 'App\Entity\User',
+                'label' => 'Choice the mentor',
+                'query_builder' => function (UserRepository $user) {
+                    return $user->createQueryBuilder('u')
+                        ->where('u.role = :role')
+                        ->setParameter('role', 'ROLE_TEACHER')
+                        ->orderBy('u.firstName', 'ASC');
+                },
+            ])
         ;
     }
 
@@ -21,6 +31,9 @@ class MentorType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Mentor::class,
+            'attr' => [
+                'class' => 'w-50 m-auto'
+            ]
         ]);
     }
 }

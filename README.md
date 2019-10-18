@@ -6,9 +6,6 @@ Utilisation actuellement en interne pour le restaurant de Nogent le Rotrou de la
 
 # 1 - Les fonctionnalitées:
 
-- [ ] Invitation de connexion pour permettre à l'étudiant de s'inscrire. 
-
-
 ```md
 Temporairement, un compte étudiant en fixture sera mis en place:
 ID : 'user@formation.fr'

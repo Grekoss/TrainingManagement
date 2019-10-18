@@ -32,18 +32,19 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Dernier rapport (Qte)</th>
                         <th scope="col">Dernier questionnaire</th>
+                        <th scope="col">Dernière Co.</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for key, student in listStudents %}
+                {% for student in listStudents %}
                     <tr>
-                        <th scope="row">{{ key + 1 }}</th>
-                        <td>{{ student['user'].firstName|capitalize }} {{ student['user'].lastName|capitalize|slice(0, 1) }}.</td>
+                        <th>
+                            <a href="{{ path('teacher_user_update', {'id': student['user'].id}) }}">{{ student['user'].firstName|capitalize }} {{ student['user'].lastName|capitalize|slice(0, 1) }}.</a>
+                        </th>
                         <td>
                             {% if student['reports'][0] is defined %}
                             <em>
@@ -66,6 +67,7 @@
                                 </em>
                             {% endif %}
                         </td>
+                        <td>{{ student['user'].lastLogin|date('d/m/Y') }}</td>
                         <td>
                             <a href="{{ path('question_list_results', {'id': student['user'].id}) }}" class="btn btn-outline-info" title="Afficher la liste des résultats aux questionnaires"><i class="fas fa-question-circle"></i></a>
                             <a href="{{ path('teacher_list_reports_user', {'id': student['user'].id}) }}" class="btn btn-outline-success" title="Afficher la liste des rapports"><i class="far fa-list-alt"></i></a>

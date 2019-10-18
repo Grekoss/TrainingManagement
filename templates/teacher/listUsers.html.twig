@@ -10,6 +10,8 @@
 
     <a href="{{ path('app_teacher') }}" class="btn btn-outline-secondary position-absolute btn-back">Retour</a>
 
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
     <table class="table">
         <thead>
         <tr>
@@ -36,8 +38,9 @@
                     <td class="font-italic">( pas de connection )</td>
                 {% endif %}
             <td>
-                <a href="#" class="btn btn-outline-secondary" title="Activer / Désactiver l'étudiant"><i class="far fa-pause-circle"></i></a>
-                <a href="#" class="btn btn-outline-primary" title="Afficher les informations et modifier le mentor"><i class="far fa-eye"></i></a>
+                <a href="{{ path('teacher_user_isActive', {'id': user['user'].id}) }}" class="btn btn-outline-secondary" title="Activer / Désactiver l'étudiant"><i class="far fa-pause-circle"></i></a>
+                <a href="{{ path('teacher_user_update', {'id': user['user'].id}) }}" class="btn btn-outline-primary" title="Afficher les informations et modifier le mentor"><i class="far fa-eye"></i></a>
+                <a href="{{ path('app_show_messages', {'id': user['user'].id}) }}" class="btn btn-outline-dark" title="Envoyer un message"><i class="far fa-envelope"></i></a>
             </td>
         </tr>
         {% endfor %}
