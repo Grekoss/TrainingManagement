@@ -3,9 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LessonRepository")
+ * @Vich\Uploadable
  */
 class Lesson
 {
@@ -18,6 +24,7 @@ class Lesson
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $title;
 
@@ -33,6 +40,7 @@ class Lesson
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $description;
 
@@ -43,9 +51,16 @@ class Lesson
     private $createBy;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Vich\UploadableField(mapping="lesson_file", fileNameProperty="fileName")
+     * @var File|null;
      */
     private $file;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fileName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -123,14 +138,45 @@ class Lesson
         return $this;
     }
 
-    public function getFile(): ?string
+    /**
+     * @return File|null
+     */
+    public function getFile(): ?File
     {
         return $this->file;
     }
 
-    public function setFile(string $file): self
+    /**
+     * @param File|null $file
+     * @return Lesson
+     * @throws Exception
+     */
+    public function setFile(?File $file): Lesson
     {
         $this->file = $file;
+
+        if ($this->file instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * @param string|null $fileName
+     * @return Lesson
+     */
+    public function setFileName(?string $fileName): Lesson
+    {
+        $this->fileName = $fileName;
 
         return $this;
     }
@@ -149,7 +195,7 @@ class Lesson
 
     public function getExtension()
     {
-        $extension = explode('.', $this->file);
+        $extension = explode('.', $this->fileName);
 
         return strtolower($extension[1]);
     }

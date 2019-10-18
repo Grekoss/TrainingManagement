@@ -9,50 +9,14 @@
 {% block content %}
     {{ include('partiels/_messageFlashes.html.twig') }}
 
+    {% if teacher is not defined %}
     <div class="text-right my-3">
         <a href="{{ path('app_report_new')}}" class="btn btn-outline-primary"><i class="fas fa-plus-circle mr-2"></i>Ajouter un rapport</a>
     </div>
-
-    <table class="table table-striped text-center">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Shift</th>
-            <th scope="col">Zone</th>
-            <th scope="col">Sentiment</th>
-            <th scope="col">Vu</th>
-            <th scope="col">Commentaires</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for report in reports %}
-        <tr>
-            <th scope="row">{{ report.id }}</th>
-            <td title="{{ report.dateAt|localizeddate('none', 'none', null, null, 'EEEE')|capitalize }}">{{ report.dateAt|date('d/m/Y') }}</td>
-            <td>
-                {% if report.rushOf is same as ('open') %}
-                    <img class="rush-img-little" src="{{ asset('images/icons/midi.png') }}" alt="open" title="Open" />
-                {% else %}
-                    <img class="rush-img-little" src="{{ asset('images/icons/soir.png') }}" alt="close" title="Close" />
-                {% endif %}
-            </td>
-            <td title="{{ report.position|capitalize }}">{{ report.zone|capitalize }}</td>
-            <td>{{ makeStar(report.feelRush)|raw }}</td>
-            <td class="array-show-{{ report.isSeen }}"></td>
-            <td>{{ report.commentReports|length }} {{ report.commentReports|length > 1 ? 'commentaires' : 'commentaire' }}</td>
-            <td>
-                <a href="{{ path('app_report_show', {'id': report.id}) }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
-                <a href="{{ path('app_report_update', {'id': report.id}) }}" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a>
-            </td>
-        </tr>
         {% else %}
-        <tr>
-            <th scope="row" colspan="8">Pas de rapport</th>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <a href="{{ path('app_teacher')}}" class="btn btn-outline-secondary btn-back">Retour</a>
+    {% endif %}
+
+    {{ include('report/partiels/_table.html.twig') }}
 
 {% endblock %}

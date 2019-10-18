@@ -1,0 +1,30 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Teacher{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('report') }}
+    {{ encore_entry_link_tags('question') }}
+{% endblock %}
+
+{% block content %}
+
+    {% if byQuiz is defined and byQuiz %}
+        <a href="{{ path('teacher_quiz_index') }}" class="btn btn-outline-secondary position-absolute btn-back">Retour</a>
+    {% else %}
+        <a href="{{ path('app_teacher') }}" class="btn btn-outline-secondary position-absolute btn-back">Retour</a>
+    {% endif %}
+
+    {% if quiz is defined %}
+        {{ include('question/partiels/_titleQuiz.html.twig')}}
+    {% endif %}
+
+    {{ include('user/partiels/_results.html.twig') }}
+
+    <div class="text-center">
+        <div class="navigation d-inline-block m-auto">
+            {{ knp_pagination_render(results) }}
+        </div>
+    </div>
+
+{% endblock %}

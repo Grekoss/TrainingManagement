@@ -94,7 +94,7 @@
   font-weight: bold;
 }
 
-img {
+.img-menu {
   border-radius: 15px;
   margin: auto;
   max-height: 150px;
@@ -106,4 +106,15 @@ img {
 }
 .container-buttons-lessons a:nth-child(2) img {
   height: 150px;
+}
+
+.icon-edit {
+  position: absolute;
+  right: 5px;
+  text-align: right;
+  top: 5px;
+}
+
+.img-icon-edit {
+  width: 75%;
 }

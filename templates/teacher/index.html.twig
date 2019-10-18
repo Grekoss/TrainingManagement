@@ -1,9 +1,9 @@
 {% extends 'baseMain.html.twig' %}
 
-{% block title %}Admin{% endblock %}
+{% block title %}Teacher{% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('admin') }}
+    {{ encore_entry_link_tags('teacher') }}
 {% endblock %}
 
 {% block content %}
@@ -12,10 +12,75 @@
 
     <div class="container">
         <div class="row">
-            {{ form_start(formInvitation) }}
-            {{ form_widget(formInvitation.email) }}
-            <button class="btn btn-outline-dark m-auto" type="submit">Inviter</button>
-            {{ form_end(formInvitation) }}
+            <fieldset class="box-invitation">
+                <legend>Invitation</legend>
+                {{ form_start(formInvitation) }}
+                    {{ form_widget(formInvitation.email) }}
+                    <button class="btn btn-outline-dark" type="submit">Inviter</button>
+                {{ form_end(formInvitation) }}
+            </fieldset>
+        </div>
+
+        <div class="row justify-content-around my-3">
+            <a href="{{ path('teacher_list_users') }}" class="btn btn-outline-info">Afficher tout les étudiants</a>
+            <a href="{{ path('teacher_list_reports') }}" class="btn btn-outline-info">Afficher tout les rapports</a>
+            <a href="{{ path('teacher_quiz_index') }}" class="btn btn-outline-info">Liste des questionnaires</a>
+            <a href="{{ path('teacher_list_results')}}" class="btn btn-outline-info">Afficher tout les résultats des questionnaires</a>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Dernier rapport (Qte)</th>
+                        <th scope="col">Dernier questionnaire</th>
+                        <th scope="col">Dernière Co.</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for student in listStudents %}
+                    <tr>
+                        <th>
+                            <a href="{{ path('teacher_user_update', {'id': student['user'].id}) }}">{{ student['user'].firstName|capitalize }} {{ student['user'].lastName|capitalize|slice(0, 1) }}.</a>
+                        </th>
+                        <td>
+                            {% if student['reports'][0] is defined %}
+                            <em>
+                                <a href="{{ path('app_report_show', {'id': student['reports'][0].id}) }}">{{ student['reports'][0] }}</a>
+                            </em>
+                            <em>-</em>
+                            <em>
+                                <a href="{{ path('teacher_list_reports_user', {'id': student['user'].id}) }}">( {{ student['user'].reports|length }} )</a>
+                            </em>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if student['results'][0] is defined %}
+                                <em>
+                                    <a href="{{ path('app_correction', {'id': student['results'][0].id}) }}">{{ student['results'][0] }}</a>
+                                </em>
+                                <em>-</em>
+                                <em>
+                                    <a href="{{ path('teacher_list_results_user', {'id': student['user'].id}) }}">( {{ student['results']|length }} )</a>
+                                </em>
+                            {% endif %}
+                        </td>
+                        <td>{{ student['user'].lastLogin|date('d/m/Y') }}</td>
+                        <td>
+                            <a href="{{ path('question_list_results', {'id': student['user'].id}) }}" class="btn btn-outline-info" title="Afficher la liste des résultats aux questionnaires"><i class="fas fa-question-circle"></i></a>
+                            <a href="{{ path('teacher_list_reports_user', {'id': student['user'].id}) }}" class="btn btn-outline-success" title="Afficher la liste des rapports"><i class="far fa-list-alt"></i></a>
+                            <a href="{{ path('app_show_messages', {'id': student['user'].id}) }}" class="btn btn-outline-dark" title="Envoyer un message"><i class="far fa-envelope"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <th colspan="5">Pas d'étudiant à charge</th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

@@ -1,0 +1,14 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Liste des Résultat{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('question') }}
+{% endblock %}
+
+{% block content %}
+    <a href="{{ path('app_teacher') }}" class="btn btn-outline-secondary btn-back">Retour</a>
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
+    {{ include('user/partiels/_results.html.twig')}}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Edition de question{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('teacher') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            {{ include('partiels/_messageFlashes.html.twig') }}
+        </div>
+
+        <div class="row">
+            {{ include('teacher/quiz/partiels/_form_quiz.html.twig') }}
+        </div>
+
+        <div class="row my-3 justify-content-end">
+            <a href="{{ path('teacher_quiz_index') }}" class="btn btn-outline-secondary mx-2">Retour</a>
+        </div>
+
+    </div>
+
+{% endblock %}

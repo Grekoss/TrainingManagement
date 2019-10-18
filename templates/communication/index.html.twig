@@ -14,7 +14,9 @@
     <div class="row my-2 d-flex justify-content-around">
 {#        <a href="#" class="btn btn-outline-success"><i class="fas fa-plus-circle mr-3"></i>Ecrire une nouveau message</a>#}
         <div class="userMainSender d-flex align-items-center px-2 rounded">Signifie que vous êtes la dernière personne a avoir écrit un message</div>
+        {% if not is_granted('ROLE_TEACHER') %}
         <a href="{{ path('communication_sendMessageForMentor') }}" class="btn btn-outline-info"><i class="fas fa-user-plus mr-3"></i>Ecrire au mentor</a>
+        {% endif %}
     </div>
     <div class="row">
         <table class="table table-communication">

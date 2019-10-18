@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        lesson_file:
+            uri_prefix: /files/lessons
+            upload_destination: '%kernel.project_dir%/public/files/lessons'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

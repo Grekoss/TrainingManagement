@@ -8,6 +8,7 @@
         "captcha-com/symfony-captcha-bundle": "4.*",
         "friendsofsymfony/ckeditor-bundle": "^2.1",
         "fzaninotto/faker": "^1.8",
+        "knplabs/knp-paginator-bundle": "^4.0",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "4.3.*",
         "symfony/console": "4.3.*",
@@ -30,7 +31,8 @@
         "symfony/web-link": "4.3.*",
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "4.3.*",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
+        "vich/uploader-bundle": "^1.10"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.2",

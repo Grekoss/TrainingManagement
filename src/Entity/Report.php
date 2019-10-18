@@ -101,6 +101,11 @@ class Report
         $this->commentReports = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return 'Le ' . $this->dateAt->format('d/m/Y à H:i');
+    }
+
     public function getId(): ?int
     {
         return $this->id;

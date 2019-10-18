@@ -1,0 +1,77 @@
+{% extends 'baseMain.html.twig' %}
+
+{% block title %}Teacher{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('teacher') }}
+{% endblock %}
+
+{% block content %}
+    {{ include('partiels/_messageFlashes.html.twig') }}
+
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped text-center">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-left">Titre</th>
+                    <th scope="col">Créé par</th>
+                    <th scope="col">Tags</th>
+                    <th scope="col" title="Nombre de questions"># Ques.</th>
+                    <th scope="col" title="Nombre de foirs réalisé par les étudiants"># Réa.</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for quiz in listQuizzes %}
+                    <tr>
+                        <td class="text-left" title="{{ quiz.description }}">{{ quiz.title|capitalize }}</td>
+                        <td>{{ quiz.author.firstName|capitalize }} {{ quiz.author.lastName|slice(0, 1)|capitalize }}.</td>
+                        <td>
+                            {% for tag in quiz.tags %}
+                                <div class="badge" style="color: {{ tag.textColor }}; background-color: {{ tag.backgroundColor }}">{{ tag.name|capitalize }}</div>
+                            {% else %}
+                                <div>Pas de tag</div>
+                            {% endfor %}
+                        </td>
+                        <td>{{ quiz.questions|length }}</td>
+                        <td>{{ quiz.results|length }}</td>
+                        <td class="td-container-buttons-actions">
+                            <div class="btn-group" role="group">
+                                <button id="btnGroupDropActions" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDropActions">
+                                    {% if quiz.results|length > 0 %}
+                                        <a href="{{ path('teacher_quiz_showResults', {'id': quiz.id}) }}" class="btn btn-outline-success" title="Afficher tout les résultats"><i class="fas fa-poll mr-3"></i>Afficher tout les résultats</a>
+                                    {% endif %}
+                                    <a href="{{ path('teacher_quiz_fiche', {'id': quiz.id}) }}" class="btn btn-outline-primary" title="Voir la fiche du questionnaire"><i class="fas fa-eye mr-3"></i>Voir la fiche du questionnaire</a>
+                                    {% if quiz.author == app.user %}
+                                        <a href="{{ path('teacher_quiz_update', {'id': quiz.id}) }}" class="btn btn-outline-dark" title="Editer le questionnaire"><i class="fas fa-edit mr-3"></i>Editer le questionnaire</a>
+                                        {{ include('teacher/quiz/partiels/_delete_quiz.html.twig') }}
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <th scope="row" colspan="6">Pas de questionnaire de disponible</th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+
+        <div class="row">
+            <div class="m-auto">
+                {{ knp_pagination_render(listQuizzes) }}
+            </div>
+        </div>
+
+        <div class="text-center mt-2">
+            <a href="{{ path('teacher_quiz_create') }}" class="btn btn-outline-success w-75"><i class="fas fa-plus-circle mx-2"></i>Créer un quiz</a>
+        </div>
+    </div>
+{% endblock %}

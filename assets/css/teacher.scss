@@ -1,0 +1,51 @@
+.box-invitation {
+  border: solid 1px darkgrey;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.box-invitation legend {
+  margin: auto;
+  padding: 0 20px;
+  width: auto;
+}
+
+.box-invitation button {
+  margin-left: 2em;
+}
+
+.td-container-buttons-actions a {
+  margin: 2px;
+}
+
+.form-box {
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  width: 50%;
+}
+
+form[name='quiz'] fieldset {
+  border: solid 1px silver;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+form[name='quiz'] fieldset legend {
+  margin: auto;
+  padding: 0 2em;
+  width: auto;
+}
+
+#quiz_tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.form-check {
+  width: 25%;
+}
+

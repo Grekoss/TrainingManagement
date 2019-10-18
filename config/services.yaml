@@ -31,7 +31,3 @@ services:
     App\Service\Slugger:
         arguments:
             $use_hyphen: '%slugger_hypen%'
-
-    App\Service\FileUploader:
-        arguments:
-            $targetDirectory: '%kernel.project_dir%/public/assets/files/'

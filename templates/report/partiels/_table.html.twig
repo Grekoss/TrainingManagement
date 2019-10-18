@@ -1,0 +1,47 @@
+<table class="table table-striped text-center">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        {% if teacher is defined %}
+            <th scope="col">Etudiant</th>
+        {% endif %}
+        <th scope="col">Date</th>
+        <th scope="col">Shift</th>
+        <th scope="col">Zone</th>
+        <th scope="col">Sentiment</th>
+        <th scope="col">Vu</th>
+        <th scope="col">Commentaires</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for report in reports %}
+        <tr>
+            <th scope="row">{{ report.id }}</th>
+            {% if teacher is defined %}
+                <td>{{ report.student.firstName|capitalize }} {{ report.student.lastName|capitalize|slice(0, 1) }}</td>
+            {% endif %}
+            <td title="{{ report.dateAt|localizeddate('none', 'none', null, null, 'EEEE')|capitalize }}">{{ report.dateAt|date('d/m/Y') }}</td>
+            <td>
+                {% if report.rushOf is same as ('open') %}
+                    <img class="rush-img-little" src="{{ asset('images/icons/midi.png') }}" alt="open" title="Open" />
+                {% else %}
+                    <img class="rush-img-little" src="{{ asset('images/icons/soir.png') }}" alt="close" title="Close" />
+                {% endif %}
+            </td>
+            <td title="{{ report.position|capitalize }}">{{ report.zone|capitalize }}</td>
+            <td>{{ makeStar(report.feelRush)|raw }}</td>
+            <td class="array-show-{{ report.isSeen }}"></td>
+            <td>{{ report.commentReports|length }} {{ report.commentReports|length > 1 ? 'commentaires' : 'commentaire' }}</td>
+            <td>
+                <a href="{{ path('app_report_show', {'id': report.id}) }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+                <a href="{{ path('app_report_update', {'id': report.id}) }}" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <th scope="row" colspan="8">Pas de rapport</th>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

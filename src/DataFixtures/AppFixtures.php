@@ -427,7 +427,7 @@ class AppFixtures extends Fixture
                 ->setTitle($this->generator->sentence(5))
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date)
-                ->setFile('faker/FAKER.pdf')
+                ->setFileName('fixtures/FAKER.pdf')
                 ->setDescription($this->generator->paragraph(2))
                 ->setCategory($categories[$categoriesKey[0]]);
 

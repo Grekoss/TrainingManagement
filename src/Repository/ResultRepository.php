@@ -48,4 +48,18 @@ class ResultRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    /**
+     * @return Result[] Retoune un tableau d'objet de résultat en fonction du questionnaire
+     */
+    public function findByQuiz($quiz)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.quiz = :quiz')
+            ->setParameter('quiz', $quiz)
+            ->orderBy('r.dateAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
