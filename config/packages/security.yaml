@@ -34,7 +34,7 @@ security:
 
     role_hierarchy:
         ROLE_TEACHER:   ROLE_USER
-        ROLE_ADMIN:     ROLE_TEACHER
+        ROLE_STORE:     ROLE_TEACHER
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

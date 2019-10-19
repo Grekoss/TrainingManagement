@@ -71,6 +71,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
 
+        if (!$user->getIsActive()) {
+            // Vérifie si l'utilisateur est active
+            throw new CustomUserMessageAuthenticationException('Your account is disabled! Please contact your director!');
+        }
+
         return $user;
     }
 

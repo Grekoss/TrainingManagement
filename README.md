@@ -12,13 +12,7 @@ ID : 'user@formation.fr'
 Password: 'password'  
 ``` 
 
-- [ ] Message d'erreur lorsqu'un utilisateur désactiver essaye de se connecter
-
-- [ ] Automatiser la suppression de l'invitation au bout de 15 ou 30 jours
-
-- [ ] Créer un compte Store
-
-- [ ] Créer un compte super admin avec easyadmin
+- [ ] Gestion de esayAdmin
 
 - [ ] Faire une belle page 404
 
