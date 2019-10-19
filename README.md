@@ -12,10 +12,7 @@ ID : 'user@formation.fr'
 Password: 'password'  
 ``` 
 
-- [ ] Message d'erreur lorsqu'un utilisateur désactiver essaye de se connecter
-
-
-- [ ] Créer un compte super admin avec easyadmin
+- [ ] Gestion de esayAdmin
 
 - [ ] Faire une belle page 404
 
