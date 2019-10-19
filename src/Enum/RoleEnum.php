@@ -9,5 +9,6 @@ class RoleEnum extends AbstractEnum
 {
     public const ROLE_USER = ['ROLE_USER', 'Etudiant'];
     public const ROLE_TEACHER = ['ROLE_TEACHER', 'Formateur'];
+    public const ROLE_STORE = ['ROLE_STORE', 'Directeur'];
     public const ROLE_ADMIN = ['ROLE_ADMIN', 'Admin'];
 }

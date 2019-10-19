@@ -29,7 +29,7 @@ class CheckInvitationsCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Vérifie les invitations et nettoie la base de données')
+            ->setDescription('Vérifie les invitations et nettoyage de la base de données')
             ->addOption('all', null, InputOption::VALUE_NONE, 'Tout supprimer')
             ->addOption('month', null, InputOption::VALUE_NONE, 'Supprimer seulement ceux de plus d\'un mois')
         ;
