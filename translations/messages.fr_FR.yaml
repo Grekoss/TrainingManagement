@@ -63,3 +63,27 @@ Categories: Catégories
 # MentorType:
 Choice the mentor: Choix du mentor
 
+# EASY-ADMIN
+# Users
+AllUsers: AllUsers
+Users: Utilisateurs
+Users listing: Liste des utilisateurs
+All members: Tout les utilisateurs
+First name: Prénom
+Last name: Nom de famille
+Email: Email
+Last login: Dernière connexion
+Updated at: Mise à jour
+Is active: Est active ?
+ID: ID
+Phone number: Numéro de téléphone
+Role: Role
+Function: Fonction
+Students: Etudiants
+Results: Résultats
+Reports: Rapports
+Lessons: Leçons
+Edit: Editer
+Delete: Supprimer
+
+

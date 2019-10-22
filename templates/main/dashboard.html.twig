@@ -51,6 +51,10 @@
                                 <div>Mentor</div>
                             </a>
                         {% endif %}
+
+                        {% if is_granted('ROLE_STORE') %}
+                        <a href="{{ absolute_url('/admin') }}" class="w-100  d-block alert-danger alert">ADMIN</a>
+                        {% endif %}
                     </div>
                     <div class="dashboard-footer"><a href="mailto:cedricpourrias@gmail.com">Ecrire pour signaler un problème</a></div>
                 </div>

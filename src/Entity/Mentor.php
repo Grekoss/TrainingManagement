@@ -26,6 +26,11 @@ class Mentor
      */
     private $mentor;
 
+    public function __toString()
+    {
+        return $this->getStudent()->getFirstName(). ' ' . $this->getStudent()->getLastName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

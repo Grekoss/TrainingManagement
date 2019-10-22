@@ -1,0 +1,7 @@
+easy_admin:
+  design:
+    menu:
+      - label: 'Users'
+        icon: 'users'
+        children:
+          - { entity: 'AllUsers', icon: 'users', label: 'All members', permission: 'ROLE_ADMIN' }

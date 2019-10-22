@@ -1,0 +1,49 @@
+easy_admin:
+  entities:
+    AllUsers:
+      class: App\Entity\User
+      label: 'Users'
+
+      list:
+        title: 'Users listing'
+        max_results: 20
+        sort: ['lastLogin', 'DESC']
+        fields:
+          - firstName
+          - lastName
+          - email
+          - { property: 'lastLogin', format: 'j/m/Y  -  H:i' }
+          - isActive
+          - function
+        actions:
+          - -new
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - { name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
+
+      show:
+        title: 'User : #%%entity_id%%'
+        fields:
+          - { property: 'id', type: 'integer' }
+          - { property: 'lastName', type: 'string' }
+          - { property: 'firstName', type: 'string' }
+          - { property: 'email', type: 'email' }
+          - { property: 'phoneNumber', type: 'tel' }
+          - { property: 'role', type: 'string' }
+          - { property: 'function', type: 'string' }
+          - { property: 'isActive', type: 'boolean' }
+          - students
+          - results
+          - reports
+          - lessons
+        actions:
+          - { name: 'edit', icon: 'pencil', label: 'Edit', css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+
+      edit:
+        title: 'User : #%%entity_id%%'
+        help: 'Change the role or function of the user'
+        fields:
+          - { property: 'isActive' }
+          - { property: 'role', type: 'choice', type_options: { mapped: true, expanded: false, multiple: false, choices: { 'Etudiant': 'ROLE_USER', 'Formateur': 'ROLE_TEACHER', 'Directeur': 'ROLE_STORE' } } }
+          - { property: 'function', type: 'choice', type_options: { mapped: true, expanded: false, choices: { 'Equipier':'équipier', 'Coach':'coach', 'Responsable de zone': 'responsable de zone', 'Assistant de direction': 'assistant de direction', 'Directeur adjoint': 'directeur adjoint', 'Directeur': 'directeur', 'Autre': 'autre' } } }
