@@ -22,6 +22,14 @@
         </div>
     </div>
     <div class="card-footer">
+        {% if quiz.questions|length == 0 %}
+        <div class="alert alert-warning text-center" role="alert">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span class="mx-3">Access bloqué tant qu’il n’y aura pas de questions</span>
+            <i class="fas fa-skull-crossbones"></i>
+        </div>
+        {% else %}
         <a class="btn btn-outline-info w-100" href="{{ path('app_question_show', {'id': quiz.id}) }}">Voir le questionnaire</a>
+        {% endif %}
     </div>
 </div>
