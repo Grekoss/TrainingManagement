@@ -24,7 +24,9 @@
 
 .w-35 { width: 35%; }
 .w-20 { width: 20%; }
+.w-150px { width: 150px; }
 
 .progressBarCustom .form-widget {
   max-width: 50% !important;
 }
+

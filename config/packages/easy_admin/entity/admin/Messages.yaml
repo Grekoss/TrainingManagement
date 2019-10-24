@@ -1,0 +1,34 @@
+easy_admin:
+  entities:
+    Messages:
+      class: App\Entity\Message
+      label: 'Messages'
+      permission: 'ROLE_ADMIN'
+
+      list:
+        title: 'Messages listing'
+        max_results: 20
+        sort: ['writeAt', 'DESC']
+        fields:
+          - id
+          - { property: 'writeAt', format: 'd/m/Y - H:i', css_class: 'w-150px' }
+          - sender
+          - { property: 'received', label: 'Receiver' }
+          - { property: 'content', template: 'easy_admin/fields/_message.html.twig' }
+        actions:
+          - -new
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - -edit
+          - -delete
+
+      show:
+        fields:
+          - id
+          - sender
+          - { property: 'writeAt', format: 'd/m/Y - H:i' }
+          - { property: 'received', label: 'Receiver' }
+          - { property: 'content', template: 'easy_admin/fields/_message.html.twig' }
+        actions:
+          - -edit
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+

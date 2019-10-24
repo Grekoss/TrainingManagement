@@ -33,7 +33,6 @@ Encore
     .addEntry('communication', './assets/js/communication.js')
     .addEntry('startQuiz', './assets/js/startQuiz.js')
     .addEntry('teacher', './assets/js/teacher.js')
-    .addEntry('easyAdmin', './assets/js/easy_admin.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

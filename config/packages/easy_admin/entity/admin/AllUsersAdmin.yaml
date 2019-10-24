@@ -37,6 +37,8 @@ easy_admin:
           - results
           - reports
           - lessons
+          - sentMessages
+          - receivedMessages
         actions:
           - { name: 'edit', icon: 'pencil', label: 'Edit', css_class: 'btn btn-secondary' }
           - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }

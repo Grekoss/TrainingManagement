@@ -98,7 +98,7 @@ Directeur adjoint: Directeur adjoint
 Users not active listing: Liste des utilisateurs non actifs
 Members not active: Membres non actifs
 AllUsersAdmin: Touts les utilisateurs (admin)
-All members for admin: Tous les membres pour l'admin
+All members: Tous les membres
 
 #quiz
 AllQuizzes: Tout les questionnaires
@@ -138,5 +138,15 @@ Score: Score
 Student: Etudiant
 Responses: Réponses
 
+#admin
+Admin: Admin
+Messages: Messages
+Sent messages: Messages envoyés
+Received messages: Messages reçus
+Messages listing: Liste des messages
+Write at: Ecrit le
+Sender: Expéditeur
+Receiver: Destinataire
+Content: Contenu
 
 
