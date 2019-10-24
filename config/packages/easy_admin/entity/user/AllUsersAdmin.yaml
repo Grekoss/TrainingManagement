@@ -1,15 +1,14 @@
 easy_admin:
   entities:
-    AllUsers:
+    AllUsersAdmin:
       class: App\Entity\User
       label: 'Users'
-      permission: 'ROLE_STORE'
+      permission: 'ROLE_ADMIN'
 
       list:
         title: 'Users listing'
         max_results: 20
         sort: ['lastLogin', 'DESC']
-        dql_filter: 'entity.role = ''ROLE_USER'' OR entity.role = ''ROLE_TEACHER'' OR entity.role = ''ROLE_STORE'''
         fields:
           - firstName
           - lastName
@@ -21,7 +20,7 @@ easy_admin:
           - -new
           - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
           - { name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
-          - -delete
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
 
       show:
         title: 'User : #%%entity_id%%'
@@ -40,7 +39,7 @@ easy_admin:
           - lessons
         actions:
           - { name: 'edit', icon: 'pencil', label: 'Edit', css_class: 'btn btn-secondary' }
-          - -delete
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
 
       edit:
         title: 'User : #%%entity_id%%'

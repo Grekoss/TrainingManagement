@@ -1,0 +1,54 @@
+easy_admin:
+  entities:
+    AllQuizzes:
+      class: App\Entity\Quiz
+      label: 'Quizzes'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Quizzes listing'
+        max_results: 20
+        sort: ['title', 'ASC']
+        fields:
+          - title
+          - description
+          - author
+          - { property: 'tags', template: 'easy_admin/fields/_tags.html.twig', css_class: 'text-center' }
+          - { property: 'questions', css_class: 'text-center' }
+          - { property: 'createdAt', format: 'j/m/Y' }
+        actions:
+          - { name: 'new', icon: 'plus-circle', label: 'Add a new quiz', css_class: 'btn btn-info' }
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - { name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
+
+      new:
+        title: 'Create a new quiz'
+        fields:
+          - { property: 'title', type: 'text' }
+          - { property: 'description', type: 'textarea' }
+          - { property: 'author', type: 'entity', type_options: { class: 'App\Entity\User', required: true, multiple: false, query_builder: 'App\Repository\UserRepository::findTeachersEasyAdmin' }}
+          - tags
+
+      show:
+        fields:
+          - { property: 'id', type: 'integer' }
+          - { property: 'title', type: 'string' }
+          - { property: 'description', type: 'text' }
+          - { property: 'author', type: 'string' }
+          - { property: 'createdAt', format: 'j/m/Y' }
+          - { property: 'tags', template: 'easy_admin/fields/_tags.html.twig' }
+          - { property: 'questions', template: 'easy_admin/fields/_questions.html.twig' }
+          - { property: 'results', template: 'easy_admin/fields/_results.html.twig' }
+        actions:
+          - { name: 'edit', icon: 'pencil', label: 'Edit', css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+
+      edit:
+        fields:
+          - title
+          - description
+          - tags
+          - questions
+        actions:
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }

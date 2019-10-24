@@ -1,0 +1,43 @@
+easy_admin:
+  entities:
+    NotActive:
+      class: App\Entity\User
+      label: 'Users'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Users not active listing'
+        max_results: 20
+        sort: ['firstName', 'ASC']
+        dql_filter: 'entity.isActive = false AND ( entity.role = ''ROLE_USER'' OR entity.role = ''ROLE_TEACHER'' OR entity.role = ''ROLE_STORE'') '
+        fields:
+          - firstName
+          - lastName
+          - email
+          - { property: 'lastLogin', format: 'j/m/Y  -  H:i' }
+          - isActive
+          - function
+        actions:
+          - -new
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - -edit
+          - -delete
+
+      show:
+        title: 'User : #%%entity_id%%'
+        fields:
+          - { property: 'id', type: 'integer' }
+          - { property: 'lastName', type: 'string' }
+          - { property: 'firstName', type: 'string' }
+          - { property: 'email', type: 'email' }
+          - { property: 'phoneNumber', type: 'tel' }
+          - { property: 'role', type: 'string' }
+          - { property: 'function', type: 'string' }
+          - { property: 'isActive', type: 'boolean' }
+          - students
+          - results
+          - reports
+          - lessons
+        actions:
+          - -edit
+          - -delete

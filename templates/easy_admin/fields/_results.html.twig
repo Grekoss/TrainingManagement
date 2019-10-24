@@ -1,0 +1,7 @@
+{% for result in value %}
+<li class="d-flex">
+    <div class="w-25">Résultat : {{ result.score }}%</div>
+    <div class="w-25">Le : {{ result.dateAt|date('j/m/Y') }}</div>
+    <div class="w-50">Par {{ result.student }}</div>
+</li>
+{% endfor %}

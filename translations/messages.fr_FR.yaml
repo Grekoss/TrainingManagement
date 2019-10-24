@@ -68,7 +68,7 @@ Choice the mentor: Choix du mentor
 AllUsers: AllUsers
 Users: Utilisateurs
 Users listing: Liste des utilisateurs
-All members: Tout les utilisateurs
+Members: Utilisateurs
 First name: Prénom
 Last name: Nom de famille
 Email: Email
@@ -85,5 +85,58 @@ Reports: Rapports
 Lessons: Leçons
 Edit: Editer
 Delete: Supprimer
+Change the role or function of the user: Change le rôle ou la fonction de l'utilisateur
+Etudiant: Etudiant
+Formateur: Formateur
+Directeur: Directeur
+Equipier: Equipier
+Coach: Coach
+Responsable de zone: Responsable de zone
+Assistant de direction: Assistant de direction
+Autre: Autre
+Directeur adjoint: Directeur adjoint
+Users not active listing: Liste des utilisateurs non actifs
+Members not active: Membres non actifs
+AllUsersAdmin: Touts les utilisateurs (admin)
+All members for admin: Tous les membres pour l'admin
+
+#quiz
+AllQuizzes: Tout les questionnaires
+Quizzes: Questionnaires
+Quizzes listing: Liste des questionnaires
+Add a new quiz: Ajouter un nouveau questionnaire
+Create a new quiz: Créer un nouveau questionnaire
+Author: Auteur
+Tags: Tags
+Questions: Questions
+Created at: Créer le
+
+#question
+AllQuestions: Toutes les questions
+Questions listing: Liste des questions
+Response: Réponse
+Quiz: Questionnaire
+Add a new question: Ajouter une nouvelle question
+Create a new question: Création d'une nouvelle question
+Good response: Bonne réponse
+Bad response 1: Mauvaise réponse 1
+Bad response 2: Mauvaise réponse 2
+Bad response 3: Mauvaise réponse 3
+
+#tag
+Tags listing: Liste des tags
+Add a new tag: Ajouter un nouveau tag
+Name: Nom
+Text color: Couleur du texte
+Background color: Couleur du fond
+Create a new tag: Création d'un nouveau tag
+
+#result
+Results listing: Liste des résultats
+Date: Date
+Score: Score
+Student: Etudiant
+Responses: Réponses
+
 
 

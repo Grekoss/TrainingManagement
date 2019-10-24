@@ -53,6 +53,11 @@ class Question
      */
     private $level;
 
+    public function __toString()
+    {
+        return $this->getQuestion();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -1,0 +1,35 @@
+easy_admin:
+  entities:
+    Results:
+      class: App\Entity\Result
+      label: 'Results'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Results listing'
+        max_results: 30
+        sort: ['dateAt', 'DESC']
+        fields:
+          - { property: 'dateAt', label: 'Date' , format: 'd/m/Y - H:i' }
+          - { property: 'score', template: 'easy_admin/fields/_results_score.html.twig', css_class: 'w-25' }
+          - quiz
+          - student
+        actions:
+          - -new
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - -edit
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
+
+      show:
+        title: 'Resultat : #%%entity_id%%'
+        fields:
+          - id
+          - { property: 'dateAt', label: 'Date', format: 'd/m/Y - H:i' }
+          - student
+          - quiz
+          - { property: 'score', template: 'easy_admin/fields/_results_score.html.twig', css_class: 'progressBarCustom' }
+          - { property: 'responses', template: 'easy_admin/fields/_result_showResponses.html.twig' }
+        actions:
+          - -edit
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+

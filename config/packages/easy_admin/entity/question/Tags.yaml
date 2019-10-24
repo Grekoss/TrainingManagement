@@ -1,0 +1,49 @@
+easy_admin:
+  entities:
+    Tags:
+      class: App\Entity\Tag
+      label: 'Tags'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Tags listing'
+        max_results: 50
+        sort: ['name', 'ASC']
+        fields:
+          - { property: 'name', css_class: 'w-35 font-weight-bold' }
+          - { property: 'textColor', template: 'easy_admin/fields/_tag_color.html.twig', css_class: "w-20" }
+          - { property: 'backgroundColor', template: 'easy_admin/fields/_tag_color.html.twig', css_class: "w-20" }
+          - { property: 'quizzes', css_class: 'text-center' }
+        actions:
+          - { name: 'new', icon: 'plus-circle', label: 'Add a new tag', css_class: 'btn btn-info' }
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - { name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
+
+      new:
+        title: 'Create a new tag'
+        fields:
+          - { property: 'name', type: 'text' }
+          - { property: 'textColor', type: 'color' }
+          - { property: 'backgroundColor', type: 'color' }
+
+      edit:
+        title: 'Tag : #%%entity_id%%'
+        fields:
+          - { property: 'name', type: 'text' }
+          - { property: 'textColor', type: 'color' }
+          - { property: 'backgroundColor', type: 'color' }
+        actions:
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+
+      show:
+        title: 'Tag : #%%entity_id%%'
+        fields:
+          - id
+          - name
+          - { property: 'textColor', template: 'easy_admin/fields/_tag_color.html.twig' }
+          - { property: 'backgroundColor', template: 'easy_admin/fields/_tag_color.html.twig' }
+          - quizzes
+        actions:
+          - { name: 'edit', icon: 'pencil', label: 'Edit', css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'pencil', label: 'Delete', css_class: 'btn btn-danger' }

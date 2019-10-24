@@ -4,4 +4,19 @@ easy_admin:
       - label: 'Users'
         icon: 'users'
         children:
-          - { entity: 'AllUsers', icon: 'users', label: 'All members', permission: 'ROLE_ADMIN' }
+          - { entity: 'AllUsers', icon: 'users', label: 'Members', permission: 'ROLE_STORE' }
+          - { entity: 'NotActive', icon: 'radiation', label: 'Members not active', permission: 'ROLE_STORE' }
+          - { entity: 'AllUsersAdmin', icon: 'lock', label: 'All members for admin', permission: 'ROLE_ADMIN' }
+      - label: 'Quizzes'
+        icon: 'question-circle'
+        children:
+          - { entity: 'AllQuizzes', icon: 'question', label: 'Quizzes', permisssion: 'ROLE_STORE' }
+          - { entity: 'AllQuestions', icon: 'project-diagram', label: 'Questions', permisssion: 'ROLE_STORE' }
+          - { entity: 'Results', icon: 'poll', label: 'Results', permission: 'ROLE_STORE' }
+          - { entity: 'Tags', icon: 'tags', label: 'Tags', permission: 'ROLE_STORE' }
+
+
+
+#FIXME: liste des raports
+#FIXME: liste des messages(PRIVATE)
+#FIXME: liste des lecons

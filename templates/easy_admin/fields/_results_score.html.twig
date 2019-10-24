@@ -1,0 +1,12 @@
+{{ encore_entry_link_tags('easyAdmin') }}
+
+{% set color = 'success' %}
+    {% if value < 75 and value > 50%}
+        {% set color = 'warning' %}
+    {% elseif value < 50 %}
+        {% set color = 'danger' %}
+    {% endif %}
+
+<div class="progress">
+    <div class="progress-bar progress-bar-striped bg-{{color}}" role="progressbar" style="width: {{ value }}%;" aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100">{{ value }}%</div>
+</div>
