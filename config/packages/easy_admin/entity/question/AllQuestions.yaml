@@ -1,0 +1,60 @@
+easy_admin:
+  entities:
+    AllQuestions:
+      class: App\Entity\Question
+      label: 'Questions'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Questions listing'
+        max_results: 50
+        sort: ['id', 'ASC']
+        fields:
+          - id
+          - { property: 'question', css_class: 'w-50' }
+          - { property: 'prop1', label: 'Response', css_class: 'w-25' }
+          - { property: 'level', template: 'easy_admin/fields/_level.html.twig', css_class: 'text-center' }
+          - { property: 'quiz', css_class: 'w-25'}
+        actions:
+          - { name: 'new', icon: 'plus-circle', label: 'Add a new question', css_class: 'btn btn-info'}
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - { name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
+
+      new:
+        title: 'Create a new question'
+        fields:
+          - quiz
+          - { property: 'question', type: 'text' }
+          - { property: 'prop1', label: 'Good response', type: 'text' }
+          - { property: 'prop2', label: 'Bad response 1', type: 'text' }
+          - { property: 'prop3', label: 'Bad response 2', type: 'text' }
+          - { property: 'prop4', label: 'Bad response 3', type: 'text' }
+          - { property: 'level', type: 'choice', type_options: { mapped: true, expanded: false, multiple: false, choices: { 'EASY': 'facile', 'MEDIUM': 'moyen', 'HARD': 'difficile' } } }
+
+      edit:
+        title: 'Question : #%%entity_id%%'
+        fields:
+          - quiz
+          - { property: 'question', type: 'text' }
+          - { property: 'prop1', label: 'Good response', type: 'text' }
+          - { property: 'prop2', label: 'Bad response 1', type: 'text' }
+          - { property: 'prop3', label: 'Bad response 2', type: 'text' }
+          - { property: 'prop4', label: 'Bad response 3', type: 'text' }
+          - { property: 'level', type: 'choice', type_options: { mapped: true, expanded: false, multiple: false, choices: { 'EASY': 'facile', 'MEDIUM': 'moyen', 'HARD': 'difficile' } } }
+        actions:
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+
+      show:
+        title: 'Question : #%%entity_id%%'
+        fields:
+          - id
+          - question
+          - { property: 'prop1', label: 'Good response', type: 'string' }
+          - { property: 'prop2', label: 'Bad response 1', type: 'string' }
+          - { property: 'prop3', label: 'Bad response 2', type: 'string' }
+          - { property: 'prop4', label: 'Bad response 3', type: 'string' }
+          - { property: 'level', template: 'easy_admin/fields/_level.html.twig' }
+        actions:
+          - { name: 'edit', icon: 'pencil', label: 'Edit', css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }

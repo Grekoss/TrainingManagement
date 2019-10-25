@@ -1,0 +1,39 @@
+.facile {
+  color: #fff;
+  background-color: #28a745;
+  font-size: 12px !important;
+}
+
+.moyen {
+  color: #212529;
+  background-color: #ffc107;
+  font-size: 12px !important;
+}
+
+.difficile {
+  color: #fff;
+  background-color: #dc3545;
+  font-size: 12px !important;
+}
+
+.field-tag {
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+.w-35 { width: 35%; }
+.w-20 { width: 20%; }
+.w-150px { width: 150px; }
+
+.max-w-50 .form-widget { max-width: 50% !important; }
+.max-w-120px .form-widget { max-width: 120px !important; }
+
+.img-rushOF {
+  width: 40px;
+}
+
+.easyadmin-vich-file .form-check {
+  width: 110px;
+}
+

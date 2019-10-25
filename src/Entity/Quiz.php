@@ -71,6 +71,11 @@ class Quiz
         $this->results = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

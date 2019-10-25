@@ -43,6 +43,11 @@ class Message
         $this->writeAt = new \DateTime();
     }
 
+    public function __toString()
+    {
+        return $this->getContent();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -1,0 +1,47 @@
+easy_admin:
+  entities:
+    Reports:
+      class: App\Entity\Report
+      label: 'Reports'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Reports listing'
+        max_result: 50
+        sort: ['dateAt', 'DESC']
+        fields:
+          - { property: 'dateAt', format: 'd/m/Y', label: 'Date' }
+          - student
+          - zone
+          - position
+          - { property: 'feelRush', template: 'easy_admin/fields/_feelRush.html.twig' }
+          - { property: 'rushOf', template: 'easy_admin/fields/_rushOf.html.twig', label: 'Rush' }
+          - manager
+        actions:
+          - -new
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - -edit
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
+
+      show:
+        title: 'Rapport : #%%entity_id%%'
+        fields:
+          - id
+          - student
+          - { property: 'dateAt', format: 'j/m/Y', label: 'Date' }
+          - { property: 'rushOf', template: 'easy_admin/fields/_rushOf.html.twig', label: 'Rush' }
+          - { property: 'startAt', format: 'H:i' }
+          - { property: 'stopAt', format: 'H:i' }
+          - manager
+          - zone
+          - position
+          - { property: 'isResponsible', type: 'boolean' }
+          - { property: 'feelRush', template: 'easy_admin/fields/_feelRush.html.twig', css_class: 'max-w-120px' }
+          - { property: 'goals', template: 'easy_admin/fields/_message.html.twig' }
+          - { property: 'studentComments', template: 'easy_admin/fields/_message.html.twig' }
+          - { property: 'commentReports', template: 'easy_admin/fields/_commentsReport.html.twig' }
+        actions:
+          - -edit
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+
+

@@ -73,8 +73,8 @@ class CreateAdminCommand extends Command
             ->setPassword($this->encoder->encodePassword($user, $password))
             ->setIsActive(true)
             ->setPhoneNumber($phoneNumber)
-            ->setRoles(RoleEnum::ROLE_ADMIN[0])
-            ->setFunction(FunctionEnum::DIRECTOR)
+            ->setRole(RoleEnum::ROLE_ADMIN[0])
+            ->setFunction(FunctionEnum::OTHER)
             ->setSlug($this->slugger->slugify($user->getFirstName() . ' ' . $user->getLastName()));
 
         $em->persist($user);

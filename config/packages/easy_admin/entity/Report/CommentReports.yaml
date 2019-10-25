@@ -1,0 +1,20 @@
+easy_admin:
+  entities:
+    CommentReports:
+      class: App\Entity\CommentReport
+      label: 'Comments of reports'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Comments of reports listing'
+        max_results: 100
+        sort: ['dateAt', 'DESC']
+        fields:
+          - { property: 'dateAt', format: 'd/m/Y', label: 'Date' }
+          - author
+          - { property: 'content', template: 'easy_admin/fields/_message.html.twig' }
+          - report
+        actions:
+          - -new
+          - -edit
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }

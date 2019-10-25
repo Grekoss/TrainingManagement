@@ -1,0 +1,7 @@
+easy_admin:
+  site_name: '<img src="/images/admin-icon.png" style="height: 75px; margin-right: 1em;">Admin'
+  user:
+    display_name: true
+    display_avatar: false
+
+    # https://symfony.com/doc/master/bundles/EasyAdminBundle/book/basic-configuration.html

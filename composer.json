@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "captcha-com/symfony-captcha-bundle": "4.*",
+        "easycorp/easyadmin-bundle": "^2.3",
         "friendsofsymfony/ckeditor-bundle": "^2.1",
         "fzaninotto/faker": "^1.8",
         "knplabs/knp-paginator-bundle": "^4.0",

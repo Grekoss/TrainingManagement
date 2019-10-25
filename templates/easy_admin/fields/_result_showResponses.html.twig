@@ -1,0 +1,20 @@
+{{ encore_entry_script_tags('app') }}
+
+<ul>
+{% for response in value %}
+    <li>
+        <div class="font-weight-bold">{{ response[0].question }}</div>
+        <div style="background-color:
+        {{ response[2] ? '#a0f73e' : '#FF4901' }}
+        ">
+            {{ response[1] }}
+            {% if response[1] != response[0].prop1 %}
+                <span>
+                    <i class="far fa-arrow-alt-circle-right"></i>
+                    {{ response[0].prop1 }}
+                </span>
+            {% endif %}
+        </div>
+    </li>
+{% endfor %}
+</ul>

@@ -39,7 +39,7 @@ Enter an email address for invitation: Entrez  une adresse email pour l'invitati
 
 # LessonType
 Title: Titre
-Description: Descrisption
+Description: Description
 Select the category: Sélectionner la catégorie
 FOOD_SAFETY: Sécurité Alimentaire
 ADMINISTRATION: Administration
@@ -62,4 +62,118 @@ Categories: Catégories
 
 # MentorType:
 Choice the mentor: Choix du mentor
+
+# EASY-ADMIN
+Homepage: Page d'accueil
+# Users
+AllUsers: AllUsers
+Users: Utilisateurs
+Users listing: Liste des utilisateurs
+Members: Utilisateurs
+First name: Prénom
+Last name: Nom de famille
+Email: Email
+Last login: Dernière connexion
+Updated at: Mise à jour
+Is active: Est active ?
+ID: ID
+Phone number: Numéro de téléphone
+Role: Role
+Function: Fonction
+Students: Etudiants
+Results: Résultats
+Reports: Rapports
+Lessons: Leçons
+Edit: Editer
+Delete: Supprimer
+Change the role or function of the user: Change le rôle ou la fonction de l'utilisateur
+Etudiant: Etudiant
+Formateur: Formateur
+Directeur: Directeur
+Equipier: Equipier
+Coach: Coach
+Responsable de zone: Responsable de zone
+Assistant de direction: Assistant de direction
+Autre: Autre
+Directeur adjoint: Directeur adjoint
+Users not active listing: Liste des utilisateurs non actifs
+Members not active: Membres non actifs
+AllUsersAdmin: Touts les utilisateurs (admin)
+All members: Tous les membres
+
+#quiz
+AllQuizzes: Tout les questionnaires
+Quizzes: Questionnaires
+Quizzes listing: Liste des questionnaires
+Add a new quiz: Ajouter un nouveau questionnaire
+Create a new quiz: Créer un nouveau questionnaire
+Author: Auteur
+Tags: Tags
+Questions: Questions
+Created at: Créer le
+
+#question
+AllQuestions: Toutes les questions
+Questions listing: Liste des questions
+Response: Réponse
+Quiz: Questionnaire
+Add a new question: Ajouter une nouvelle question
+Create a new question: Création d'une nouvelle question
+Good response: Bonne réponse
+Bad response 1: Mauvaise réponse 1
+Bad response 2: Mauvaise réponse 2
+Bad response 3: Mauvaise réponse 3
+
+#tag
+Tags listing: Liste des tags
+Add a new tag: Ajouter un nouveau tag
+Name: Nom
+Text color: Couleur du texte
+Background color: Couleur du fond
+Create a new tag: Création d'un nouveau tag
+
+#result
+Results listing: Liste des résultats
+Date: Date
+Score: Score
+Student: Etudiant
+Responses: Réponses
+
+#admin
+Admin: Admin
+Messages: Messages
+Sent messages: Messages envoyés
+Received messages: Messages reçus
+Messages listing: Liste des messages
+Write at: Ecrit le
+Sender: Expéditeur
+Receiver: Destinataire
+Content: Contenu
+
+#report
+Reports listing: Liste des rapports
+Feel rush: Sentiment du rush
+Rush: Rush
+Start at: Commence à
+Stop at: Fini à
+Is responsible: Est responsable ?
+Student comments: Commentaire de l'étudiant
+Comment reports: Commentaires du rapport
+
+#comment
+CommentReports: Commentaire des rapports
+Comments of reports: Commentaires des rapports
+Comments of reports listing: Listings des commentaires des rapports
+Report: Rapport
+
+#lesson
+Lessons listing: Listing des leçons
+Category: Catégorie
+Lesson: Leçon
+Add a lesson: Ajouter une leçon
+Create by: Créé par
+Create a lesson: Créer une leçon
+Download: Télécharger
+Supprimer ?: Supprimer ?
+
 
