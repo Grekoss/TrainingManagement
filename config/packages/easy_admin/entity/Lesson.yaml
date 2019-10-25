@@ -1,0 +1,56 @@
+easy_admin:
+  entities:
+    Lesson:
+      class: App\Entity\Lesson
+      label: 'Lessons'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Lessons listing'
+        max_results: 50
+        sort: ['updatedAt', 'DESC']
+        fields:
+          - { property: 'updatedAt', format: 'd/m/Y' }
+          - title
+          - category
+          - createBy
+        actions:
+          - { name: 'new', icon: 'plus-circle', label: 'Add a lesson', css_class: 'btn btn-info' }
+          - { name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary' }
+          - { name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }
+
+      new:
+        title: 'Create a lesson'
+        fields:
+          - title
+          - description
+          - { property: 'createBy', type: 'entity', type_options: { class: 'App\Entity\User', required: true, multiple: false, query_builder: 'App\Repository\UserRepository::findTeachersEasyAdmin' }}
+          - { property: 'file', type: 'vich_file' }
+          - { property: 'category', type: 'choice', type_options: { mapped: true, expanded: false, multiple: false, choices: { 'FOOD_SAFETY': 'Sécurité Alimentaire', 'KITCHEN': 'Cuisine', 'COUNTER': 'Comptoir', 'ADMINISTRATION': 'Administration', 'PEP': 'PEP', 'MANAGEMENT': 'Gestion', 'VARIOUS': 'Divers' } }}
+
+      edit:
+        title: 'Leçon : #%%entity_id%%'
+        fields:
+          - title
+          - description
+          - { property: 'createBy', type: 'entity', type_options: { class: 'App\Entity\User', required: true, multiple: false, query_builder: 'App\Repository\UserRepository::findTeachersEasyAdmin' }}
+          - { property: 'file', type: 'vich_file' }
+          - { property: 'category', type: 'choice', type_options: { mapped: true, expanded: false, multiple: false, choices: { 'FOOD_SAFETY': 'Sécurité Alimentaire', 'KITCHEN': 'Cuisine', 'COUNTER': 'Comptoir', 'ADMINISTRATION': 'Administration', 'PEP': 'PEP', 'MANAGEMENT': 'Gestion', 'VARIOUS': 'Divers' } }}
+        actions:
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+
+      show:
+        title: 'Leçon : #%%entity_id%%'
+        fields:
+          - id
+          - title
+          - description
+          - category
+          - createBy
+          - { property: 'updatedAt', format: 'd/m/Y - H:i' }
+          - { property: 'fileName', template: 'easy_admin/fields/_file.html.twig', base_path: '/files/lessons/', label: 'Download' }
+        actions:
+          - { name: 'edit', icon: 'pencil', label: 'Edit', css_class: 'btn btn-secondary' }
+          - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
+

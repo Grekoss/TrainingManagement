@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr_FR'
     slugger_hypen: true
+    version: 'v1.0'
 
 services:
     # default configuration for services in *this* file

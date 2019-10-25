@@ -1,0 +1,7 @@
+{% if value  ends with 'FAKER.pdf'%}
+    <a href="{{ asset(value) }}"
+{% else %}
+    <a href="{{ field_options.base_path ~ '/' ~ value }}"
+{% endif %}
+    style="font-size: 3em;"<i class="fas fa-save"></i></a>
+

@@ -39,7 +39,7 @@ Enter an email address for invitation: Entrez  une adresse email pour l'invitati
 
 # LessonType
 Title: Titre
-Description: Descrisption
+Description: Description
 Select the category: Sélectionner la catégorie
 FOOD_SAFETY: Sécurité Alimentaire
 ADMINISTRATION: Administration
@@ -64,6 +64,7 @@ Categories: Catégories
 Choice the mentor: Choix du mentor
 
 # EASY-ADMIN
+Homepage: Page d'accueil
 # Users
 AllUsers: AllUsers
 Users: Utilisateurs
@@ -148,5 +149,31 @@ Write at: Ecrit le
 Sender: Expéditeur
 Receiver: Destinataire
 Content: Contenu
+
+#report
+Reports listing: Liste des rapports
+Feel rush: Sentiment du rush
+Rush: Rush
+Start at: Commence à
+Stop at: Fini à
+Is responsible: Est responsable ?
+Student comments: Commentaire de l'étudiant
+Comment reports: Commentaires du rapport
+
+#comment
+CommentReports: Commentaire des rapports
+Comments of reports: Commentaires des rapports
+Comments of reports listing: Listings des commentaires des rapports
+Report: Rapport
+
+#lesson
+Lessons listing: Listing des leçons
+Category: Catégorie
+Lesson: Leçon
+Add a lesson: Ajouter une leçon
+Create by: Créé par
+Create a lesson: Créer une leçon
+Download: Télécharger
+Supprimer ?: Supprimer ?
 
 

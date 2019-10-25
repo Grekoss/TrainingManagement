@@ -90,7 +90,7 @@ class Report
     private $isSeen;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CommentReport", mappedBy="report")
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentReport", mappedBy="report", orphanRemoval=true)
      */
     private $commentReports;
 

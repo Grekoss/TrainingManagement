@@ -27,7 +27,7 @@ easy_admin:
           - { property: 'dateAt', label: 'Date', format: 'd/m/Y - H:i' }
           - student
           - quiz
-          - { property: 'score', template: 'easy_admin/fields/_results_score.html.twig', css_class: 'progressBarCustom' }
+          - { property: 'score', template: 'easy_admin/fields/_results_score.html.twig', css_class: 'max-w-50' }
           - { property: 'responses', template: 'easy_admin/fields/_result_showResponses.html.twig' }
         actions:
           - -edit

@@ -26,7 +26,14 @@
 .w-20 { width: 20%; }
 .w-150px { width: 150px; }
 
-.progressBarCustom .form-widget {
-  max-width: 50% !important;
+.max-w-50 .form-widget { max-width: 50% !important; }
+.max-w-120px .form-widget { max-width: 120px !important; }
+
+.img-rushOF {
+  width: 40px;
+}
+
+.easyadmin-vich-file .form-check {
+  width: 110px;
 }
 

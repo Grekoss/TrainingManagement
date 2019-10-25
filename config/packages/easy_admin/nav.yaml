@@ -4,24 +4,27 @@ easy_admin:
       - label: 'Users'
         icon: 'users'
         children:
-          - { entity: 'AllUsers', icon: 'users', label: 'Members', permission: 'ROLE_STORE' }
-          - { entity: 'NotActive', icon: 'radiation', label: 'Members not active', permission: 'ROLE_STORE' }
+          - { entity: 'AllUsers', icon: 'users', label: 'Members' }
+          - { entity: 'NotActive', icon: 'radiation', label: 'Members not active' }
 
       - label: 'Quizzes'
         icon: 'question-circle'
         children:
-          - { entity: 'AllQuizzes', icon: 'question', label: 'Quizzes', permisssion: 'ROLE_STORE' }
-          - { entity: 'AllQuestions', icon: 'project-diagram', label: 'Questions', permisssion: 'ROLE_STORE' }
-          - { entity: 'Results', icon: 'poll', label: 'Results', permission: 'ROLE_STORE' }
-          - { entity: 'Tags', icon: 'tags', label: 'Tags', permission: 'ROLE_STORE' }
+          - { entity: 'AllQuizzes', icon: 'question', label: 'Quizzes' }
+          - { entity: 'AllQuestions', icon: 'project-diagram', label: 'Questions' }
+          - { entity: 'Results', icon: 'poll', label: 'Results'}
+          - { entity: 'Tags', icon: 'tags', label: 'Tags' }
       - label: 'Admin'
         icon: 'lock'
         permission: 'ROLE_ADMIN'
         children:
           - { entity: 'AllUsersAdmin', icon: 'users', label: 'All members', permission: 'ROLE_ADMIN' }
           - { entity: 'Messages', icon: 'envelope-open-text', label: 'Messages', permission: 'ROLE_ADMIN' }
-
-
-
-#FIXME: liste des raports
-#FIXME: liste des lecons
+      - label: 'Reports'
+        icon: 'file-alt'
+        children:
+          - { entity: 'Reports', icon: 'file-alt', label: 'Reports' }
+          - { entity: 'CommentReports', icon: 'comment', label: 'Comments of reports' }
+      - { entity: 'Lesson', icon: 'book', label: 'Lessons' }
+      - { label: 'Homepage', route: 'app_dashboard', icon: 'door-open' }
+      - { label: '%version%' }
