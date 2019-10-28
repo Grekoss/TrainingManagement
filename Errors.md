@@ -10,8 +10,10 @@
 
 [x] Créer adresse mail pour ce projet
 
-[ ] Supprimer la demande de numéro de téléphone pour l'ADMIN (ligne de commande)
+[x] Supprimer la demande de numéro de téléphone pour l'ADMIN (ligne de commande)
 
 [ ] Créer une action pour store pour puger les invations
+
+[ ] Faire un PHPUnit
 
 

@@ -58,7 +58,6 @@ class CreateAdminCommand extends Command
         $mail = $io->ask('Votre adresse mail');
         $firstName = $io->ask('Votre prénom');
         $lastName = $io->ask('Votre nom');
-        $phoneNumber = $io->ask('Votre numéro de téléphone');
         $password = $io->ask('Votre mot de passe');
         $confirmPassword = $io->ask('Confirmer votre mot de passe');
 
@@ -72,7 +71,6 @@ class CreateAdminCommand extends Command
             ->setLastName($lastName)
             ->setPassword($this->encoder->encodePassword($user, $password))
             ->setIsActive(true)
-            ->setPhoneNumber($phoneNumber)
             ->setRole(RoleEnum::ROLE_ADMIN[0])
             ->setFunction(FunctionEnum::OTHER)
             ->setSlug($this->slugger->slugify($user->getFirstName() . ' ' . $user->getLastName()));
