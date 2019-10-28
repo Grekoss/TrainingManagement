@@ -97,9 +97,8 @@ class TeacherController extends AbstractController
 
             // Envoie du message:
             $message = new \Swift_Message();
-            // FIXME: Modifier le titre
             $message->setSubject('Inscription à l\'application')
-                ->setFrom(['send@example.com' => 'Exemple'])
+                ->setFrom(['grekoss.cedric.dev@gmail.com' => 'Invitation pour l\'Inscription'])
                 ->setTo($inviteMail)
                 ->setBody(
                     $this->renderView('emails/inviteUser.html.twig', [

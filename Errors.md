@@ -8,7 +8,7 @@
 
 [ ] Envoyer sur un server
 
-[ ] Créer adresse mail pour ce projet
+[x] Créer adresse mail pour ce projet
 
 [ ] Supprimer la demande de numéro de téléphone pour l'ADMIN (ligne de commande)
 

@@ -77,8 +77,7 @@ class SecurityController extends AbstractController
 
             $message = new \Swift_Message();
             $message->setSubject('Nouveau Mot de Passe')
-//FIXME: Modifier l'adresse d'envoie pour gagner en crédibilité sur l'envoie
-                ->setFrom(['send@example.com' => 'Exemple'])
+                ->setFrom(['grekoss.cedric.dev' => 'Nouveau mot de passe'])
                 ->setTo($email)
                 ->setBody(
                     $this->renderView(
