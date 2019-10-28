@@ -20,7 +20,7 @@ class ReportRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Report[] Retourne la liste des rapport par users
+     * @return Report[] Retourne la liste des rapports par users
      */
     public function findByUser($user)
     {
@@ -33,32 +33,16 @@ class ReportRepository extends ServiceEntityRepository
         ;
     }
 
-    // /**
-    //  * @return Report[] Returns an array of Report objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Report[} Retourn la liste des rapports ou les étudiants sont actifs
+     */
+    public function findAllByUsersActive()
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->innerJoin('r.student', 'u', 'WITH', 'u.isActive = true')
+            ->orderBy('r.student', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Report
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

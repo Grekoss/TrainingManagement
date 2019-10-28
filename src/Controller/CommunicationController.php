@@ -25,13 +25,15 @@ class CommunicationController extends AbstractController
         $messages = [];
         foreach ( $allMessages as $message) {
             $interlocutor = $message->getInterlocutors();
-            // On supprime l'user corrant du tableau
+            // On supprime l'user courrant du tableau
             unset($interlocutor[array_search($this->getUser(), $interlocutor)]);
             // On position l'interlocuteur en index 0
             $interlocutor = array_values($interlocutor);
 
             if (!array_key_exists($interlocutor[0]->getId(), $messages)) {
-                $messages[$interlocutor[0]->getId()] = $message;
+                if ($interlocutor[0]->getIsActive()) {
+                    $messages[$interlocutor[0]->getId()] = $message;
+                }
             }
         }
 

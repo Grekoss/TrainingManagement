@@ -62,4 +62,17 @@ class ResultRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    /**
+     * @Return Result[] Retourn la liste des résultats des étudiants actifs
+     */
+    public function findAllUsersActive()
+    {
+        return $this->createQueryBuilder('r')
+            ->innerJoin('r.student', 'u', 'WITH', 'u.isActive = true')
+            ->orderBy('r.dateAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

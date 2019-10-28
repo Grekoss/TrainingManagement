@@ -53,10 +53,13 @@
                         {% endif %}
 
                         {% if is_granted('ROLE_STORE') %}
-                        <a href="{{ absolute_url('/admin') }}" class="w-100  d-block alert-danger alert">ADMIN</a>
+                            <a href="{{ absolute_url('/admin') }}" class="my-3 mx-auto w-25 alert-danger d-flex alert justify-content-between">
+                                <div><i class="fas fa-cogs"></i></div>
+                                <div>Admin</div>
+                            </a>
                         {% endif %}
                     </div>
-                    <div class="dashboard-footer"><a href="mailto:cedricpourrias@gmail.com">Ecrire pour signaler un problème</a></div>
+                    <div></div>
                 </div>
                 <div class="dashboard-more"></div>
             </div>

@@ -97,9 +97,8 @@ class TeacherController extends AbstractController
 
             // Envoie du message:
             $message = new \Swift_Message();
-            // FIXME: Modifier le titre
             $message->setSubject('Inscription à l\'application')
-                ->setFrom(['send@example.com' => 'Exemple'])
+                ->setFrom(['grekoss.cedric.dev@gmail.com' => 'Invitation pour l\'Inscription'])
                 ->setTo($inviteMail)
                 ->setBody(
                     $this->renderView('emails/inviteUser.html.twig', [
@@ -117,9 +116,12 @@ class TeacherController extends AbstractController
         $listStudents = [];
         $listTmpStudents = $this->mentorRepository->findBy(['mentor' => $this->getUser()]);
         for ( $i=0 ; $i<count($listTmpStudents) ; $i++ ) {
-            $listStudents[$i]['user'] = $listTmpStudents[$i]->getStudent();
-            $listStudents[$i]['reports'] = $this->reportRepository->findByUser($listStudents[$i]['user']);
-            $listStudents[$i]['results'] = $this->resultRepository->findByUser($listStudents[$i]['user']);
+            // On affiche que les actives
+            if ($listTmpStudents[$i]->getStudent()->getIsActive()) {
+                $listStudents[$i]['user'] = $listTmpStudents[$i]->getStudent();
+                $listStudents[$i]['reports'] = $this->reportRepository->findByUser($listStudents[$i]['user']);
+                $listStudents[$i]['results'] = $this->resultRepository->findByUser($listStudents[$i]['user']);
+            }
         }
 
         return $this->render('teacher/index.html.twig', [
@@ -138,7 +140,7 @@ class TeacherController extends AbstractController
     public function listReports(Request $request): Response
     {
         $pagination = $this->paginator->paginate(
-            $this->reportRepository->findBy(array(), ['dateAt' => 'DESC']),
+            $this->reportRepository->findAllByUsersActive(),
             $request->query->getInt('page', 1),
             6
         );
@@ -181,7 +183,7 @@ class TeacherController extends AbstractController
     public function listResults(Request $request): Response
     {
         $pagination = $this->paginator->paginate(
-            $this->resultRepository->findBy(array(), ['dateAt' => 'DESC']),
+            $this->resultRepository->findAllUsersActive(),
             $request->query->getInt('page', 1),
             7
         );

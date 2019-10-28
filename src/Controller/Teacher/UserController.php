@@ -22,8 +22,8 @@ class UserController extends TeacherController
         // Création du tableau associatif en fonction de l'ID de l'user
         for ( $i=0 ; $i<count($listUsersTMP) ; $i++ ) {
 
-            // Ajouter seulement que les étudiants
-            if ($listUsersTMP[$i]->getRole() === 'Etudiant') {
+            // Ajouter seulement que les étudiants actifs
+            if ($listUsersTMP[$i]->getRole() === 'Etudiant' && $listUsersTMP[$i]->getIsActive(true)) {
                 $key = $listUsersTMP[$i]->getId();
 
                 $mentor = $this->mentorRepository->findOneBy(['student' => $key]);
