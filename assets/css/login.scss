@@ -206,6 +206,7 @@ button:hover {
   display: -webkit-flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 30px;
   padding-left: 30px;
   padding-right: 30px;
   width: 50%;
@@ -343,7 +344,7 @@ input.input100 {
 
 /* ==========[FORGOT]========== */
 .container-login100-forgot {
-  padding-bottom: 20%;
+  padding-bottom: 15%;
   padding-top: 27px;
   text-align: center;
   width: 100%;

@@ -14,6 +14,7 @@ $success: #00ad5f;
 $danger: #c80000;
 $posteYellow: #FFEA31;
 $posteBlue: #003D8F;
+$sizeFooter: 24px;
 
 body {
     background-color: lightgray;
@@ -55,9 +56,7 @@ body {
 .content {
     height: 100vh;
     overflow: auto;
-    padding-top: 50px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 50px 30px 24px;
     width: 75%;
 }
 
@@ -178,4 +177,25 @@ body {
 .btn-back {
     margin-top: -40px;
     position: absolute;
+}
+
+/*===========[FOOTER]==========*/
+
+footer {
+    background-color: lightgray;
+    position: fixed;
+    top: calc(100vh - #{$sizeFooter});
+    text-align: right;
+    right: 0;
+    width: 100%;
+}
+
+footer ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+footer ul li {
+    margin-right: 15px;
 }
