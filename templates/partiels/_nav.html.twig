@@ -38,6 +38,13 @@
         </a>
     {% endif %}
 
+    {% if is_granted('ROLE_STORE') %}
+        <a href="{{ absolute_url('/admin') }}" class="btn-nav alert-danger">
+            <div class="btn-nav-icon"><i class="fas fa-cogs"></i></div>
+            <div>Admin</div>
+        </a>
+    {% endif %}
+
     <a href="#" class="btn-nav alert-dark" title="Se déconnecter" data-toggle="modal" data-target="#modalDisconnect">
         <div class="btn-nav-icon"><i class="fas fa-door-open"></i></div>
     </a>

@@ -38,7 +38,7 @@
                     <td class="font-italic">( pas de connection )</td>
                 {% endif %}
             <td>
-                <a href="{{ path('teacher_user_isActive', {'id': user['user'].id}) }}" class="btn btn-outline-secondary" title="Activer / Désactiver l'étudiant"><i class="far fa-pause-circle"></i></a>
+                <a href="{{ path('teacher_user_isActive', {'id': user['user'].id}) }}" class="btn btn-outline-secondary" title="Désactiver l'étudiant" onclick="return confirm('Etes-vous sûr de vouloir rendre inactif ce compte ?');"><i class="far fa-pause-circle"></i></a>
                 <a href="{{ path('teacher_user_update', {'id': user['user'].id}) }}" class="btn btn-outline-primary" title="Afficher les informations et modifier le mentor"><i class="far fa-eye"></i></a>
                 <a href="{{ path('app_show_messages', {'id': user['user'].id}) }}" class="btn btn-outline-dark" title="Envoyer un message"><i class="far fa-envelope"></i></a>
             </td>
