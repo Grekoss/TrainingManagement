@@ -36,8 +36,6 @@ class CreateAdminCommand extends Command
     {
         $this
             ->setDescription('Creation d\'un compte ADMIN')
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-//            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
         ;
     }
 
@@ -56,10 +54,8 @@ class CreateAdminCommand extends Command
             ]);
 
         $mail = $io->ask('Votre adresse mail');
-        $firstName = $io->ask('Votre prénom');
-        $lastName = $io->ask('Votre nom');
-        $password = $io->ask('Votre mot de passe');
-        $confirmPassword = $io->ask('Confirmer votre mot de passe');
+        $password = $io->askHidden('Votre mot de passe');
+        $confirmPassword = $io->askHidden('Confirmer votre mot de passe');
 
         if ($password !== $confirmPassword) {
             $io->error('Vous n\'avez pas confirmer votre mot de passe, merci de recommencer la création du compte Admin !');
@@ -67,8 +63,8 @@ class CreateAdminCommand extends Command
         }
 
         $user->setEmail($mail)
-            ->setFirstName($firstName)
-            ->setLastName($lastName)
+            ->setFirstName('ADMIN')
+            ->setLastName('ADMIN')
             ->setPassword($this->encoder->encodePassword($user, $password))
             ->setIsActive(true)
             ->setRole(RoleEnum::ROLE_ADMIN[0])

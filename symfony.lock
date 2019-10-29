@@ -157,8 +157,14 @@
     "knplabs/knp-components": {
         "version": "v2.2.0"
     },
+    "knplabs/knp-markdown-bundle": {
+        "version": "1.7.1"
+    },
     "knplabs/knp-paginator-bundle": {
         "version": "v4.0.0"
+    },
+    "michelf/php-markdown": {
+        "version": "1.8.0"
     },
     "monolog/monolog": {
         "version": "1.24.0"
