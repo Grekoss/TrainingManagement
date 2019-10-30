@@ -1,6 +1,9 @@
 <footer>
     <ul>
         <li>
+            <a href="#" data-toggle="modal" data-target="#modalVersion">{{ version }}</a>
+        </li>
+        <li>
             <a href="mailto:grekoss.cedric.dev@gmail.com">Contact par mail</a>
         </li>
         <li>
@@ -8,3 +11,6 @@
         </li>
     </ul>
 </footer>
+
+{{ include('partiels/_modalCGU.html.twig') }}
+{{ include('partiels/_modalVersion.html.twig') }}

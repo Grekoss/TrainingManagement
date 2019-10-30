@@ -23,7 +23,7 @@ class converseMDVersion
         $controller = $event->getController()[0];
 
         // Récupération du contenu du fichier markdown
-        $nameFile = 'version/version.md';
+        $nameFile = '../version.md';
         $file = fopen($nameFile, 'rb');
         $content = fread($file, filesize($nameFile));
 
