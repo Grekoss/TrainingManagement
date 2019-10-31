@@ -6,7 +6,7 @@
 parameters:
     locale: 'fr_FR'
     slugger_hypen: true
-    version: 'v1.0'
+    version: 'v1.1'
 
 services:
     # default configuration for services in *this* file
@@ -32,3 +32,7 @@ services:
     App\Service\Slugger:
         arguments:
             $use_hyphen: '%slugger_hypen%'
+
+    App\EventListener\converseMDVersion:
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller }

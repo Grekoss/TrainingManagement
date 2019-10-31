@@ -133,7 +133,7 @@ class AppFixtures extends Fixture
             $function = [FunctionEnum::ZONE_MANAGER, FunctionEnum::MANAGER, FunctionEnum::DEPUTY_DIRECTOR, FunctionEnum::DIRECTOR];
             shuffle($function);
 
-            $randUser->setRoles(RoleEnum::ROLE_TEACHER[0])
+            $randUser->setRole(RoleEnum::ROLE_TEACHER[0])
                 ->setFunction($function[0])
                 ->setIsActive(true);
 
