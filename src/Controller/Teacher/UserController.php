@@ -104,6 +104,8 @@ class UserController extends TeacherController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $mentor->setStudent($user);
+
             $this->manager->persist($mentor);
             $this->manager->flush();
 

@@ -3,7 +3,6 @@
 namespace App\EventListener;
 
 use Michelf\MarkdownInterface;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Twig\Environment;
 
 class converseMDVersion
@@ -17,11 +16,8 @@ class converseMDVersion
         $this->twig = $twig;
     }
 
-    public function OnKernelController(FilterControllerEvent $event)
+    public function OnKernelController()
     {
-        // Récupération du contrôleur qui sera appelé depuis $event
-        $controller = $event->getController()[0];
-
         // Récupération du contenu du fichier markdown
         $nameFile = '../version.md';
         $file = fopen($nameFile, 'rb');
