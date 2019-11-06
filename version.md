@@ -4,7 +4,8 @@
 
 # V 1.1
 
-- Ajout d'un second boutou pour créer une nouvelle question pour faciliter l'accès.
+- Un directeur peut maintenant être le mentor d'un étudiant.
+- Ajout d'un second bouton pour créer une nouvelle question pour faciliter l'accès.
 - Correction suite à la création d'un compte pour lui affecter un mentor.
 - Modification sur la création d'un utilisateur admin en ligne de commande en masquant la saisie du mot de passe et en imposant le nom, prénom afin de ne pas avoir un conflit d'identitée.
 - Correction du problème de role pour les fixtures.

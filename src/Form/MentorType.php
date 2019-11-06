@@ -19,8 +19,10 @@ class MentorType extends AbstractType
                 'label' => 'Choice the mentor',
                 'query_builder' => function (UserRepository $user) {
                     return $user->createQueryBuilder('u')
-                        ->where('u.role = :role')
-                        ->setParameter('role', 'ROLE_TEACHER')
+                        ->where('u.role = :teacher')
+                        ->orWhere('u.role = :store')
+                        ->setParameter('teacher', 'ROLE_TEACHER')
+                        ->setParameter('store', 'ROLE_STORE')
                         ->orderBy('u.firstName', 'ASC');
                 },
             ])

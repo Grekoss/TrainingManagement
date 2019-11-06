@@ -1,19 +1,10 @@
 # Liste des erreurs
 
-[x] Ne plus afficher les informations telque rapport, résultats de tout les membres inactifs (Modifier les repository ou en créer!!)
-
-[ ] Créer un MD de version
-
-[x] Créer un footer commin avec CGU (modal)
-
-[ ] Envoyer sur un server
-
-[x] Créer adresse mail pour ce projet
-
-[x] Supprimer la demande de numéro de téléphone pour l'ADMIN (ligne de commande)
-
+[ ] Ajouter un système de communication entre EDG
+[ ] Améliorer le responsible de l'application
+[ ] Pouvoir créer une question a deux réponse et ajout la 3 et 4 en optionnelle
+[ ] Lors de la mise en production, mettre le bundle TextEditor en place, problème actuelle
+[ ] Sytème de notification de reception de message (lu et pas lu)
+[ ] Faire un rappel lors de plus de 7 jours sans rapport de rush!
 [ ] Créer une action pour store pour puger les invations
-
 [ ] Faire un PHPUnit
-
-
