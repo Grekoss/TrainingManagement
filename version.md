@@ -4,6 +4,7 @@
 
 # V 1.1
 
+- Un directeur peut avoir la liste des invitations faites et peut supprimer celle-ci. A savoir qu'un CRON (système de plannification automatique) sera disponnible sur le serveur pour pemettre une purge automatique tout les mois.
 - Un directeur peut maintenant être le mentor d'un étudiant.
 - Ajout d'un second bouton pour créer une nouvelle question pour faciliter l'accès.
 - Correction suite à la création d'un compte pour lui affecter un mentor.

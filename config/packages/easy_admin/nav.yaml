@@ -5,6 +5,7 @@ easy_admin:
         icon: 'users'
         children:
           - { entity: 'AllUsers', icon: 'users', label: 'Members' }
+          - { entity: 'Invitation', icon: 'paper-plane', label: 'Invitations' }
           - { entity: 'NotActive', icon: 'radiation', label: 'Members not active' }
 
       - label: 'Quizzes'
