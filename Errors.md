@@ -1,6 +1,6 @@
 # Liste des erreurs
 
-[ ] Ajouter un système de communication entre EDG
+[x] Ajouter un système de communication entre EDG
 [ ] Améliorer le responsible de l'application
 [ ] Pouvoir créer une question a deux réponse et ajout la 3 et 4 en optionnelle
 [ ] Lors de la mise en production, mettre le bundle TextEditor en place, problème actuelle
