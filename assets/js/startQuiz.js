@@ -1,6 +1,6 @@
-require('../css/startQuiz.scss');
+import '../css/startQuiz.scss';
 
-const $ = require('jquery');
+import $ from 'jquery';
 
 $('#container-questions').scrollspy({ target: '#listQuestions' });
 

@@ -1,4 +1,6 @@
 {
+    "name": "grekoss/formation",
+    "description": "Outil de formation",
     "type": "project",
     "license": "proprietary",
     "require": {
@@ -29,6 +31,7 @@
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/translation": "4.3.*",
         "symfony/twig-bundle": "4.3.*",
+        "symfony/twig-pack": "^1.0",
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
         "symfony/webpack-encore-bundle": "^1.6",

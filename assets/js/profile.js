@@ -1,6 +1,6 @@
-require('../css/profile.scss');
-require('../images/icons/valide.png');
-const $ = require('jquery');
+import '../css/profile.scss';
+import '../images/icons/valide.png';
+import $ from 'jquery';
 
 let newPassword;
 

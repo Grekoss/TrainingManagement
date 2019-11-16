@@ -4,6 +4,8 @@
 
 # V 1.1
 
+- Ajout des pages 404, 500 personnalisées et ajout du favicon.
+- Redirection automatique sur la page de login lorsqu'un utisateur non identifié saisie une adresse comme la page principale évitant ainsi les problèmes d'erreur 500 (Problème serveur).
 - Les mentors peuvent communiquer entre eux.
 - Un directeur peut avoir la liste des invitations faites et peut supprimer celle-ci.
 - Un directeur peut maintenant être le mentor d'un étudiant.

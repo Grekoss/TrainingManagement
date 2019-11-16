@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée{% endblock %}
+
+{% block stylesheets %}
+    <link href='https://fonts.googleapis.com/css?family=Anton|Passion+One|PT+Sans+Caption' rel='stylesheet' type='text/css'>
+    {{ encore_entry_link_tags('404') }}
+{% endblock %}
+
+{% block body %}
+    <div class="error">
+        <div class="container-floud">
+            <div class="col-xs-12 ground-color text-center">
+                <div class="container-error-404">
+                    <div class="clip">
+                        <div class="shadow">
+                            <span class="digit thirdDigit"></span>
+                        </div>
+                    </div>
+                    <div class="clip">
+                        <div class="shadow">
+                            <span class="digit secondDigit"></span>
+                        </div>
+                    </div>
+                    <div class="clip">
+                        <div class="shadow">
+                            <span class="digit firstDigit"></span>
+                        </div>
+                    </div>
+                    <div class="msg">AIE!<span class="triangle"></span></div>
+                </div>
+                <h2 class="h1">Pardon! Page non trouvée</h2>
+                <a href="{{ path('app_dashboard') }}">Retour à la page principale</a>                
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('404') }}
+{% endblock %}

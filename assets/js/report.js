@@ -1,4 +1,4 @@
-require('../css/report.scss');
+import '../css/report.scss';
 
 const $ = require('jquery');
 
