@@ -4,6 +4,7 @@
 
 # V 1.1
 
+- Message d'avertissement lorsque l'étudiant n'a pas publié de rapport de Rush durant plus de 7 jours.
 - Ajout des pages 404, 500 personnalisées et ajout du favicon.
 - Redirection automatique sur la page de login lorsqu'un utisateur non identifié saisie une adresse comme la page principale évitant ainsi les problèmes d'erreur 500 (Problème serveur).
 - Les mentors peuvent communiquer entre eux.
