@@ -15,12 +15,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CommunicationController extends AbstractController
 {
+    private $messageRepository;
+    private $userRepository;
+    private $mentorRepository;
+    private $manager;
+
+    public function __construct(MessageRepository $messageRepository, UserRepository $userRepository, MentorRepository $mentorRepository, ObjectManager $manager)
+    {
+        $this->messageRepository = $messageRepository;
+        $this->userRepository = $userRepository;
+        $this->mentorRepository = $mentorRepository;
+        $this->manager = $manager;
+    }
     /**
      * @Route("/communication", name="app_communication")
      */
-    public function index(MessageRepository $messageRepository)
+    public function index()
     {
-        $allMessages = $messageRepository->messagesByUser($this->getUser());
+        $allMessages = $this->messageRepository->messagesByUser($this->getUser());
 
         $messages = [];
         foreach ( $allMessages as $message) {
@@ -45,10 +57,10 @@ class CommunicationController extends AbstractController
     /**
      * @Route("/communication/sendMessage/{user}/{report}", name="app_send_message_report")
      */
-    public function sendMessageReport($user, $report, Request $request, ObjectManager $manager, UserRepository $userRepository)
+    public function sendMessageReport($user, $report, Request $request)
     {
         // $user ayant comme information l'ID de celui-ci, on doit lui retourner l'object User au complet à partir de celui ci
-        $userReceived = $userRepository->findOneBy(['id' => $user]);
+        $userReceived = $this->userRepository->findOneBy(['id' => $user]);
 
         $message = new Message();
         $form = $this->createForm(SendMessageReportType::class, $message);
@@ -57,8 +69,8 @@ class CommunicationController extends AbstractController
             $message->setSender($this->getUser())
                 ->setReceived($userReceived);
 
-            $manager->persist($message);
-            $manager->flush();
+            $this->manager->persist($message);
+            $this->manager->flush();
 
             $this->addFlash(
                 'success',
@@ -80,12 +92,21 @@ class CommunicationController extends AbstractController
     /**
      * @Route("/communication/showMessages/{id}", name="app_show_messages")
      */
-    public function showMessages($id, MessageRepository $messageRepository, UserRepository $userRepository, Request $request, ObjectManager $manager)
+    public function showMessages($id, Request $request)
     {
-        $sender = $messageRepository->messagesForTwoUsers($this->getUser(), $id);
-        $received = $messageRepository->messagesForTwoUsers($id, $this->getUser());
+        // Liste des tous les messages envoyés et reçus entre les deux utilisateurs
+        $sender = $this->messageRepository->messagesForTwoUsers($this->getUser(), $id);
+        $received = $this->messageRepository->messagesForTwoUsers($id, $this->getUser());
 
-        $userReceived = $userRepository->findOneBy(['id' => $id]);
+        // Controler tout les messages reçus et inidquer que maintenant ils sont lus.
+        foreach($received as $message) {
+            $message->setIsRead(true);
+
+            $this->manager->persist($message);
+            $this->manager->flush();
+        }
+
+        $userReceived = $this->userRepository->findOneBy(['id' => $id]);
 
         $messages = array_merge($sender, $received);
 
@@ -96,15 +117,15 @@ class CommunicationController extends AbstractController
             $message->setSender($this->getUser())
                 ->setReceived($userReceived);
 
-            $manager->persist($message);
-            $manager->flush();
+            $this->manager->persist($message);
+            $this->manager->flush();
 
             return $this->redirectToRoute('app_show_messages', ['id'=> $id]);
         }
 
         return $this->render('communication/show.html.twig', [
             'messages' => $messages,
-            'otherUser' => $userRepository->find($id),
+            'otherUser' => $this->userRepository->find($id),
             'form' => $form->createView()
         ]);
     }
@@ -112,10 +133,10 @@ class CommunicationController extends AbstractController
     /**
      * @Route("/communication/sendMessage", name="communication_sendMessageForMentor")
      */
-    public function sendMessageForMentor(Request $request, MentorRepository $mentorRepository, ObjectManager $manager)
+    public function sendMessageForMentor(Request $request)
     {
         // On recherche le mentor de l'user
-        $mentor = $mentorRepository->findOneBy( ['student' => $this->getUser()] );
+        $mentor = $this->mentorRepository->findOneBy( ['student' => $this->getUser()] );
         $mentor = $mentor->getMentor();
 
         $message = new Message();
@@ -125,8 +146,8 @@ class CommunicationController extends AbstractController
             $message->setSender($this->getUser())
                 ->setReceived($mentor);
 
-            $manager->persist($message);
-            $manager->flush();
+            $this->manager->persist($message);
+            $this->manager->flush();
 
             $this->addFlash(
                 'info',

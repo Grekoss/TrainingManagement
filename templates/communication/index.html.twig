@@ -30,7 +30,8 @@
             <tbody>
                 {% for message in messages %}
                 {{ (message.sender == app.user) ? '<tr class="userMainSender">' : '<tr>' }}
-                    <th scope="row">{{ (message.getInterlocutors[0] == app.user) ? message.getInterlocutors[1] : message.getInterlocutors[0] }}</th>
+                    <th scope="row">{{ (message.isRead == false and message.sender != app.user ) ? '<span class="badge badge-danger mr-2">Nouveau</span>' : '' }}{{ (message.getInterlocutors[0] == app.user) ? message.getInterlocutors[1] : message.getInterlocutors[0] }}
+                    </td></th>
                     <td>{{ message.writeAt|date('d/m/Y - H:m') }}</td>
                     <td>
                         <a href="{{ path('app_show_messages', {'id': (message.getInterlocutors[0] == app.user) ? message.getInterlocutors[1].id : message.getInterlocutors[0].id}) }}" class="btn btn-outline-primary"><i class="fas fa-eye"></i> / <i class="far fa-edit"></i></a>

@@ -49,4 +49,18 @@ class MessageRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    /**
+     * @return Messages[] Retourn un tableau de messages regroupant tout les messages recu par le mainUser non lu (isRead = false)
+     */
+    public function allMessagesNotReadByUser($mainUser)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.received = :mainUser')
+            ->andWhere('m.isRead = false')
+            ->setParameter('mainUser', $mainUser)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

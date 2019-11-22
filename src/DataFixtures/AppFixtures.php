@@ -449,7 +449,8 @@ class AppFixtures extends Fixture
             $message->setSender($allUsers[0])
                 ->setReceived($allUsers[1])
                 ->setWriteAt($this->generator->dateTimeBetween('-60 months', 'now'))
-                ->setContent($this->generator->text(200));
+                ->setContent($this->generator->text(200))
+                ->setIsRead($this->generator->boolean);
 
             $this->manager->persist($message);
             $this->manager->flush();

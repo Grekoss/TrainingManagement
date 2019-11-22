@@ -119,4 +119,15 @@
   font-size: 50px;
 }
 
+#btn-communication {
+  position: relative;
+}
+
+#btn-communication .badge {
+  position: absolute;
+  right: calc( 50% - 50px );
+  top: 15px;
+  width: 100px;
+}
+
 
