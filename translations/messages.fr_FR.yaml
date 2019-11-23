@@ -50,8 +50,12 @@ File: Fichier
 
 # QuestionType
 Question: Question
-Bonne réponse : Bonne réponse
-Fausse réponse: Fausse réponse
+Proposition 1 - Bonne réponse - Champ obligatoire: Proposition 1 - Bonne réponse - Champ obligatoire
+Proposition 2 - Fausse réponse - Champ obligatoire: Proposition 2 - Fausse réponse - Champ obligatoire
+Proposition 3 - Fausse réponse: Proposition 3 - Fausse réponse
+Proposition 4 - Fausse réponse: Proposition 4 - Fausse réponse
+Proposition 5 - Fausse réponse: Proposition 5 - Fausse réponse
+Proposition 6 - Fausse réponse: Proposition 6 - Fausse réponse
 Level: Niveau
 EASY: Facile
 MEDIUM: Moyenne

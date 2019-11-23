@@ -1,5 +1,6 @@
 # V 1.2
 
+- Possibilité lors de la création d'une question de choisir le nombre de choix de fausses réponses entre 1 à 5.
 - Ajout de deux boutons "+" et "-" pour faciliter la manipulation de la barre de défilement horizontal pour l'affichage des sentiments du rush.
 
 # V 1.1

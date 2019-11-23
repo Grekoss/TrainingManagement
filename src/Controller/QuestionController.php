@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Entity\Result;
 use App\Entity\User;
-use App\Form\ResultType;
 use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use App\Repository\ResultRepository;
@@ -16,16 +14,27 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionController extends AbstractController
 {
+    private $quizRepository;
+    private $resultRepository;
+    private $questionRepository;
+
+    public function __construct(QuizRepository $quizRepository, ResultRepository $resultRepository, QuestionRepository $questionRepository)
+    {
+        $this->quizRepository = $quizRepository;
+        $this->resultRepository = $resultRepository;
+        $this->questionRepository = $questionRepository;
+    }
+
     /**
      * @Route("/quizzes", name="app_question")
      */
-    public function index(QuizRepository $quizRepository, ResultRepository $resultRepository)
+    public function index()
     {
-        $quizzes = $quizRepository->findBy(array(), array('updatedAt' => 'DESC'));
+        $quizzes = $this->quizRepository->findBy(array(), array('updatedAt' => 'DESC'));
 
         $results = array();
         for ( $i=0 ; $i<count($quizzes) ; $i++ ) {
-            $results[$i] = $resultRepository->findByQuizAndUser($quizzes[$i], $this->getUser());
+            $results[$i] = $this->resultRepository->findByQuizAndUser($quizzes[$i], $this->getUser());
         }
 
         return $this->render('question/index.html.twig', [
@@ -37,12 +46,12 @@ class QuestionController extends AbstractController
     /**
      * @Route("/quizzes/{id}/show", name="app_question_show")
      */
-    public function showQuestions(Quiz $quiz, ResultRepository $resultRepository, QuestionRepository $questionRepository)
+    public function showQuestions(Quiz $quiz)
     {
-        $results = $resultRepository->findByQuizAndUser($quiz, $this->getUser());
+        $results = $this->resultRepository->findByQuizAndUser($quiz, $this->getUser());
 
         // Afficher une question du question en aléatoire
-        $questions = $questionRepository->findByQuiz($quiz);
+        $questions = $this->questionRepository->findByQuiz($quiz);
         shuffle($questions);
 
         return $this->render('question/show.html.twig', [
@@ -66,15 +75,24 @@ class QuestionController extends AbstractController
     /**
      * @Route("quizzes/start-quiz/{id}", name="app_start_quiz")
      */
-    public function startQuiz(Quiz $quiz, QuestionRepository $questionRepository, Request $request)
+    public function startQuiz(Quiz $quiz, Request $request)
     {
-        $questions = $questionRepository->findByQuiz($quiz);
+        $questions = $this->questionRepository->findByQuiz($quiz);
 
         //On mélange les réponses de chaque questions
         $mixedAnswers = array();
         for ( $i=0 ; $i<count($questions) ; $i++ ) {
-            $listAnswers = [$questions[$i]->getProp1(), $questions[$i]->getProp2(), $questions[$i]->getProp3(), $questions[$i]->getProp4()];
+            // On ajoute les deux réponses obligatoires, prop1 qui est juste et prop2 qui est fausse
+            $listAnswers = [$questions[$i]->getProp1(), $questions[$i]->getProp2()];
+            // On vérifie si les prop 3 à 6 sont pas vides dans ce cas, on l'ajoute au tableau
+            for ( $j=3 ; $j<7 ; $j++ ) {
+                $props = 'getProp'.$j;
+
+                if(!empty($questions[$i]->$props() )) { array_push($listAnswers, $questions[$i]->$props()); }
+            }
+            
             shuffle($listAnswers);
+
             $mixedAnswers[] = $listAnswers;
         }
 
@@ -151,10 +169,10 @@ class QuestionController extends AbstractController
     /**
      *@Route("quizzes/listResults/{id}", name="question_list_results")
      */
-    public function listResults(User $user, ResultRepository $resultRepository)
+    public function listResults(User $user)
     {
         return $this->render('question/listResults.html.twig', [
-            'results' => $resultRepository->findByUser($user)
+            'results' => $this->resultRepository->findByUser($user)
         ]);
     }
 }

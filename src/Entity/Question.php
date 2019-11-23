@@ -39,12 +39,12 @@ class Question
     private $prop2;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prop3;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prop4;
 
@@ -52,6 +52,16 @@ class Question
      * @ORM\Column(type="string", length=255)
      */
     private $level;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $prop5;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $prop6;
 
     public function __toString()
     {
@@ -152,5 +162,29 @@ class Question
         $slug = new Slugger(false);
 
         return $slug->slugify($this->getQuestion());
+    }
+
+    public function getProp5(): ?string
+    {
+        return $this->prop5;
+    }
+
+    public function setProp5(?string $prop5): self
+    {
+        $this->prop5 = $prop5;
+
+        return $this;
+    }
+
+    public function getProp6(): ?string
+    {
+        return $this->prop6;
+    }
+
+    public function setProp6(?string $prop6): self
+    {
+        $this->prop6 = $prop6;
+
+        return $this;
     }
 }

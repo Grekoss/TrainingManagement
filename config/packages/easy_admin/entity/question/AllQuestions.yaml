@@ -30,6 +30,8 @@ easy_admin:
           - { property: 'prop2', label: 'Bad response 1', type: 'text' }
           - { property: 'prop3', label: 'Bad response 2', type: 'text' }
           - { property: 'prop4', label: 'Bad response 3', type: 'text' }
+          - { property: 'prop5', label: 'Bad response 4', type: 'text' }
+          - { property: 'prop6', label: 'Bad response 5', type: 'text' }
           - { property: 'level', type: 'choice', type_options: { mapped: true, expanded: false, multiple: false, choices: { 'EASY': 'facile', 'MEDIUM': 'moyen', 'HARD': 'difficile' } } }
 
       edit:
@@ -41,6 +43,8 @@ easy_admin:
           - { property: 'prop2', label: 'Bad response 1', type: 'text' }
           - { property: 'prop3', label: 'Bad response 2', type: 'text' }
           - { property: 'prop4', label: 'Bad response 3', type: 'text' }
+          - { property: 'prop5', label: 'Bad response 4', type: 'text' }
+          - { property: 'prop6', label: 'Bad response 5', type: 'text' }
           - { property: 'level', type: 'choice', type_options: { mapped: true, expanded: false, multiple: false, choices: { 'EASY': 'facile', 'MEDIUM': 'moyen', 'HARD': 'difficile' } } }
         actions:
           - { name: 'delete', icon: 'trash', label: 'Delete', css_class: 'btn btn-danger' }
@@ -54,6 +58,8 @@ easy_admin:
           - { property: 'prop2', label: 'Bad response 1', type: 'string' }
           - { property: 'prop3', label: 'Bad response 2', type: 'string' }
           - { property: 'prop4', label: 'Bad response 3', type: 'string' }
+          - { property: 'prop5', label: 'Bad response 4', type: 'string' }
+          - { property: 'prop6', label: 'Bad response 5', type: 'string' }
           - { property: 'level', template: 'easy_admin/fields/_level.html.twig' }
         actions:
           - { name: 'edit', icon: 'pencil', label: 'Edit', css_class: 'btn btn-secondary' }
