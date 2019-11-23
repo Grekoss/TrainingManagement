@@ -3,3 +3,6 @@ The email '{{ value }}' is not a valid email. : L'Email {{ value }} n'est pas un
 It is not a valid French phone number.: Ce n'est pas un numéro de téléphone français valide.
 This value is too short. It should have {{ limit }} characters or more.: Cette valeur est trop courte. Il devrait comporter {{ limit }} caractères ou plus.
 This value is too long. It should have {{ limit }} characters or less.: Cette valeur est trop longue. Il devrait comporter {{ limit }} caractères ou moin.
+Enter a position: Saisir votre poste
+Write the goals: Ecrire vos objectifs
+Write your comment: Ecrire votre commentaire

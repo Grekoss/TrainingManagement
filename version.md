@@ -1,6 +1,6 @@
-# Futur axe de travail :
+# V 1.2
 
-- Travail du responsible pour tout support (Mobile, Tablette, Desktop).
+- Ajout de deux boutons "+" et "-" pour faciliter la manipulation de la barre de défilement horizontal pour l'affichage des sentiments du rush.
 
 # V 1.1
 

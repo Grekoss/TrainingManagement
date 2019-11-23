@@ -33,8 +33,15 @@
                 </div>
                 {{ form_row(form.isResponsible) }}
                 <div class="d-flex justify-content-around">
-                    Ressenti du rush :
-                    {{ form_row(form.feelRush) }}
+                    <div>
+                        Ressenti du rush :
+                        <div>
+                            <button id="moreFeel">+</button>
+                            <button id="lessFeel">-</button>
+                        </div>
+                        {{ form_row(form.feelRush) }}
+                    </div>
+                    
                     <div class="value"></div>
                 </div>
             </fieldset>
