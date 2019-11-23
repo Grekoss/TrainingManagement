@@ -262,14 +262,18 @@ class AppFixtures extends Fixture
                 $rand = array_rand($keyLevel);
                 $randLevel = $level[$keyLevel[$rand]];
 
+                $randProp = rand(2, 6);
+
                 $question = new Question();
                 $question->setQuiz($quiz)
                     ->setQuestion($this->generator->quizName())
-                    ->setProp1('Réponse 1')
-                    ->setProp2('Réponse 2')
-                    ->setProp3('Réponse 3')
-                    ->setProp4('Réponse 4')
                     ->setLevel($randLevel);
+
+                for ( $j=1; $j<$randProp+1 ; $j++ ) {
+                    $set = 'setProp' . $j;
+                    dump($set);
+                    $question->$set('Réponse ' . $j);
+                }
 
                 $this->manager->persist($question);
                 $this->manager->flush();
