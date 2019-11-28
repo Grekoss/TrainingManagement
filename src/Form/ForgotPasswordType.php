@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,9 +17,6 @@ class ForgotPasswordType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Enter your email address'
                 ]
-            ])
-            ->add('captchaCode', CaptchaType::class, [
-                'captchaConfig' => 'ForgotCaptcha'
             ])
         ;
     }

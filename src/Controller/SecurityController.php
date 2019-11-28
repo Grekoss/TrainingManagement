@@ -77,7 +77,7 @@ class SecurityController extends AbstractController
 
             $message = new \Swift_Message();
             $message->setSubject('Nouveau Mot de Passe')
-                ->setFrom(['grekoss.cedric.dev' => 'Nouveau mot de passe'])
+                ->setFrom(['grekoss.cedric.dev@gmail.com' => 'Nouveau mot de passe'])
                 ->setTo($email)
                 ->setBody(
                     $this->renderView(

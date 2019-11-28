@@ -61,7 +61,6 @@ body {
 }
 
 .content-more {
-    //background-image: url('../images/backgrounds/user.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -194,6 +193,7 @@ footer ul {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    list-style: none;
 }
 
 footer ul li {

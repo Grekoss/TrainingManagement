@@ -1,2 +1,1 @@
-captcha_routing:
-  resource: "@CaptchaBundle/Resources/config/routing.yml"
+#Vide
