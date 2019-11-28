@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\DataFixtures\FakerProvider\DataProvider;
-use App\Entity\CategoryLesson;
 use App\Entity\CommentReport;
 use App\Entity\Lesson;
 use App\Entity\Mentor;

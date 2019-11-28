@@ -36,7 +36,10 @@
                     </em>
                 {% endif %}
             </td>
-            <td>{{ student['user'].lastLogin|date('d/m/Y') }}</td>
+            <td class="text-center">
+                <div>{{ student['user'].lastLogin|date('d/m/Y') }}</div>
+                <div>{{ student['user'].lastLogin|date('H:i') }}</div>
+            </td>
             <td>
                 <a href="{{ path('question_list_results', {'id': student['user'].id}) }}" class="btn btn-outline-info" title="Afficher la liste des résultats aux questionnaires"><i class="fas fa-question-circle"></i></a>
                 <a href="{{ path('teacher_list_reports_user', {'id': student['user'].id}) }}" class="btn btn-outline-success" title="Afficher la liste des rapports"><i class="far fa-list-alt"></i></a>

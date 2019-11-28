@@ -103,7 +103,7 @@ class Report
 
     public function __toString()
     {
-        return 'Le ' . $this->dateAt->format('d/m/Y à H:i');
+        return 'Le ' . $this->dateAt->format('d/m/Y') . ' - En ' . $this->getRushOf();
     }
 
     public function getId(): ?int
