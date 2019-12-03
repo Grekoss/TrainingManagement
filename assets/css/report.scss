@@ -7,6 +7,10 @@
   src: url('../fonts/chilanka/Chilanka-Regular.ttf');
 }
 
+.content {
+  padding: 0;
+}
+
 .table th, .table td {
   vertical-align: middle;
 }
@@ -15,8 +19,24 @@ p.ratingBox-event {
   margin: 0;
 }
 
+
+/* ==========[LIST]========== */
+.btn-index {
+  width: 90%;
+  margin: 1em;
+}
+
+.td-id,
+.td-zone,
+.td-view,
+.td-comments,
+.td-date-normal
+{
+  display: none;
+}
+
 .rush-img-little {
-  height: 50px;
+  height: 30px;
 }
 
 /* ==========[SHOW]========== */
@@ -47,29 +67,34 @@ legend {
   font-weight: bold;
   margin: auto;
   text-decoration: underline;
-}
-
-.container-rush-info {
-  display: flex;
+  text-align: center;
 }
 
 .container-rush {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.container-rush-info {
+  display: block;
+}
+
+.container-rush-detail {
   display: flex;
   flex-direction: column;
   position: absolute;
   right: 0;
-  top: 0;
-  width: 150px;
+  bottom: 0;
+}
+.container-rush-detail div:last-child {
+  width: 60px;
 }
 
 .rush-img {
-  margin: auto;
-  width: 50%;
+  width: 50px;
 }
 
-.detail-box {
-  margin: 0 20px;
-}
 .detail-item {
   display: flex;
 }
@@ -79,20 +104,29 @@ legend {
   margin-right: 5px;
 }
 
+.row-goals {
+  margin-bottom: 2.5em;
+}
+
 .row-goals fieldset {
   margin: 20px 0;
 }
 
 .img-report-isSeen {
-  height: 100px;
-  left: -15px;
+  height: 50px;
+  left: 0px;
   opacity: 0.5;
   position: absolute;
-  top: -80px;
+  top: -25px;
 }
 
 .row-comments {
+  margin: auto;
   justify-content: space-around;
+  width: 100%;
+}
+.comments-student,
+.comments-mentors {
   width: 100%;
 }
 
@@ -103,7 +137,6 @@ legend {
 
 .comments-mentors {
   order: 2;
-  width: 48%;
 }
 .comments-mentors-box {
   border-radius: 20px;
@@ -133,16 +166,185 @@ legend {
 }
 
 /* ==========[NEW REPORT]========== */
-.working-time-box,
-.working-zone-box {
-  width: 49%;
+.working-time-box {
+  width: 100%;
+}
+.working-time-box > div:first-of-type > div:first-of-type {
+  width: 50%;
+}
+label[for=report_dateAt],
+label[for=report_rushOf] {
+  font-size: 0.75em;
+}
+.time {
+  display: flex;
+  flex-wrap: wrap;
+}
+.time > em:first-child {
+  order: 1;
+}
+.time > em:last-of-type {
+  order: 2;
+}
+.time > em:first-child,
+.time > em:last-of-type {
+  width: 50%;
+}
+#report_startAt {
+  order: 3;
+}
+#report_stopAt {
+  order: 4;
+}
+#report_startAt,
+#report_stopAt {
+  justify-content: space-around;
+  width: 50%;
+}
+#report_startAt_hour,
+#report_startAt_minute,
+#report_stopAt_hour,
+#report_stopAt_minute {
+  width: 45%;
+  appearance: none;
 }
 
-.value {
+.valueStars {
   width: 190px;
   height: 36px;
+  margin: auto;
 }
 
 #moreFeel, #lessFeel {
   width: 40%;
+}
+
+.comments-zone-box > div{
+  flex-wrap: wrap;
+}
+
+/* Tablettes -> Ipad*/
+@media (min-width: 750px) {
+  /* ==========[LIST]========== */
+  .content {
+    padding-top: 65px;
+  }
+  .td-view {
+    display: table-cell;
+  }
+
+  .rush-img-little {
+    height: 50px;
+  }
+
+  /* ==========[SHOW]========== */
+  .title {
+    color: $info;
+    font-family: Chilanka-Regular, cursive;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: auto;
+    text-decoration: underline;
+  }
+  .container-rush {
+    display: flex;
+  }
+  .container-rush-info {
+    display: flex;
+    width: 100%;
+  }
+
+  .detail-box {
+    margin: 0 20px;
+  }
+  .rush-img {
+    width: 75px;
+  }
+  .container-rush-detail {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 0;
+    justify-content: center;
+  }
+  .container-rush-detail div:last-child {
+    width: 75px;
+    text-align: center;
+  }
+  .row-goals {
+    padding: 15px;
+  }
+  .img-report-isSeen {
+    height: 75px;
+    opacity: 0.5;
+    position: absolute;
+    top: -40px;
+    left: unset;
+    right: 0;
+  }
+
+  /* ==========[NEW REPORT]========== */
+  .working-time-box,
+  .working-zone-box {
+    width: 49%;
+  }
+  .working-time-box {
+    height: auto;
+  }
+  .working-zone-box > div:last-of-type {
+    display: block;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+  /* ==========[LIST]========== */
+  .content {
+    padding: 65px 30px 24px;
+  }
+  
+  .td-id,
+  .td-zone,
+  .td-view,
+  .td-comments,
+  .td-date-normal
+  {
+    display: table-cell;
+  }
+
+  .td-date-small {
+    display: none;
+  }
+
+  /* ==========[SHOW]========== */
+  .container-rush {
+    justify-content: center;
+  }
+  .container-rush-info {
+    width: auto;
+  }
+  .img-report-isSeen {
+    height: 100px;
+    left: -15px;
+    opacity: 0.5;
+    position: absolute;
+    top: -80px;
+  }
+  .with-mentors {
+    width: 48%;
+  }
+  .comments-mentors {
+    order: 2;
+    width: 48%;
+  }
+
+  /* ==========[NEW REPORT]========== */
+  .comments-zone-box > div {
+    flex-wrap: unset;
+  }
+
+  .working-zone-box > div:last-of-type {
+    display: flex;
+  }
 }

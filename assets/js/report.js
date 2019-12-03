@@ -6,10 +6,10 @@ import ratingsImage from '../images/icons/ratings.png';
 
 let star = {
     list: {
-        1: '0 -144px',
-        2: '0 -108px',
-        3: '0 -72px',
-        4: '0 -36px',
+        1: '0 -149px',
+        2: '0 -112px',
+        3: '0 -74px',
+        4: '0 -38px',
         5: '0 0px'
     }
 };
@@ -75,7 +75,7 @@ let newReport = {
             divImage.style.backgroundImage = 'url(' + ratingsImage + ')';
             divImage.style.backgroundPosition = star.list[score];
             divImage.style.width = '168px';
-            divImage.style.height = '36px';
+            divImage.style.height = '31px';
         }
 
         return divImage;
@@ -87,7 +87,7 @@ let newReport = {
     inputRangeValue: function () {
         // Valeur de l'input range!
         newReport.rangeValue = newReport.elem.value;
-        let target = document.querySelector('.value');
+        let target = document.querySelector('.valueStars');
         target.innerHTML = '';
 
         target.appendChild(newReport.createImage(newReport.rangeValue));

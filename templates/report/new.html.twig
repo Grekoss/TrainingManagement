@@ -17,7 +17,7 @@
                     {{ form_row(form.rushOf) }}
                 </div>
                 {{ form_row(form.manager) }}
-                <div>
+                <div class="time">
                     <em>De</em>
                     {{ form_widget(form.startAt) }}
                     <em>à</em>
@@ -32,21 +32,21 @@
                     {{ form_row(form.position) }}
                 </div>
                 {{ form_row(form.isResponsible) }}
-                <div class="d-flex justify-content-around">
+                <div class="justify-content-around">
                     <div>
                         Ressenti du rush :
                         <div>
-                            <button id="moreFeel">+</button>
                             <button id="lessFeel">-</button>
+                            <button id="moreFeel">+</button>
                         </div>
                         {{ form_row(form.feelRush) }}
                     </div>
                     
-                    <div class="value"></div>
+                    <div class="valueStars"></div>
                 </div>
             </fieldset>
 
-            <fieldset class="w-100">
+            <fieldset class="comments-zone-box w-100">
                 <legend>Objectifs / Commentaires</legend>
                 <div class="d-flex justify-content-between">
                     <div class="w-100">{{ form_row(form.goals) }}</div>
@@ -54,7 +54,7 @@
                 </div>
             </fieldset>
 
-            <div class="d-flex justify-content-between w-100 m-2">
+            <div class="d-flex justify-content-between w-100 m-2 mb-5">
                 <button class="btn btn-outline-warning" type="reset" title="Reset - Tout effacer"><i class="fas fa-redo"></i></button>
                 <a class="btn btn-outline-secondary" href="{{ path('app_report') }}" title="Retour à la liste des rapports">Retour</a>
                 <button class="btn btn-outline-success w-75" type="submit" title="Valider le rapport">Enregistrer</button>

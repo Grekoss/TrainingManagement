@@ -5,6 +5,10 @@
   src: url('../fonts/chilanka/Chilanka-Regular.ttf');
 }
 
+.content {
+  padding: 0;
+}
+
 /* ==========[CHECKBOX]========= */
 .checkbox {
   appearance: none;
@@ -41,15 +45,32 @@
 .container-info-quiz {
   display: flex;
   justify-content: space-between;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+
+.container-info-quiz div:first-child{
+  order: 1;
 }
 
 .info-title {
   background-color: $primary;
   border-radius: 25px 25px 0 0;
   color: white;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
   padding: 0px 20px 0 20px;
+  margin-top: 5px;
+  order: 3;
+  text-align: center;
+  width: 100%;
+}
+.container-tag {
+  display: flex;
+  order: 2;
+  width: 50%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 /* ==========[QUESTION]========== */
@@ -57,25 +78,31 @@
   flex-direction: row;
   position: fixed;
   text-align: center;
-  width: 70%;
+  width: 100%;
+}
+
+.list-group-item {
+  padding: 0.5rem 0.5rem;
 }
 
 #container-questions {
   height: 75vh;
-  margin-left: -15px;
   margin-top: 60px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 10px 15px;
   position: fixed;
   right: 0;
-  width: 75%;
 }
 
 fieldset {
   border: solid 1px grey;
   margin-bottom: 5em;
   padding: 20px;
+}
+
+fieldset:last-of-type {
+  margin-bottom: 1em;
 }
 
 legend {
@@ -85,19 +112,17 @@ legend {
 }
 .question-title {
   font-family: Chilanka-Regular, cursive;
-  font-size: 2.5em;
+  font-size: 1.5em;
   text-align: center;
   text-decoration: underline;
 }
 
 .question-question {
   font-family: Chilanka-Regular, cursive;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 #quitter {
-  position: fixed;
-  top: 10px;
   padding: 0 5px 0 5px;
 }
 
@@ -105,3 +130,47 @@ legend {
   margin-bottom: 4em;
 }
 
+/* Tablettes -> Ipad*/
+@media (min-width: 750px) {
+  .content {
+    padding: 65px 30px 24px;
+  }
+
+  #listQuestions {
+    width: calc(75% - 60px);
+  }
+
+  #container-questions {
+    width: 75%;
+    padding: 10px 30px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+  #quitter {
+    position: fixed;
+    top: 10px;
+    padding: 0 5px 0 5px;
+  }
+
+  .container-info-quiz {
+    font-size: 1.5em;
+  }
+
+  .info-title {
+    font-size: 1.5em;
+  }
+
+  .container-tag .badge {
+    margin: 0 5px;
+  }
+
+  .question-title {
+    font-size: 2em;
+  }
+
+  .question-question {
+    font-size: 1.5em;
+  }
+}

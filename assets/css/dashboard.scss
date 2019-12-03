@@ -4,10 +4,6 @@
   align-items: center;
   background: #f2f2f2;
   display: flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flex;
   flex-wrap: wrap;
   justify-content: center;
   min-height: 100vh;
@@ -18,37 +14,15 @@
   align-items: stretch;
   background: #fff;
   display: flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flex;
   flex-direction: row-reverse;
   flex-wrap: wrap;
+  height: 100vh;
   overflow: hidden;
   width: 100%;
 }
 
 .dashboard-more {
-  background-image: url('../images/backgrounds/dashboard.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-  position: relative;
-  width: 50%;
-  z-index: 1;
-}
-
-.dashboard-more::before {
-  background: rgba(0,0,0,0.3);
-  content: "";
-  display: block;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: -1;
+  display: none;
 }
 
 .btn-disconnect {
@@ -63,21 +37,17 @@
 /* ===========[DASHBOARD]========== */
 .dashboard-box {
   display: flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-left: 30px;
   padding-right: 30px;
-  width: 50%;
+  width: 100%;
 }
 
 .dashboard-username {
   font-family: GochiHand-Regular, cursive;
-  font-size: 60px;
-  margin-top: 50px;
+  font-size: 40px;
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -94,6 +64,7 @@
   padding-right: 25px;
   text-align: center;
 }
+
 .btn-dashboard{
   border: 1px solid;
   border-radius: 15px;
@@ -101,11 +72,15 @@
   flex-direction: column;
   font-weight: bold;
   justify-content: center;
-  height: 150px;
+  height: 100px;
   margin: 10px;
   text-align: center;
   transition: all 0.4s;
-  width: 150px;
+  width: 100px;
+}
+
+.btn-dashboard div:last-child{
+  display: none;
 }
 
 .btn-dashboard:hover{
@@ -125,9 +100,104 @@
 
 #btn-communication .badge {
   position: absolute;
-  right: calc( 50% - 50px );
-  top: 15px;
-  width: 100px;
+  right: calc( 50% - 60px );
+  top: -5px;
+  width: 120px;
 }
 
+#btn-admin {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 50%;
+}
 
+/* Tablettes -> Ipad*/
+@media (min-width: 750px) {
+  .container-dashboard {
+    align-items: center;
+    background: #f2f2f2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+  }
+
+  .dashboard-more {
+    background-image: url('../images/backgrounds/dashboard.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    height: 100vh;
+    position: relative;
+    width: 25%;
+    z-index: 1;
+  }
+  
+  .dashboard-more::before {
+    background: rgba(0,0,0,0.3);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  /* ===========[DASHBOARD]========== */
+  .dashboard-box {
+    justify-content: space-between;
+    width: 75%;
+  }
+
+  .dashboard-username {
+    font-size: 60px;
+    margin-top: 50px;
+  }
+
+  /* ==========[BTN-DASHBOARD]========== */
+  .btn-dashboard{
+    border: 1px solid;
+    border-radius: 15px;
+    display: inline-flex;
+    flex-direction: column;
+    font-weight: bold;
+    justify-content: center;
+    height: 150px;
+    margin: 10px;
+    text-align: center;
+    transition: all 0.4s;
+    width: 150px;
+  }
+
+  .btn-dashboard div:last-child{
+    display: block;
+  }
+
+  #btn-communication .badge {
+    position: absolute;
+    right: calc( 50% - 50px );
+    top: 15px;
+    width: 100px;
+  }
+
+  #btn-admin {
+    width: 25%;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+  .dashboard-more {
+    width: 50%;
+  }
+
+  /* ===========[DASHBOARD]========== */
+  .dashboard-box {
+    width: 50%;
+  }
+}

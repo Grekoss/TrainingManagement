@@ -1,39 +1,43 @@
 <table class="table table-striped text-center">
     <thead>
     <tr>
-        <th scope="col">#</th>
+        <th class="td-id" scope="col">#</th>
         {% if teacher is defined %}
-            <th scope="col">Etudiant</th>
+            <th class="td-student" scope="col">Etudiant</th>
         {% endif %}
-        <th scope="col">Date</th>
-        <th scope="col">Shift</th>
-        <th scope="col">Zone</th>
-        <th scope="col">Sentiment</th>
-        <th scope="col">Vu</th>
-        <th scope="col">Commentaires</th>
-        <th scope="col">Actions</th>
+        <th class="td-date" scope="col">Date</th>
+        <th class="td-shift" scope="col">Shift</th>
+        <th class="td-zone" scope="col">Zone</th>
+        <th class="td-feel" scope="col">Sentiment</th>
+        <th class="td-view" scope="col">Vu</th>
+        <th class="td-comments" scope="col">Commentaires</th>
+        <th class="td-actions" scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
     {% for report in reports %}
         <tr>
-            <th scope="row">{{ report.id }}</th>
+            <th class="td-id" scope="row">{{ report.id }}</th>
             {% if teacher is defined %}
-                <td>{{ report.student.firstName|capitalize }} {{ report.student.lastName|capitalize|slice(0, 1) }}</td>
+                <td class="td-student">{{ report.student.firstName|capitalize }} {{ report.student.lastName|capitalize|slice(0, 1) }}</td>
             {% endif %}
-            <td title="{{ report.dateAt|localizeddate('none', 'none', null, null, 'EEEE')|capitalize }}">{{ report.dateAt|date('d/m/Y') }}</td>
-            <td>
+            <td class="td-date-small">
+                <div>{{ report.dateAt|date('d/m') }}</div>
+                <div>{{ report.dateAt|date('Y') }}</div>
+            </td>
+            <td class="td-date-normal" title="{{ report.dateAt|localizeddate('none', 'none', null, null, 'EEEE')|capitalize }}">{{ report.dateAt|date('d/m/Y') }}</td>
+            <td class="td-shift">
                 {% if report.rushOf is same as ('open') %}
                     <img class="rush-img-little" src="{{ asset('images/icons/midi.png') }}" alt="open" title="Open" />
                 {% else %}
                     <img class="rush-img-little" src="{{ asset('images/icons/soir.png') }}" alt="close" title="Close" />
                 {% endif %}
             </td>
-            <td title="{{ report.position|capitalize }}">{{ report.zone|capitalize }}</td>
-            <td>{{ makeStar(report.feelRush)|raw }}</td>
-            <td class="array-show-{{ report.isSeen }}"></td>
-            <td>{{ report.commentReports|length }} {{ report.commentReports|length > 1 ? 'commentaires' : 'commentaire' }}</td>
-            <td>
+            <td class="td-zone" title="{{ report.position|capitalize }}">{{ report.zone|capitalize }}</td>
+            <td class="td-feel">{{ makeStar(report.feelRush)|raw }}</td>
+            <td class="td-view array-show-{{ report.isSeen }}"></td>
+            <td class="td-comments">{{ report.commentReports|length }} {{ report.commentReports|length > 1 ? 'commentaires' : 'commentaire' }}</td>
+            <td class="td-actions">
                 <a href="{{ path('app_report_show', {'id': report.id}) }}" title="Voir le rapport" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
                 <a href="{{ path('app_report_update', {'id': report.id}) }}" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a>
             </td>

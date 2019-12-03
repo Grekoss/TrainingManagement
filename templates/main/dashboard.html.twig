@@ -57,7 +57,7 @@
                         {% endif %}
 
                         {% if is_granted('ROLE_STORE') %}
-                            <a href="{{ absolute_url('/admin') }}" class="my-3 mx-auto w-25 alert-danger d-flex alert justify-content-between">
+                            <a href="{{ absolute_url('/admin') }}" id="btn-admin" class="alert-danger alert">
                                 <div><i class="fas fa-cogs"></i></div>
                                 <div>Admin</div>
                             </a>

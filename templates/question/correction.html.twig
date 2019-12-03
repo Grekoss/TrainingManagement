@@ -22,8 +22,8 @@
             <th scope="col">#</th>
             <th scope="col">Question</th>
             <th scope="col">Votre réponse</th>
-            <th scope="col">La réponse</th>
-            <th scope="col">Niveau</th>
+            <th class="small" scope="col">La réponse</th>
+            <th class="small" scope="col">Niveau</th>
         </tr>
         </thead>
         <tbody>
@@ -40,9 +40,9 @@
                 <td colspan="2">{{  response[1] }}</td>
                 {% else %}
                 <td>{{ response[1] }}</td>
-                <td>{{ response[0].prop1 }}</td>
+                <td class="small">{{ response[0].prop1 }}</td>
                 {% endif %}
-                <td>
+                <td class="small">
                     <div class="badge {{ response[0].level }}">{{ response[0].level }}</div>
                 </td>
             </tr>

@@ -149,7 +149,7 @@ class TeacherController extends AbstractController
         $pagination = $this->paginator->paginate(
             $this->reportRepository->findAllByUsersActive(),
             $request->query->getInt('page', 1),
-            6
+            20
         );
 
         return $this->render('teacher/listReports.html.twig', [

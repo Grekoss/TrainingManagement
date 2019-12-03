@@ -9,4 +9,12 @@
 [x] Pouvoir créer une question a deux réponse et ajout la 3 et 4 en optionnelle
 
 [ ] Améliorer le responsible de l'application
-[ ] Faire un PHPUnit
+    [x] Quizz
+    [x] Rapports
+    [ ] Profil
+    [ ] Leçons
+    [ ] Communication
+    [ ] Mentor
+    [ ] Admin    
+    [ ] Inscription    
+
