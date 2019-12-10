@@ -7,9 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{{ path('app_teacher') }}" class="btn btn-outline-secondary position-absolute btn-back">Retour</a>
+    <a href="{{ path('app_teacher') }}" class="btn btn-outline-secondary btn-index">Retour</a>
 
     {{ include('partiels/_messageFlashes.html.twig') }}
+
+    <div class="text-center mt-2">
+        <a href="{{ path('teacher_quiz_create') }}" class="btn btn-outline-success w-75"><i class="fas fa-plus-circle mx-2"></i>Créer un quiz</a>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -17,10 +21,10 @@
                 <thead>
                 <tr>
                     <th scope="col" class="text-left">Titre</th>
-                    <th scope="col">Créé par</th>
-                    <th scope="col">Tags</th>
-                    <th scope="col" title="Nombre de questions"># Ques.</th>
-                    <th scope="col" title="Nombre de foirs réalisé par les étudiants"># Réa.</th>
+                    <th class="td-createdBy" scope="col">Créé par</th>
+                    <th class="td-tags" scope="col">Tags</th>
+                    <th class="td-countQuestions" scope="col" title="Nombre de questions"># Ques.</th>
+                    <th class="td-countResults" scope="col" title="Nombre de foirs réalisé par les étudiants"># Réa.</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -28,16 +32,16 @@
                 {% for quiz in listQuizzes %}
                     <tr>
                         <td class="text-left" title="{{ quiz.description }}">{{ quiz.title|capitalize }}</td>
-                        <td>{{ quiz.author.firstName|capitalize }} {{ quiz.author.lastName|slice(0, 1)|capitalize }}.</td>
-                        <td>
+                        <td class="td-createdBy">{{ quiz.author.firstName|capitalize }} {{ quiz.author.lastName|slice(0, 1)|capitalize }}.</td>
+                        <td class="td-tags">
                             {% for tag in quiz.tags %}
                                 <div class="badge" style="color: {{ tag.textColor }}; background-color: {{ tag.backgroundColor }}">{{ tag.name|capitalize }}</div>
                             {% else %}
                                 <div>Pas de tag</div>
                             {% endfor %}
                         </td>
-                        <td>{{ quiz.questions|length }}</td>
-                        <td>{{ quiz.results|length }}</td>
+                        <td class="td-countQuestions">{{ quiz.questions|length }}</td>
+                        <td class="td-countResults">{{ quiz.results|length }}</td>
                         <td class="td-container-buttons-actions">
                             <div class="btn-group" role="group">
                                 <button id="btnGroupDropActions" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>

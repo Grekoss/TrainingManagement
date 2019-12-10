@@ -38,9 +38,15 @@ class Message
      */
     private $content;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isRead;
+
     public function __construct()
     {
         $this->writeAt = new \DateTime();
+        $this->isRead = false;
     }
 
     public function __toString()
@@ -104,5 +110,17 @@ class Message
     public function getInterlocutors(): ?array
     {
         return [$this->getSender(), $this->getReceived()];
+    }
+
+    public function getIsRead(): ?bool
+    {
+        return $this->isRead;
+    }
+
+    public function setIsRead(?bool $isRead): self
+    {
+        $this->isRead = $isRead;
+
+        return $this;
     }
 }

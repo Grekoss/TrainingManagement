@@ -9,12 +9,11 @@
 {% block content %}
     {{ include('partiels/_messageFlashes.html.twig') }}
 
+    {# la Variable Teacher permet de savoir d'ou l'on vient du menu normal ou du menu Teacher #}
     {% if teacher is not defined %}
-    <div class="text-right my-3">
-        <a href="{{ path('app_report_new')}}" class="btn btn-outline-primary"><i class="fas fa-plus-circle mr-2"></i>Ajouter un rapport</a>
-    </div>
-        {% else %}
-            <a href="{{ path('app_teacher')}}" class="btn btn-outline-secondary btn-back">Retour</a>
+        <a href="{{ path('app_report_new')}}" class="btn btn-outline-primary btn-index"><i class="fas fa-plus-circle mr-2"></i>Ajouter un rapport</a>
+    {% else %}
+        <a href="{{ path('app_teacher')}}" class="btn btn-outline-secondary btn-index">Retour</a>
     {% endif %}
 
     {{ include('report/partiels/_table.html.twig') }}

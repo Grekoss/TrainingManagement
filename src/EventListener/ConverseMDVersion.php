@@ -5,7 +5,7 @@ namespace App\EventListener;
 use Michelf\MarkdownInterface;
 use Twig\Environment;
 
-class converseMDVersion
+class ConverseMDVersion
 {
     private $mardown;
     private $twig;

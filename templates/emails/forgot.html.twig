@@ -1,41 +1,15 @@
-{#FIXME: Faire mieux#}
-
-<header>
-    <style>
-        table, td {
-            border: 1px solid #333;
-        }
-    </style>
-</header>
-
-<body>
-<h1>Votre nouveau mot de passe!</h1>
-
-<table>
-    <thead>
-    <tr>
-        <th colspan="2">Voici votre nouveau mot de passe</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td style="color: white; background-color:black; font-weight:bold;">Votre Speudo</td>
-        <td style="color: white; background-color:black; font-weight:bold;">Votre nouveau mot de passe</td>
-    </tr>
-    <tr>
-        <td>{{ user.username }}</td>
-        <td>{{ newPassword }}</td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <th colspan="2">
-            <a href="{{ absolute_url('/') }}" role="button"
-               style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 4.8px; line-height: 30px; display: inline-block; font-weight: normal; white-space: nowrap; background-color: #007bff; color: #ffffff; padding: 8px 16px; border: 1px solid #007bff;">
-                Se connecter
-            </a>
-        </th>
-    </tr>
-    </tfoot>
-</table>
-</body>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mot de passe oublié</title>
+    </head>
+    <body>
+        <h1>Mot de passe oublié</h1>
+        <p>Vous venez de perde votre mot de passe pour vous connecter à l'application sous le compte de : {{ user.username }}.</p>
+        <p>Pour vous permettre de vous reconnecter, nous vous fournissons un nouveau mot de passe, que nous vous invitons à copier et le changer dès que possible dans les paramètres de votre profile afin de mettre un mot de passe à votre convenance!</p>
+        <p>Voici votre nouveau mot de passe : <b>{{ newPassword }}</b></p>
+        <br />
+        <a href="{{ absolute_url('/') }}">Se connecter</a>
+    </body>
+</html>

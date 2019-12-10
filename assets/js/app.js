@@ -69,9 +69,6 @@ let app = {
             case 'register' :
                 elmt[0].style.backgroundImage = 'url(' + imgWelcome + ')';
                 break;
-
-            default:
-                console.log('Une erreur vient de se produire');
         };
 
     }

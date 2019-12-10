@@ -1,5 +1,5 @@
-require ('../css/login.scss');
-const $ = require('jquery');
+import '../css/login.scss';
+import $ from 'jquery';
 
 let input = $('.validate-input .input100');
 

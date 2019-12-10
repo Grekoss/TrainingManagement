@@ -11,13 +11,12 @@
 
     <div class="container">
 
-        <div class="row position-relative">
             {% if report.student == app.user %}
-                <a href="{{ path('app_report') }}" class="btn btn-outline-secondary position-absolute">Retour</a>
+                <a href="{{ path('app_report') }}" class="btn btn-outline-secondary btn-index">Retour</a>
             {% endif %}
+
             <div class="title">Rapport du Rush du {{ report.dateAt|localizeddate('full', 'none') }}</div>
-        </div>
-        <div class="row position-relative justify-content-center">
+        <div class="container-rush row position-relative">
             <div class="container-rush-info">
                 <div>
                     <fieldset>
@@ -54,13 +53,13 @@
                 </fieldset>
             </div>
 
-            <div class="container-rush">
+            <div class="container-rush-detail">
             {% if report.rushOf is same as ('open') %}
                 <img class="rush-img" src="{{ asset('images/icons/midi.png') }}" alt="open" title="Open"/>
             {% else %}
                 <img src="{{ asset('images/icons/soir.png') }}" alt="close" class="rush-img" title="Close"/>
             {% endif %}
-                <div class="m-auto font-weight-bold text-secondary">{{ report.rushOf|upper }}</div>
+                <div class="font-weight-bold text-secondary">{{ report.rushOf|upper }}</div>
             </div>
         </div>
 
@@ -77,10 +76,7 @@
             </fieldset>
             <div class="row row-comments">
 
-                {% set widthComments = 100 %}
                 {% if report.commentReports|length > 0 %}
-                    {% set widthComments = 48 %}
-
                     <div class="comments-mentors">
                         <fieldset>
                             <legend>{{ report.commentReports|length > 1 ? 'Commentaires':'Commentaire'}} de la hiérarchie</legend>
@@ -101,15 +97,14 @@
                                         <div><em>Auteur : </em>{{ comment.author.firstName|capitalize }} {{ comment.author.lastName|slice(0, 1)|capitalize }}.<a href="{{ path('app_send_message_report', {'user': comment.author.id, 'report': comment.report.id}) }}" title="Envoyer un message"><i class="far fa-envelope ml-2"></i></a></div>
                                     </div>
                                 </div>
-
                             {% endfor %}
-
                         </fieldset>
-
                     </div>
+                <div class="comments-student with-mentors">
+                {% else %}
+                <div class="comments-student">
                 {% endif %}
 
-                <div class="comments-student" style="width: {{ widthComments }}%;">
                     <fieldset>
                         <legend>Commentaire du formé</legend>
                         <div class="comments-text">{{ report.studentComments|raw }}</div>

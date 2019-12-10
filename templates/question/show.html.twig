@@ -51,10 +51,9 @@
             </table>
 
         </fieldset>
-        <div class="container-buttons">
-            <a href="{{ path('app_start_quiz', {'id': quiz.id}) }}" class="btn btn-outline-primary">Lancer le test !</a>
-            <a href="{{ path('app_question') }}" class="btn btn-outline-secondary">Retour</a>
-        </div>
+    
+        <a id="btn-start" href="{{ path('app_start_quiz', {'id': quiz.id}) }}" class="btn btn-outline-primary">Lancer le test !</a>
+        <a id="btn-back" href="{{ path('app_question') }}" class="btn btn-outline-secondary">Retour</a>
     </div>
 
     {{ include('question/partiels/_modalSampleQuestion.html.twig') }}

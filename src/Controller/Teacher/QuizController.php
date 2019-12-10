@@ -7,7 +7,6 @@ use App\Entity\Quiz;
 use App\Form\QuestionType;
 use App\Form\QuizType;
 use Exception;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

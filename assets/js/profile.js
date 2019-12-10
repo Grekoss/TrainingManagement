@@ -1,6 +1,6 @@
-require('../css/profile.scss');
-require('../images/icons/valide.png');
-const $ = require('jquery');
+import '../css/profile.scss';
+import '../images/icons/valide.png';
+import $ from 'jquery';
 
 let newPassword;
 
@@ -12,7 +12,6 @@ $(document).ready(function (e) {
 
         // Avoir la valeur
         newPassword = $(this).val();
-        console.log(newPassword);
 
         let message = 'Votre nouveau mot de passe doit contenir au moins 6 caractères. Il en manque ' + numberChar ;
 
@@ -32,7 +31,6 @@ $(document).ready(function (e) {
 
         // Avoir la valeur
         newPassword = $(this).val();
-        console.log(newPassword);
 
         let message = 'Votre mot de passe doit contenir au moins 6 caractères. Il en manque ' + numberChar ;
 
@@ -48,7 +46,6 @@ $(document).ready(function (e) {
     $('#user_profile_password_second').keyup(function () {
        // Avoir la valeur
        let newPasswordConfirm = $(this).val();
-       console.log(newPasswordConfirm);
 
        if (newPasswordConfirm !== newPassword) {
            $('#js-errors-identical-box').removeClass('hidden');
@@ -62,7 +59,6 @@ $(document).ready(function (e) {
     $('#new_user_password_second').keyup(function () {
         // Avoir la valeur
         let newPasswordConfirm = $(this).val();
-        console.log(newPasswordConfirm);
 
         if (newPasswordConfirm !== newPassword) {
             $('#js-errors-identical-box').removeClass('hidden');

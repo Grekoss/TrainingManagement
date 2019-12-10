@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 500{% endblock %}
+
+{% block stylesheets %}
+    <link href='https://fonts.googleapis.com/css?family=Anton|Passion+One|PT+Sans+Caption' rel='stylesheet' type='text/css'>
+    {{ encore_entry_link_tags('500') }}
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        <div class="box">
+            <h1>500</h1>
+            <p>Désoler, c'est moi, pas vous !</p>
+            <p>&#58;&#40;</p>
+            <p><a href="{{ path('app_dashboard') }}">Laissez-moi réessayer !</a></p>
+        </div>
+    </div>
+{% endblock %}

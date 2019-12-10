@@ -2,12 +2,6 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
-    "captcha-com/captcha": {
-        "version": "4.2.5"
-    },
-    "captcha-com/symfony-captcha-bundle": {
-        "version": "4.2.12"
-    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -527,6 +521,9 @@
             "./templates/base.html.twig"
         ]
     },
+    "symfony/twig-pack": {
+        "version": "v1.0.0"
+    },
     "symfony/validator": {
         "version": "4.3",
         "recipe": {
@@ -604,6 +601,9 @@
         "files": [
             "./config/packages/twig_extensions.yaml"
         ]
+    },
+    "twig/extra-bundle": {
+        "version": "v3.0.0"
     },
     "twig/twig": {
         "version": "v2.11.3"

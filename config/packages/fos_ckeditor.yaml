@@ -9,7 +9,7 @@ fos_ck_editor:
     small:
       language: fr
       toolbar: 'small'
-      height: '50px'
+      height: '100px'
     goal:
       language: fr
       toolbar: 'goal'

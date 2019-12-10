@@ -20,7 +20,12 @@
                         <div class="message-content">{{ message.content|raw }}</div>
                         <div class="message-footer text-muted">
                             <div>{{ message.sender }}</div>
-                            <div>{{ message.writeAt|date('d/m/Y - H:m') }}</div>
+                            <div>
+                                {{ message.writeAt|date('d/m/Y - H:m') }}
+                                {% if message.isRead %}
+                                    <i class="far fa-check-circle text-success" title="Lu"></i>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>

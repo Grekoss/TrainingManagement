@@ -1,0 +1,55 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th class="lastInfos" scope="col">Dernier rapport (Qte)</th>
+            <th class="lastInfos" scope="col">Dernier questionnaire</th>
+            <th scope="col">Dernière Co.</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for student in listStudents %}
+        <tr>
+            <th>
+                <a href="{{ path('teacher_user_update', {'id': student['user'].id}) }}">{{ student['user'].firstName|capitalize }} {{ student['user'].lastName|capitalize|slice(0, 1) }}.</a>
+            </th>
+            <td class="lastInfos">
+                {% if student['reports'][0] is defined %}
+                <em>
+                    <a href="{{ path('app_report_show', {'id': student['reports'][0].id}) }}">{{ student['reports'][0] }}</a>
+                </em>
+                <em>-</em>
+                <em>
+                    <a href="{{ path('teacher_list_reports_user', {'id': student['user'].id}) }}">( {{ student['user'].reports|length }} )</a>
+                </em>
+                {% endif %}
+            </td>
+            <td class="lastInfos">
+                {% if student['results'][0] is defined %}
+                    <em>
+                        <a href="{{ path('app_correction', {'id': student['results'][0].id}) }}">{{ student['results'][0] }}</a>
+                    </em>
+                    <em>-</em>
+                    <em>
+                        <a href="{{ path('teacher_list_results_user', {'id': student['user'].id}) }}">( {{ student['results']|length }} )</a>
+                    </em>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                <div>{{ student['user'].lastLogin|date('d/m/Y') }}</div>
+                <div>{{ student['user'].lastLogin|date('H:i') }}</div>
+            </td>
+            <td class="td-container-buttons-actions">
+                <a href="{{ path('question_list_results', {'id': student['user'].id}) }}" class="btn btn-outline-info" title="Afficher la liste des résultats aux questionnaires"><i class="fas fa-question-circle"></i></a>
+                <a href="{{ path('teacher_list_reports_user', {'id': student['user'].id}) }}" class="btn btn-outline-success" title="Afficher la liste des rapports"><i class="far fa-list-alt"></i></a>
+                <a href="{{ path('app_show_messages', {'id': student['user'].id}) }}" class="btn btn-outline-dark" title="Envoyer un message"><i class="far fa-envelope"></i></a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <th colspan="5">Pas d'étudiant à charge</th>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -124,9 +124,16 @@ class TeacherController extends AbstractController
             }
         }
 
+        // On récupère dans ses deux tableaux la liste des utilisateurs ayant le role de Store et Teacher
+        $listMentorsStores = $this->userRepository->findBy(['role' => 'ROLE_STORE']);
+        $listMentorsTeachers = $this->userRepository->findBy(['role' => 'ROLE_TEACHER']);
+        // et on les rassemble
+        $listMentors = array_merge($listMentorsStores, $listMentorsTeachers);
+
         return $this->render('teacher/index.html.twig', [
             'formInvitation' => $formInvitation->createView(),
-            'listStudents' => $listStudents
+            'listStudents' => $listStudents,
+            'listMentors' => $listMentors
         ]);
     }
 
@@ -142,7 +149,7 @@ class TeacherController extends AbstractController
         $pagination = $this->paginator->paginate(
             $this->reportRepository->findAllByUsersActive(),
             $request->query->getInt('page', 1),
-            6
+            20
         );
 
         return $this->render('teacher/listReports.html.twig', [

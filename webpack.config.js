@@ -25,14 +25,16 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('login', './assets/js/login.js')
-    .addEntry('dashboard', './assets/js/dashboard.js')
     .addEntry('profile', './assets/js/profile.js')
-    .addEntry('question', './assets/js/question.js')
     .addEntry('report', './assets/js/report.js')
-    .addEntry('lesson', './assets/js/lesson.js')
     .addEntry('communication', './assets/js/communication.js')
     .addEntry('startQuiz', './assets/js/startQuiz.js')
-    .addEntry('teacher', './assets/js/teacher.js')
+    .addEntry('404', './assets/js/404.js')
+    .addStyleEntry('500', './assets/css/500.scss')
+    .addStyleEntry('lesson', './assets/css/lesson.scss')
+    .addStyleEntry('dashboard', './assets/css/dashboard.scss')
+    .addStyleEntry('question', './assets/css/question.scss')
+    .addStyleEntry('teacher', './assets/css/teacher.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -76,6 +78,7 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+    .enablePostCssLoader()
 ;
 
 module.exports = Encore.getWebpackConfig();

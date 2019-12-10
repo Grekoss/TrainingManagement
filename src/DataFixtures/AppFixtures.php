@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\DataFixtures\FakerProvider\DataProvider;
-use App\Entity\CategoryLesson;
 use App\Entity\CommentReport;
 use App\Entity\Lesson;
 use App\Entity\Mentor;
@@ -262,14 +261,18 @@ class AppFixtures extends Fixture
                 $rand = array_rand($keyLevel);
                 $randLevel = $level[$keyLevel[$rand]];
 
+                $randProp = rand(2, 6);
+
                 $question = new Question();
                 $question->setQuiz($quiz)
                     ->setQuestion($this->generator->quizName())
-                    ->setProp1('Réponse 1')
-                    ->setProp2('Réponse 2')
-                    ->setProp3('Réponse 3')
-                    ->setProp4('Réponse 4')
                     ->setLevel($randLevel);
+
+                for ( $j=1; $j<$randProp+1 ; $j++ ) {
+                    $set = 'setProp' . $j;
+                    dump($set);
+                    $question->$set('Réponse ' . $j);
+                }
 
                 $this->manager->persist($question);
                 $this->manager->flush();
@@ -449,7 +452,8 @@ class AppFixtures extends Fixture
             $message->setSender($allUsers[0])
                 ->setReceived($allUsers[1])
                 ->setWriteAt($this->generator->dateTimeBetween('-60 months', 'now'))
-                ->setContent($this->generator->text(200));
+                ->setContent($this->generator->text(200))
+                ->setIsRead($this->generator->boolean);
 
             $this->manager->persist($message);
             $this->manager->flush();

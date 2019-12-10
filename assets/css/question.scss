@@ -1,4 +1,9 @@
 /* ==========[INDEX]========== */
+.btn-index {
+  width: 90%;
+  margin: 1em;
+}
+
 .card {
   min-width: 30%;
 }
@@ -15,17 +20,31 @@
 }
 
 /* ==========[SHOW QUIZ]========== */
+.jumbotron {
+  padding-top: 0;
+  padding-bottom: 2rem;
+}
+.container {
+  text-align: center;
+}
+.container h1 {
+  font-size: 1.5rem;
+}
+
 .container-length-tags {
   display: flex;
   justify-content: space-between;
-  padding-left: 20px;
-  padding-right: 20px;
-  position: absolute;
+  padding: 20px 10px;
   top: 10px;
+}
+
+.container-tag {
+  text-align: right;
 }
 
 .container-results {
   display: flex;
+  flex-wrap: wrap;
 }
 
 fieldset {
@@ -33,25 +52,14 @@ fieldset {
 }
 
 .fieldset-sample {
-  margin-top: -2em;
-  position: relative;
-  padding: 0 20px;
-}
-
-.fieldset-sample p {
-  text-align: center;
-}
-
-.fieldset-sample button {
-  position: absolute;
-  top: calc(50% - 12px);
-  right: 20px;
+  display: none;
 }
 
 .fieldset-results {
   margin-bottom: 2em;
   padding: 20px;
-  width: 50%;
+  width: 100%;
+  order: 2;
 }
 
 legend {
@@ -61,23 +69,15 @@ legend {
   width: auto;
 }
 
-.container-buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  width: 50%;
+#btn-start {
+  order: 1;
+  width: 100%;
+  margin: 10px 0;
 }
 
-.container-buttons a:first-of-type {
-  font-weight: bold;
-  font-size: 3em;
-  margin-bottom: 2em;
-}
-
-.container-buttons a:nth-of-type(2) {
-  margin: auto;
-  width: 50%;
+#btn-back {
+  order: 3;
+  width: 100%;
 }
 
 /* ==========[CORRECTION]========== */
@@ -89,8 +89,77 @@ legend {
   width: 100%;
 }
 
-@media (min-width: 576px) {
-  .card-deck .card {
-    margin-bottom: 15px;
+.small {
+  display: none;
+}
+
+/* ==========[#RESULTS]========== */
+.td-categories,
+.td-date {
+  display: none;
+}
+
+
+/* Tablettes -> Ipad*/
+@media (min-width: 750px) {
+  /* ==========[SHOW QUIZ]========== */
+  .container h1 {
+    font-size: 3.5rem;
+  }
+
+  .container-length-tags {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    top: 10px;
+  }
+
+  .fieldset-sample {
+    display: block;
+    margin: 2em 0;
+    position: relative;
+    padding: 0 20px;
+  }
+  
+  .fieldset-sample p {
+    text-align: center;
+  }
+  
+  .fieldset-sample button {
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    background-color: white;
+  }
+
+  /* ==========[CORRECTION]========== */
+  .small {
+    display: table-cell;
+  }
+
+  /* ==========[#RESULTS]========== */
+  .td-date {
+    display: table-cell;
+  }
+
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+  .fieldset-results {
+    order: 1;
+    width: 50%;
+  }
+
+  #btn-start {
+    width: 25%;
+    margin: auto;
+    padding: 20px;
+  }
+
+  /* ==========[#RESULTS]========== */
+  .td-categories {
+    display: table-cell;
   }
 }

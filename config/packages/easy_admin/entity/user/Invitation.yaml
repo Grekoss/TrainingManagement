@@ -1,0 +1,20 @@
+easy_admin:
+  entities:
+    Invitation:
+      class: App\Entity\Invitation
+      label: 'Invitations'
+      permission: 'ROLE_STORE'
+
+      list:
+        title: 'Invitations listing'
+        max_results: 20
+        sort: ['createdAt', 'DESC']
+        fields:
+          - id
+          - { property: 'createdAt', format: 'd/m/Y'}
+          - mail
+        actions:
+          - -new
+          - -show
+          - -edit
+          - { name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger' }

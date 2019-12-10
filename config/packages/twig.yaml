@@ -1,6 +1,7 @@
 twig:
     globals:
         version: '%version%'
+#        notificationMessages: 5
     date:
         timezone: Europe/Paris
     default_path: '%kernel.project_dir%/templates'

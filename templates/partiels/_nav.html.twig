@@ -27,7 +27,14 @@
     </a>
 
     <a href="{{ path('app_communication') }}" class="btn-nav alert-success">
-        <div class="btn-nav-icon"><i class="fas fa-comments"></i></div>
+        <div class="btn-nav-icon">
+            <i class="fas fa-comments"></i>
+            {% if notificationMessages(app.user.id) > 0 %}
+                <div class="badge">
+                    {{ notificationMessages(app.user.id) }}
+                </div>
+            {% endif %}
+        </div>
         <div>Communication</div>
     </a>
 
