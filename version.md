@@ -1,6 +1,7 @@
 # V 1.2
 
 - Responsible mobile, tablette et desktop de l'application.
+- Modification de la mise en forme des envois de mails.
 - Suppression du Bundle Captcha pour la récupération du mot de passe.
 - Possibilité lors de la création d'une question de choisir le nombre de choix de fausses réponses entre 1 à 5.
 - Ajout de deux boutons "+" et "-" pour faciliter la manipulation de la barre de défilement horizontal pour l'affichage des sentiments du rush.

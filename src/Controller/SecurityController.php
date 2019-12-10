@@ -93,7 +93,7 @@ class SecurityController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre nouveau mot de passe a été encoyé à votre adresse mail !'
+                'Votre nouveau mot de passe a été envoyé à votre adresse mail !'
             );
 
             return $this->redirectToRoute('app_login');
