@@ -1,8 +1,8 @@
 <fieldset class="box-invitation">
     <legend>Liste des mentors</legend>
-    <div class="d-flex flex-wrap">
+    <div class="box-mentors">
     {% for mentor in listMentors %}
-        <div class="w-25 p-2">
+        <div class="mentors-item">
             {{ mentor.firstName|capitalize }} {{ mentor.lastName|capitalize }} 
             <a href="{{ path('app_show_messages', {'id': mentor.id}) }}" title="Envoyer un message"><i class="far fa-envelope ml-2"></i></a>
         </div>

@@ -16,6 +16,28 @@
   margin-left: 2em;
 }
 
+.box-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em -30px;
+  justify-content: space-around;
+}
+.box-buttons .btn-outline-info {
+  width: 47%;
+  align-self: center;
+  margin: 5px;
+}
+
+.lastInfos {
+  display: none;
+}
+
+.box-mentors {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
 .td-container-buttons-actions a {
   margin: 2px;
 }
@@ -24,7 +46,7 @@
   border-radius: 5px;
   padding: 5px;
   text-align: center;
-  width: 50%;
+  width: 100%;
 }
 
 form[name='quiz'] fieldset {
@@ -46,6 +68,64 @@ form[name='quiz'] fieldset legend {
 }
 
 .form-check {
-  width: 25%;
+  width: 100%;
 }
 
+/* ===========[Questions List]========== */
+.btn-index {
+  width: 90%;
+  margin: 1em;
+}
+
+.td-createdBy,
+.td-tags,
+.td-countQuestions,
+.td-countResults,
+.td-level {
+  display: none;
+}
+
+/* Tablettes -> Ipad*/
+@media (min-width: 750px) {
+  .lastInfos {
+    display: table-cell;
+  }
+  .box-mentors {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  .mentors-item {
+    width: 25%;
+  }
+
+  .container-form {
+    display: flex;
+  }
+  .form-box {
+    width: 50%;
+  }
+
+  .form-check {
+    width: 50%;
+  }
+
+  /* ===========[Questions List]========== */
+  .td-createdBy,
+  .td-countQuestions,
+  .td-countResults,
+  .td-level {
+    display: table-cell;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .td-tags {
+    display: table-cell;
+  }
+
+  .form-check {
+    width: 25%;
+  }
+}

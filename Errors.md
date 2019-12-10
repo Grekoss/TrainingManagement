@@ -7,14 +7,8 @@
 [x] Sytème de notification de reception de message (lu et pas lu)
 [x] Ergonomie avec la barre de défilement pour saisir le sentiement. Des boutons + / - serai mieux
 [x] Pouvoir créer une question a deux réponse et ajout la 3 et 4 en optionnelle
+[x] Améliorer le responsible de l'application
 
-[ ] Améliorer le responsible de l'application
-    [x] Quizz
-    [x] Rapports
-    [x] Profil
-    [x] Leçons
-    [x] Communication
-    [x] Inscription    
-    [ ] Mentor
-    [ ] Admin    
+[ ] Revoir l'envoie des mails pour une meilleure ergonomie
+  
 

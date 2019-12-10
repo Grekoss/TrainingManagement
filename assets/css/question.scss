@@ -1,4 +1,9 @@
 /* ==========[INDEX]========== */
+.btn-index {
+  width: 90%;
+  margin: 1em;
+}
+
 .card {
   min-width: 30%;
 }
@@ -88,6 +93,12 @@ legend {
   display: none;
 }
 
+/* ==========[#RESULTS]========== */
+.td-categories,
+.td-date {
+  display: none;
+}
+
 
 /* Tablettes -> Ipad*/
 @media (min-width: 750px) {
@@ -127,6 +138,11 @@ legend {
     display: table-cell;
   }
 
+  /* ==========[#RESULTS]========== */
+  .td-date {
+    display: table-cell;
+  }
+
 }
 
 /* Desktop */
@@ -140,5 +156,10 @@ legend {
     width: 25%;
     margin: auto;
     padding: 20px;
+  }
+
+  /* ==========[#RESULTS]========== */
+  .td-categories {
+    display: table-cell;
   }
 }

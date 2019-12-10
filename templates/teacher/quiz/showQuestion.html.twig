@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{{ path('teacher_quiz_index') }}" class="btn btn-outline-secondary btn-back">Retour</a>
+    <a href="{{ path('teacher_quiz_index') }}" class="btn btn-outline-secondary btn-index">Retour</a>
 
     <div class="correction-container-title my-3">
         <h1 class="correction-title">{{ quiz.title|capitalize }}</h1>
@@ -25,7 +25,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Question</th>
-            <th scope="col">Niveau</th>
+            <th class="td-level" scope="col">Niveau</th>
             {% if quiz.author == app.user %}
             <th scope="col">Actions</th>
             {% endif %}
@@ -37,7 +37,7 @@
         <tr>
             <th scope="row">{{ key + 1 }}</th>
             <td>{{ question.question|capitalize }}</td>
-            <td>
+            <td class="td-level">
                 <div class="badge {{ question.level }}">{{ question.level|capitalize }}</div>
             </td>
             {% if quiz.author == app.user %}
