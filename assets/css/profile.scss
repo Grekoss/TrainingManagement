@@ -6,6 +6,16 @@
   vertical-align: middle;
 }
 
+table {
+  margin-bottom: 5em;
+}
+
+/* ==========[#RESULTS]========== */
+.td-categories,
+.td-date {
+  display: none;
+}
+
 /* ==========[#PROFILE]========== */
 fieldset {
   border: 1px solid grey;
@@ -19,6 +29,11 @@ legend {
   width: auto;
 }
 
+.profile-form .input-group .input-group-prepend {
+  display: block;
+  width: 100%;
+}
+
 .profile-form div.mb-3:nth-child(2),
 .profile-form div.mb-3:nth-child(3) {
   display: flex;
@@ -26,15 +41,23 @@ legend {
   justify-content: space-between;
 }
 
-.profile-form div.mb-3:nth-child(2) div.input-group,
-.profile-form div.mb-3:nth-child(3) div.input-group {
-  width: 49%;
-}
+
 
 .last-connection {
   color: grey;
   font-size: 12px;
   text-align: right;
+}
+
+/* =========[UPDATE]========== */
+.profile-form div.mb-3:nth-child(4) .input-group-prepend {
+  width: 100%;
+  display: block;
+  margin-top: 1em;
+}
+
+#user_profile_password_first {
+  width: 100%;
 }
 
 .errors-box .invalid-feedback {
@@ -53,3 +76,61 @@ legend {
   width: 40px;
 }
 
+/* ==========[NEW]=========== */
+form[name="new_user"] .input-group-prepend {
+  display: block;
+  width: 100%;
+}
+#new_user_password_first {
+  width: 100%;
+}
+
+/* Tablettes -> Ipad*/
+@media (min-width: 750px) {
+  /* ==========[#RESULTS]========== */
+  .td-date {
+    display: table-cell;
+  }
+
+  /* ==========[#PROFILE]========== */
+  .profile-form .input-group .input-group-prepend {
+    display: flex;
+    width: unset;
+  }
+  .profile-form div.mb-3:nth-child(2) div.input-group,
+  .profile-form div.mb-3:nth-child(3) div.input-group {
+    width: 49%;
+  } 
+
+  /* ==========[NEW]=========== */
+  form[name="new_user"] .input-group-prepend {
+    display: flex;
+    width: unset;
+  }
+  .box-adress {
+    display: flex;
+    width: 100%;
+  }
+  #new_user_password_first {
+    width: 1%;
+  } 
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  /* ==========[#RESULTS]========== */
+  .td-categories {
+    display: table-cell;
+  }
+
+  /* =========[UPDATE]========== */
+  .profile-form div.mb-3:nth-child(4) .input-group-prepend {
+    width: unset;
+    display: flex;
+    margin-top: unset;
+  }
+
+  #user_profile_password_first {
+    width: 1%;
+  }
+}

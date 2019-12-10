@@ -76,7 +76,6 @@
   background-color: #dfdfdf;
   border: solid 1px #6f6f6f;
   display: block;
-  height: 200px;
   margin: 10px;
   padding: 20px;
   text-align: center;
@@ -94,11 +93,12 @@
   font-weight: bold;
 }
 
+.new-lesson div {
+  color: #db0606;
+}
+
 .img-menu {
-  border-radius: 15px;
-  margin: auto;
-  max-height: 150px;
-  max-width: 250px;
+  display: none;
 }
 
 .container-buttons-lessons a:nth-child(2) {
@@ -118,3 +118,35 @@
 .img-icon-edit {
   width: 75%;
 }
+
+.box-title {
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+}
+
+/* Tablettes -> Ipad*/
+@media (min-width: 750px) {
+  .btn-category {
+    width: 45%;
+    height: 200px;
+  }
+
+  .img-menu {
+    display: block;
+    border-radius: 15px;
+    margin: auto;
+    max-height: -webkit-fill-available;
+    max-width: -webkit-fill-available;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+  .btn-category {
+    width: 30%;
+    height: 200px;
+  }
+}
+
+

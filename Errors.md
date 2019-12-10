@@ -11,10 +11,10 @@
 [ ] Améliorer le responsible de l'application
     [x] Quizz
     [x] Rapports
-    [ ] Profil
-    [ ] Leçons
-    [ ] Communication
+    [x] Profil
+    [x] Leçons
+    [x] Communication
+    [x] Inscription    
     [ ] Mentor
     [ ] Admin    
-    [ ] Inscription    
 

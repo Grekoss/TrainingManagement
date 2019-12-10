@@ -41,7 +41,7 @@
         </a>
 
         {% if is_granted('ROLE_TEACHER') %}
-            <a class="btn-category" href="{{ path('teacher_new_lesson') }}">
+            <a class="btn-category new-lesson" href="{{ path('teacher_new_lesson') }}">
                 <img class="img-menu" src="{{ asset('images/buttons/add_notes.svg') }}">
                 <div>Créer une le&ccedil;on</div>
             </a>

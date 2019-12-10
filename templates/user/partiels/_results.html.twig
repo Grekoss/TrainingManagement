@@ -6,10 +6,9 @@
             <th scope="col">Etudiant</th>
         {% else %}
             <th scope="col">Nom</th>
-            <th scope="col">Thème</th>
+            <th class="td-categories" scope="col">Thème</th>
         {% endif %}
-        <th scope="col">Résultat</th>
-        <th scope="col">Date</th>
+        <th class="td-date" scope="col">Date</th>
         <th scope="col">Actions</th>
     </tr>
     </thead>
@@ -20,18 +19,18 @@
         {% if byQuiz is defined and byQuiz %}
             <th scope="row">{{ result.student.firstName|capitalize }} {{ result.student.lastName|capitalize }}</th>
         {% else %}
-            <th scope="row">{{ result.quiz.title}}</th>
-            <td>
+            <th scope="row">
+                {{ result.quiz.title}}
+                {{ include('partiels/_barProgressForResult.html.twig') }}
+            </th>
+            <td class="td-categories">
                 {% for tag in result.quiz.tags %}
                     {{ include('partiels/_showTagBadge.html.twig')}}
                 {% endfor %}
             </td>
         {% endif %}
-        <td>
-            {{ include('partiels/_barProgressForResult.html.twig') }}
-        </td>
-        <td>{{ result.dateAt|date('d/m/Y') }}</td>
-        <td class="d-flex justify-content-center">
+        <td class="td-date">{{ result.dateAt|date('d/m/Y') }}</td>
+        <td class="d-flex justify-content-center flex-wrap">
             <a href="{{ path('app_correction', {'id': result.id })}}" title="Voir le résultat" class="btn btn-outline-primary mx-2"><i class="fas fa-eye"></i></a>
             {% if result.student == app.user %}
                 <a href="{{ path('app_start_quiz', {'id': result.quiz.id})}}" title="Recommencer le questionnaire" class="btn btn-outline-warning"><i class="fas fa-undo"></i></a>
@@ -42,7 +41,7 @@
     {% else %}
 
     <tr>
-        <th colspan="6">Pas de test effectué !</th>
+        <th colspan="5">Pas de test effectué !</th>
     </tr>
     {% endfor %}
 
