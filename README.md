@@ -1,8 +1,10 @@
 # Plateforme de formation
 
-Application pour aider les formations au sein de l'enseigne McDonald's lors une évolution.
+Application pour aider les formations au sein de l'enseigne McDonald's lors d'une évolution.
 
 Utilisation test effectuer sur un site. Qui a rempli ses fonctions et potentiellement sera utilisé pour du long therme.
+
+(version DEMO disponible : http://training.cedricpourrias.fr/ )
 
 ## Installation:
 
